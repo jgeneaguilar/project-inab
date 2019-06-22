@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Nav from './Nav';
 import {
   Paper,
@@ -7,6 +7,9 @@ import {
   Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { login } from '../api/usersAPI';
+import { setToken } from '../api/baseAPI';
+
 
 const useStyles = makeStyles({
   pageWrapper: {
@@ -22,17 +25,16 @@ const useStyles = makeStyles({
   },
   title: {
     textAlign: 'center',
-    lineHeight: 2.5,
-    fontSize: '1.5rem',
-    fontWeight: 800,
-    marginBottom: '20px'
+    lineHeight: 1.7,
+    fontSize: '1rem',
+    fontWeight: 800
   },
   formContainer: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '30px',
-    width: '400px',
-    height: '350px'
+    padding: '17px 10px 10px 10px',
+    width: '300px',
+    height: '250px'
   },
   formFields: {
     display: 'flex',
@@ -41,19 +43,42 @@ const useStyles = makeStyles({
     padding: '15px',
   },
   fields: {
-    marginBottom: '10px'
+    
   },
   forgotPW: {
     textAlign: 'center',
-    margin: '10px'
+    margin: '10px',
+    fontSize: '0.8rem'
   },
   login: {
     marginTop: '15px'
   }
 });
 
-const Login = () => {
+const Login = props => {
+
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
+  });
+
   const classes = useStyles();
+
+  const handleChange = event => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  const onLogin = () => {
+    login(values)
+      .then(res => setToken(res.data.token))
+      .then(() => props.setLogin(true))
+      .catch(err => console.log(err))
+
+  }
+
   return (
     <div className={classes.pageWrapper}>
       <Nav />
@@ -66,15 +91,21 @@ const Login = () => {
             <TextField 
               name='email'
               label='Email'
+              value= {values.email}
+              onChange={handleChange}
               variant='outlined'
               className={classes.fields}
+              margin='dense'
             />
             <TextField 
               name='password'
               label='Password'
+              value= {values.password}
+              onChange={handleChange}
               type='password'
               variant='outlined'
               className={classes.fields}
+              margin='dense'
             />
             <Typography className={classes.forgotPW}>
               Forgot password?
@@ -83,8 +114,9 @@ const Login = () => {
               className={classes.login}
               color='default'
               variant='contained'
-              size='large'
+              size='small'
               fullWidth
+              onClick={onLogin}
             >
               Log In
             </Button>
