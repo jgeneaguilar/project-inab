@@ -11,7 +11,7 @@ export const login = ({ email, password }) => {
     .post('/users/login', param);
 }
 
-export const viewProfile = () => {
+export const viewDashboard = () => {
   console.log(api.defaults.headers.common, "viewProfile()")
   return  api.get('/users/me')
 }
