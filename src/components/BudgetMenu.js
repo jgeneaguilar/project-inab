@@ -6,6 +6,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import FolderOpen from '@material-ui/icons/FolderOpen';
 // import { makeStyles } from '@material-ui/styles';
 
 const BudgetMenu = ({ anchorEl, handleClose, handleNewBudgetClick }) => {
@@ -23,6 +24,14 @@ const BudgetMenu = ({ anchorEl, handleClose, handleNewBudgetClick }) => {
           <AddCircleOutline />
         </ListItemIcon>
         <ListItemText primary="New Budget" />
+      </MenuItem>
+      <MenuItem
+        
+      >
+        <ListItemIcon>
+          <FolderOpen />
+        </ListItemIcon>
+        <ListItemText primary="Open Budget" />
       </MenuItem>
     </Menu>
   );
