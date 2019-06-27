@@ -1,24 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import DashboardPage from './DashboardPage';
-import { viewDashboard } from '../api/usersAPI';
+import React, { useState } from 'react';
+import BudgetMenu from './BudgetMenu';
+import NewBudgetForm from './NewBudgetForm';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Avatar,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
-const Dashboard = () => {
+const useStyles = makeStyles({
+  root: {
+    
+  },
+  pageHeader: {
+    backgroundColor: 'white',
+    margin: 0
+  },
+});
 
-  const [userDetails, setUserDetails] = useState({});
+const Dashboard = ({ userDetails }) => {
+  const classes = useStyles();
 
-  useEffect(() => {
-    viewDashboard()
-      .then(res => {
-        setUserDetails({
-          ...res.data
-        })
-      })
-  }, []) // Passing an empty array as the 2nd argument will not result to an infinite loop caused calling useState inside useEffect
+  // for BudgetMenu
+  const [anchorEl, setAnchorEl] = useState(null); 
+  
+  const handleClose = () => setAnchorEl(null);
+
+
+  // for NewBudgetForm
+  const [dialogOpen, setDialogOpen] = useState(false); 
+
+  const handleNewBudgetClick = () => {
+    setDialogOpen(true);
+    setAnchorEl(null);
+  }
+
+  const handleDialogClose = () => setDialogOpen(false);
 
   return (
-    <div>
-      <DashboardPage 
-        userDetails={userDetails}
+    <div className={classes.root}>
+      <AppBar position='static' className={classes.pageHeader}>
+        <Toolbar variant='dense'>
+          <Typography>
+            <Button
+              onClick={event => setAnchorEl(event.currentTarget)}
+            >
+              My Budget
+            </Button>
+          </Typography>
+          <Avatar src={userDetails.avatar} />
+        </Toolbar>
+      </AppBar>
+      <BudgetMenu 
+        anchorEl={anchorEl}
+        handleClose={handleClose}
+        handleNewBudgetClick={handleNewBudgetClick}
+      />
+      <NewBudgetForm 
+        handleClose={handleDialogClose}
+        open={dialogOpen}
       />
     </div>
   );
