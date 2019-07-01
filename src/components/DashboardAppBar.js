@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 
-const DashboardAppBar = ({ setAnchorEl, userDetails }) => {
+const DashboardAppBar = ({ setAnchorEl, userDetails, defaultBudget }) => {
   const classes = useStyles();
 
   return (
@@ -31,7 +31,7 @@ const DashboardAppBar = ({ setAnchorEl, userDetails }) => {
           <Button
             onClick={event => setAnchorEl(event.currentTarget)}
           >
-            My Budget
+            { defaultBudget.name || 'My Budget' }
           </Button>
         </Typography>
         <Avatar className={classes.root} src={userDetails.avatar} />

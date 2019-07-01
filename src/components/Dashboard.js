@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Dashboard = ({ userDetails }) => {
+const Dashboard = ({ userDetails, defaultBudget }) => {
   const classes = useStyles();
 
   // for BudgetMenu
@@ -35,6 +35,7 @@ const Dashboard = ({ userDetails }) => {
       <DashboardAppBar 
         userDetails={userDetails}
         setAnchorEl={setAnchorEl}
+        defaultBudget={defaultBudget}
       />
       <BudgetMenu 
         anchorEl={anchorEl}
