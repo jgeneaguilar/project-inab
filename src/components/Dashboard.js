@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import BudgetMenu from './BudgetMenu';
 import NewBudgetForm from './NewBudgetForm';
 import {
@@ -64,6 +65,10 @@ const Dashboard = ({ userDetails }) => {
       />
     </div>
   );
+}
+
+Dashboard.propTypes = {
+  userDetails: PropTypes.object.isRequired,
 }
 
 export default Dashboard;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Menu,
   MenuItem,
@@ -36,6 +37,12 @@ const BudgetMenu = ({ anchorEl, handleClose, handleNewBudgetClick }) => {
     </Menu>
   );
 }
+
+BudgetMenu.propTypes = {
+  anchorEl: PropTypes.object,
+  handleClose: PropTypes.func.isRequired,
+  handleNewBudgetClick: PropTypes.func.isRequired
+};
 
 export default BudgetMenu;
 

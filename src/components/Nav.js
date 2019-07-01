@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   AppBar,
   Toolbar,
@@ -40,5 +41,9 @@ const Nav = ({ children }) => {
     </div>
   );
 }
+
+Nav.propTypes = {
+  children: PropTypes.element
+};
 
 export default Nav;

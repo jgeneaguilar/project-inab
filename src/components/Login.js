@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Nav from './Nav';
 import {
   Paper,
@@ -139,5 +140,16 @@ const Login = ({
   );
 }
 
-export default Login;
+Login.propTypes = {
+  loginCredentials: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onShowPassword: PropTypes.func.isRequired,
+  showPassword: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
+};
 
+export default Login;

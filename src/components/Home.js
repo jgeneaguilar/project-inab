@@ -18,16 +18,18 @@ const Home = () => {
   return (
     <div>
       <Nav>
-        <Button color='inherit'>
-          <RouterLink to='/login' className={classes.login}>
-            Login
-          </RouterLink>
-        </Button>
-        <Button color='inherit'>
-          <RouterLink to='/login' className={classes.login}>
-            Another
-          </RouterLink>
-        </Button>
+        <div className='appBarButtons'>
+          <Button color='inherit'>
+            <RouterLink to='/login' className={classes.login}>
+              Login
+            </RouterLink>
+          </Button>
+          <Button color='inherit'>
+            <RouterLink to='/login' className={classes.login}>
+              Another
+            </RouterLink>
+          </Button>
+        </div>
       </Nav>
       <h1>Welcome to INAB</h1>
     </div>

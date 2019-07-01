@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   TextField,
   Dialog,
@@ -46,6 +47,11 @@ const NewBudgetForm = ({ open, handleClose }) => {
       </DialogActions>
     </Dialog>
   );
+}
+
+NewBudgetForm.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
 }
 
 export default NewBudgetForm;

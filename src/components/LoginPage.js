@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Login from './Login';
 import { login } from '../api/usersAPI';
 import { setToken } from '../api/baseAPI';
@@ -54,5 +55,10 @@ const LoginPage = ({ setLogin }) => {
     />
   );
 }
+
+
+LoginPage.propTypes = {
+  setLogin: PropTypes.func.isRequired
+};
 
 export default LoginPage;
