@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import FormDialog from '../elements/FormDialog';
 import {
   TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Button
 } from '@material-ui/core';
 import { createBudget } from '../api/budgetsAPI';
@@ -23,29 +20,34 @@ const NewBudgetForm = ({ open, handleClose }) => {
       .then(res => console.log(res.data))
   }
 
+  const budgetNameField = (
+    <TextField
+      autoFocus
+      margin='dense'
+      name='budgetName'
+      label='Budget Name'
+      value={budgetName}
+      onChange={handleChange}
+    />
+  );
+
+  const actionButtons = (
+    <Fragment>
+      <Button>Cancel</Button>
+      <Button
+        onClick={onCreateBudget}
+      >Create Budget</Button>
+    </Fragment>
+  );
+
   return (
-    <Dialog
+    <FormDialog 
       open={open}
-      onClose={handleClose}
-    >
-      <DialogTitle>Create a New Budget</DialogTitle>
-      <DialogContent>
-        <TextField 
-          autoFocus
-          margin='dense'
-          name='budgetName'
-          label='Budget Name'
-          value={budgetName}
-          onChange={handleChange}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button>Cancel</Button>
-        <Button
-          onClick={onCreateBudget}
-        >Create Budget</Button>
-      </DialogActions>
-    </Dialog>
+      handleClose={handleClose}
+      title='Create New Budget'
+      content={budgetNameField}
+      actions={actionButtons}
+    />
   );
 }
 
@@ -55,3 +57,4 @@ NewBudgetForm.propTypes = {
 }
 
 export default NewBudgetForm;
+
