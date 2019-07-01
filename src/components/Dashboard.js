@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import DashboardAppBar from './DashboardAppBar';
 import BudgetMenu from './BudgetMenu';
 import NewBudgetForm from './NewBudgetForm';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Avatar,
-} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   root: {
     
-  },
-  pageHeader: {
-    backgroundColor: 'white',
-    margin: 0
-  },
+  }
 });
 
 const Dashboard = ({ userDetails }) => {
@@ -42,18 +32,10 @@ const Dashboard = ({ userDetails }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' className={classes.pageHeader}>
-        <Toolbar variant='dense'>
-          <Typography>
-            <Button
-              onClick={event => setAnchorEl(event.currentTarget)}
-            >
-              My Budget
-            </Button>
-          </Typography>
-          <Avatar src={userDetails.avatar} />
-        </Toolbar>
-      </AppBar>
+      <DashboardAppBar 
+        userDetails={userDetails}
+        setAnchorEl={setAnchorEl}
+      />
       <BudgetMenu 
         anchorEl={anchorEl}
         handleClose={handleClose}
