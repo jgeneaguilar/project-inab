@@ -43,7 +43,7 @@ const Dashboard = ({ userDetails, defaultBudget }) => {
         handleNewBudgetClick={handleNewBudgetClick}
       />
       <NewBudgetForm 
-        handleClose={handleDialogClose}
+        handleDialogClose={handleDialogClose}
         open={dialogOpen}
       />
     </div>

@@ -39,8 +39,8 @@ const LoginPage = ({ setLogin }) => {
     login(loginCredentials)
       .then(res => setToken(res.data.token))
       .then(() => {
-        setLoading(false)
-        setLogin(true)
+        setLoading(false);
+        setLogin(true);
       });
   }
 

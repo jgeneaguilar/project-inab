@@ -7,31 +7,33 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 
-const FormDialog = ({ open, handleClose, title, content, actions }) => {
+
+const FormDialog = ({ open, handleFormSubmit, title, content, actions }) => {
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      // onClose={handleDialogClose}
     >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        {content}
-      </DialogContent>
-      <DialogActions>
-        {actions}
-      </DialogActions>
+      <form onSubmit={handleFormSubmit}>
+        <DialogContent>
+          {content}
+        </DialogContent>
+        <DialogActions>
+          {actions}
+        </DialogActions>
+      </form>
     </Dialog>
   );
 }
 
 FormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,
   actions: PropTypes.node.isRequired,
-
 }
 
 export default FormDialog;
