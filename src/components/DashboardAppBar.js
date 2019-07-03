@@ -12,7 +12,9 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles({
   pageHeader: {
     backgroundColor: 'white',
-    margin: 0
+    margin: 0,
+    boxShadow: 'none',
+    borderBottom: '0.5px solid lightgrey'
   },
   root: {
     width: '28px',
