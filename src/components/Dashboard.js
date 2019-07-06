@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DashboardAppBar from './DashboardAppBar';
+import SideMenu from './SideMenu';
 import BudgetMenu from './BudgetMenu';
 import NewBudgetForm from './NewBudgetForm';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  root: {
-    
+  root: {},
+  sideMenuContainer: {
+    position: 'relative'
   }
 });
 
@@ -30,13 +32,26 @@ const Dashboard = ({ userDetails, defaultBudget }) => {
 
   const handleDialogClose = () => setDialogOpen(false);
 
+
+  // for SideMenu
+  const [sideMenuOpen, setSideMenuOpen] = useState(true);
+
+  const handleToggleSideMenu = () => setSideMenuOpen(!sideMenuOpen);
+
   return (
     <div className={classes.root}>
       <DashboardAppBar 
         userDetails={userDetails}
         setAnchorEl={setAnchorEl}
         defaultBudget={defaultBudget}
+        handleToggleSideMenu={handleToggleSideMenu}
       />
+      <div className={classes.sideMenuContainer}>
+        <SideMenu 
+          sideMenuOpen={sideMenuOpen}
+          handleToggleSideMenu={handleToggleSideMenu}
+        />
+      </div>
       <BudgetMenu 
         anchorEl={anchorEl}
         handleClose={handleClose}
@@ -45,6 +60,9 @@ const Dashboard = ({ userDetails, defaultBudget }) => {
       <NewBudgetForm 
         handleDialogClose={handleDialogClose}
         open={dialogOpen}
+      />
+      <SideMenu 
+        sideMenuOpen={sideMenuOpen}
       />
     </div>
   );

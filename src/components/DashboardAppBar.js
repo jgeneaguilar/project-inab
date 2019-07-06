@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Button,
   Avatar,
+  IconButton,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   pageHeader: {
+    zIndex: theme.zIndex.drawer + 1,
     backgroundColor: 'white',
     margin: 0,
     boxShadow: 'none',
@@ -20,22 +22,27 @@ const useStyles = makeStyles({
     width: '28px',
     height: '28px'
   }
-});
+}));
 
 
-const DashboardAppBar = ({ setAnchorEl, userDetails, defaultBudget }) => {
+const DashboardAppBar = ({ handleToggleSideMenu, setAnchorEl, userDetails, defaultBudget }) => {
   const classes = useStyles();
 
   return (
-    <AppBar position='static' className={classes.pageHeader}>
+    <AppBar position='fixed' className={classes.pageHeader}>
       <Toolbar variant='dense'>
-        <Typography>
-          <Button
-            onClick={event => setAnchorEl(event.currentTarget)}
-          >
-            { defaultBudget.name || 'My Budget' }
-          </Button>
-        </Typography>
+        <IconButton
+          size='small'
+          edge='start'
+          onClick={handleToggleSideMenu}
+        >
+          <MenuIcon fontSize='small' />
+        </IconButton>
+        <Button
+          onClick={event => setAnchorEl(event.currentTarget)}
+        >
+          { defaultBudget.name || 'My Budget' }
+        </Button>
         <Avatar className={classes.root} src={userDetails.avatar} />
       </Toolbar>
     </AppBar>
@@ -43,8 +50,10 @@ const DashboardAppBar = ({ setAnchorEl, userDetails, defaultBudget }) => {
 }
 
 DashboardAppBar.propTypes = {
+  handleToggleSideMenu: PropTypes.func.isRequired,
   setAnchorEl: PropTypes.func.isRequired,
-  userDetails: PropTypes.object.isRequired
+  userDetails: PropTypes.object.isRequired,
+  defaultBudget: PropTypes.object.isRequired,
 };
 
 export default DashboardAppBar;
