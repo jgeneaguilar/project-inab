@@ -8,9 +8,11 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Button,
 } from '@material-ui/core';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import Assignment from '@material-ui/icons/Assignment';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -26,6 +28,12 @@ const useStyles = makeStyles({
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
+  button: {
+    margin: '8px'
+  },
+  addIcon: {
+    marginRight: '5px'
+  }
 });
 
 const SideMenu = ({ sideMenuOpen }) => {
@@ -55,6 +63,15 @@ const SideMenu = ({ sideMenuOpen }) => {
         </ListItem>
       </List>
       <Divider />
+      <Button
+        variant='contained'
+        color='default'
+        size='small'
+        className={classes.button}
+      >
+        <AddCircleOutline fontSize='small' className={classes.addIcon}/>
+        Add Account
+      </Button>
     </Drawer>
   );
 }
