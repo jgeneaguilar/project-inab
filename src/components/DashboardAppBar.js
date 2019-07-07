@@ -18,9 +18,21 @@ const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
     borderBottom: '0.5px solid lightgrey'
   },
-  root: {
+  avatarContainer: {
+    marginLeft: '10px'
+  },
+  avatarRoot: {
     width: '28px',
     height: '28px'
+  },
+  budgetMenuButton: {
+    width: '160px'
+  },
+  divider: {
+    float: 'left',
+    borderLeft: '1px solid lightgrey',
+    height: '28px',
+    margin: '4px 4px 0 0'
   }
 }));
 
@@ -40,10 +52,17 @@ const DashboardAppBar = ({ handleToggleSideMenu, setAnchorEl, userDetails, defau
         </IconButton>
         <Button
           onClick={event => setAnchorEl(event.currentTarget)}
+          className={classes.budgetMenuButton}
         >
           { defaultBudget.name || 'My Budget' }
         </Button>
-        <Avatar className={classes.root} src={userDetails.avatar} />
+        <span className={classes.divider}/>
+        <div className={classes.avatarContainer}>
+          <Avatar 
+            src={userDetails.avatar}
+            classes={{ root: classes.avatarRoot }}
+            />
+        </div>
       </Toolbar>
     </AppBar>
   );
