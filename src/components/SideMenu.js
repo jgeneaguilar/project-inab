@@ -62,7 +62,7 @@ const SideMenu = ({ sideMenuOpen }) => {
   //     [list]: true,
   //   })
   // }
-  
+
   return (
     <Drawer
       variant="persistent"
@@ -118,7 +118,11 @@ const SideMenu = ({ sideMenuOpen }) => {
       <List>
         <ListItem button dense>
           {listOpen ? <ExpandLess /> : <ExpandMore />}
-          <ListItemText primary='TRACKING' />
+          <ListItemText 
+            primary='TRACKING' 
+            secondary='P 100,000'
+            classes={{ primary: classes.primaryText, secondary: classes.secondaryText }}  
+          />
         </ListItem>
         <Collapse in={listOpen} timeout='auto' unmountOnExit>
           <List component='div' disablePadding>
