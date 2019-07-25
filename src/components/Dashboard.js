@@ -4,17 +4,10 @@ import DashboardAppBar from './DashboardAppBar';
 import SideMenu from './SideMenu';
 import BudgetMenu from './BudgetMenu';
 import NewBudgetForm from './NewBudgetForm';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  root: {},
-  sideMenuContainer: {
-    position: 'relative'
-  }
-});
 
 const Dashboard = ({ userDetails, defaultBudget }) => {
-  const classes = useStyles();
 
   // for BudgetMenu
   const [anchorEl, setAnchorEl] = useState(null); 
@@ -39,19 +32,17 @@ const Dashboard = ({ userDetails, defaultBudget }) => {
   const handleToggleSideMenu = () => setSideMenuOpen(!sideMenuOpen);
 
   return (
-    <div className={classes.root}>
+    <div>
       <DashboardAppBar 
         userDetails={userDetails}
         setAnchorEl={setAnchorEl}
         defaultBudget={defaultBudget}
         handleToggleSideMenu={handleToggleSideMenu}
       />
-      <div className={classes.sideMenuContainer}>
-        <SideMenu 
-          sideMenuOpen={sideMenuOpen}
-          handleToggleSideMenu={handleToggleSideMenu}
-        />
-      </div>
+      <SideMenu 
+        sideMenuOpen={sideMenuOpen}
+        handleToggleSideMenu={handleToggleSideMenu}
+      />
       <BudgetMenu 
         anchorEl={anchorEl}
         handleClose={handleClose}
@@ -60,9 +51,6 @@ const Dashboard = ({ userDetails, defaultBudget }) => {
       <NewBudgetForm 
         handleDialogClose={handleDialogClose}
         open={dialogOpen}
-      />
-      <SideMenu 
-        sideMenuOpen={sideMenuOpen}
       />
     </div>
   );
