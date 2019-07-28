@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Login from './Login';
-import { login } from '../api/usersAPI';
-import { setToken } from '../api/baseAPI';
+import LoginView from './LoginView';
+import { login } from '../../api/usersAPI';
+import { setToken } from '../../api/baseAPI';
 
 
 const LoginPage = ({ setLogin }) => {
@@ -12,6 +12,7 @@ const LoginPage = ({ setLogin }) => {
     email: '',
     password: ''
   });
+
   // Toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,7 +46,7 @@ const LoginPage = ({ setLogin }) => {
   }
 
   return (
-    <Login 
+    <LoginView
       loginCredentials={loginCredentials}
       handleChange={handleChange}
       onLogin={onLogin}

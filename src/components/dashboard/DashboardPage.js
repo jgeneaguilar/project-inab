@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from './Dashboard';
-import { getUserDetails } from '../api/usersAPI';
-import { getBudgets } from '../api/budgetsAPI';
+import { getUserDetails } from '../../api/usersAPI';
+import { getBudgets } from '../../api/budgetsAPI';
 
 const DashboardPage = () => {
 

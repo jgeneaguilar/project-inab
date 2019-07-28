@@ -1,0 +1,23 @@
+.homeLayoutHeader.ant-layout-header {
+  padding: 0 24px;
+}
+.homePageHeader.ant-page-header {
+  background: #001529;
+  height: 48px;
+  display: flex;
+  flex: 1 0 auto;
+  margin-top: 8px;
+  padding: 8px;
+  .ant-page-header-content {
+    padding-top: 0;
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 auto;
+  }
+}
+.branding {
+  flex: 1 0 auto;
+  h2 {
+    color: white;
+  }
+}
