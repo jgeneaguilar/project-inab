@@ -1,0 +1,30 @@
+/* Content Container */
+.ant-layout-content.contentContainer {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form wrapper */
+.formContainer {
+  width: 360px;
+  .ant-card-head {
+    border-bottom: none;
+    .ant-card-head-title {
+      text-align: center;
+    }
+  }
+}
+
+/* Form */
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+

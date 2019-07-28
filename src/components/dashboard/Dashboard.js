@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import DashboardAppBar from './DashboardAppBar';
-import SideMenu from './SideMenu';
-import BudgetMenu from './BudgetMenu';
-import NewBudgetForm from './NewBudgetForm';
+import DashboardAppBar from '../DashboardAppBar';
+import SideMenu from '../SideMenu';
+import BudgetMenu from '../BudgetMenu';
+import NewBudgetForm from '../NewBudgetForm';
 // import { makeStyles } from '@material-ui/core/styles';
 
 
