@@ -1,10 +1,10 @@
 import React from 'react';
-import { Menu, Icon, Divider } from 'antd';
+import { Menu, Icon } from 'antd';
 import './styles.scss';
 
 const LeftDrawerView = () => {
 
-  const { Item, SubMenu } = Menu;
+  const { Item, SubMenu, Divider } = Menu;
 
   return (
       <Menu
