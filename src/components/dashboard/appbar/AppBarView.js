@@ -11,12 +11,14 @@ const AppBarView = ({ userDetails, budgets }) => {
     <Header className='appBarContainer'>
       <PageHeader className='dashboardHeader'>
         <Icon className='menuIcon' type='menu' />
-        <Button>
+        { budgets && budgets.length > 0 ? (
+          <Button>
           {/** using the first budget as the default */}
-          { (budgets[0] && budgets[0]['name']) || 'My Budget' }
+          { budgets[0]['name'] || 'My Budget' }
         </Button>
+        ): null}
         <Divider type='vertical' />
-        <Avatar icon='user' src={userDetails.avatar} />
+        <Avatar icon='user' src={userDetails && userDetails.avatar} />
       </PageHeader>
     </Header>
   );

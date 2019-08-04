@@ -8,5 +8,5 @@ export const createBudget = budgetName => {
   return api.post('/budgets', param)
 }
 
-export const getBudgets = () => api.get('/budgets')
+export const getBudgets = () => api.get('/budgets').then(res => res.data)
 
