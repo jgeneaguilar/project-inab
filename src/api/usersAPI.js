@@ -8,10 +8,11 @@ export const login = ({ email, password }) => {
   };
 
   return api
-    .post('/users/login', param);
+    .post('/users/login', param)
+    .then(res => res.data);
 }
 
-export const getUserDetails = () => {
-  console.log(api.defaults.headers.common, "getUserDetails()")
-  return  api.get('/users/me')
+export const getUserData = () => {
+  console.log(api.defaults.headers.common, "getUserData()")
+  return api.get('/users/me')
 }
