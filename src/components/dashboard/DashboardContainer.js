@@ -33,7 +33,7 @@ const DashboardContainer = ({ budgets, actions }) => {
 
 function mapStateToProps(state) {
   return {
-    budgets: state.budgets.budgets
+    budgets: state.budget.budgets
   };
 }
 
