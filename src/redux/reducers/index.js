@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import budgets from './budgetReducer';
+import budget from './budgetReducer';
 import user from './userReducer';
 
 
 const rootReducer = combineReducers({
-  budgets,
+  budget,
   user
 });
 
