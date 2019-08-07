@@ -4,7 +4,7 @@ import { setToken } from '../../api/baseAPI';
 // import { setLocalToken } from '../../utils';
 
 export function userLoginSuccess(userData) {
-  return { type: types.USER_LOGIN_SUCCESS, isLoggedIn: true };
+  return { type: types.USER_LOGIN_SUCCESS, _id: userData._id };
 }
 
 // Uses Thunk
