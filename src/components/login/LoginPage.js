@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginView from './LoginView';
-import { login } from '../../api/usersAPI';
-import { setToken } from '../../api/baseAPI';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as userActions from '../../redux/actions/userActions';
 
-
-const LoginPage = ({ setLogin }) => {
+const LoginPage = ({ actions }) => {
 
   // Input values
   const [loginCredentials, setloginCredentials] = useState({
@@ -13,36 +13,21 @@ const LoginPage = ({ setLogin }) => {
     password: ''
   });
 
-  // Toggle password visibility
-  const [showPassword, setShowPassword] = useState(false);
-
   // Waiting for HTTP request
   const [loading, setLoading] = useState(false);
 
-  // Login is successful
-  // const [success, setSuccess] = useState(null);
-
-
-  const handleChange = ({ target: { name, value }}) => {
+  function handleChange({ target: { name, value }}) {
     setloginCredentials({
       ...loginCredentials,
       [name]: value
     });
   }
 
-  const onShowPassword = () => {
-      setShowPassword(!showPassword);
-    }
-
-  const onLogin = e => {
-    e.preventDefault();
+  function onLogin(event) {
+    event.preventDefault();
     setLoading(true);
-    login(loginCredentials)
-      .then(res => setToken(res.data.token))
-      .then(() => {
-        setLoading(false);
-        setLogin(true);
-      });
+    actions.userLogin(loginCredentials)
+      .then(() => setLoading(false));
   }
 
   return (
@@ -50,16 +35,22 @@ const LoginPage = ({ setLogin }) => {
       loginCredentials={loginCredentials}
       handleChange={handleChange}
       onLogin={onLogin}
-      showPassword={showPassword}
-      onShowPassword={onShowPassword}
       loading={loading}
     />
   );
 }
 
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      userLogin: bindActionCreators(userActions.userLogin, dispatch)
+    }
+  }
+}
+
 LoginPage.propTypes = {
-  setLogin: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
-export default LoginPage;
+export default connect(null, mapDispatchToProps)(LoginPage);
