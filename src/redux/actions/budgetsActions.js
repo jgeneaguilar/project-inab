@@ -13,10 +13,16 @@ export function loadBudgets() {
   return function(dispatch) {
     return budgetApi.getBudgets()
       .then(budgets => {
-        console.log('Load Budgets', budgets)
+        console.log('Load Budgets', budgets);
         dispatch(loadBudgetsSuccess(budgets));
+        // set default budget
+        dispatch(setCurrentBudget(budgets[0]));
       }).catch(error => {
         console.log(error);
       });
   }
+}
+
+export function setCurrentBudget(currentBudget) {
+  return { type: types.SET_CURRENT_BUDGET, currentBudget }
 }
