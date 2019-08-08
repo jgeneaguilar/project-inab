@@ -1,4 +1,8 @@
 export default {
   user: {},
-  budget: {}
+  budget: {},
+  modal: {
+    modalType: null,
+    modalProps: {},
+  }
 };
