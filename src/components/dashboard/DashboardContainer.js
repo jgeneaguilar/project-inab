@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import DashboardView from './DashboardView';
-// import { getUserDetails } from '../../api/usersAPI';
+import ModalRoot from '../modals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as budgetsActions from '../../redux/actions/budgetsActions';
-// import { setToken } from './api/baseAPI';
 
 
 const DashboardContainer = ({ budgets, actions }) => {
@@ -12,22 +11,17 @@ const DashboardContainer = ({ budgets, actions }) => {
   
   useEffect(() => {
     actions.loadBudgets()
-    // Promise.all([getUserDetails(), actions.loadBudgets()])
-    //   .then(([user, budgets]) => {
-    //     setUserDetails({
-    //       ...user.data
-    //     });
-    //     console.log('USER DETAILS: ', user.data);
-    //     console.log('BUDGETS: ', budgets.data);
-    //   })
-    //   .catch(error => console.error(`API call failed.\n${error}`));
+    // TODO: research about useCallback();
   }, []);
 
   return (
-    <DashboardView 
-      // userDetails={userDetails} 
-      budgets={budgets}
-    />
+    <Fragment>
+      <DashboardView 
+        // userData={userData} 
+        budgets={budgets}
+      />
+      <ModalRoot />
+    </Fragment>
   );
 }
 

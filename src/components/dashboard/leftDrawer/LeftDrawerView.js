@@ -1,8 +1,8 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Button } from 'antd';
 import './styles.scss';
 
-const LeftDrawerView = () => {
+const LeftDrawerView = ({ handleClick }) => {
 
   const { Item, SubMenu, Divider } = Menu;
 
@@ -65,6 +65,19 @@ const LeftDrawerView = () => {
             <span className='leftDrawerMenuAmount'>P 60,000</span>
           </Item>
         </SubMenu>
+        <Divider type='horizontal' className='leftDrawerDivider' />
+        {/* TODO: research a better way to implement the Add Account Button */}
+        <Item
+          onClick={handleClick}
+        >
+          <Button 
+            type='primary' 
+            icon='plus-circle'
+            
+          >
+            Add Account
+          </Button>
+        </Item>
       </Menu>
   );
 }

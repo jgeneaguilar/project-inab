@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import './styles.scss';
 import AppBarView from './appbar/AppBarView';
-import LeftDrawerView from './leftDrawer/LeftDrawerView';
+import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
 import BudgetHeaderView from './budgetHeader/BudgetHeaderView';
 import BudgetToolbarView from './budgetToolbar/BudgetToolbarView';
 import BudgetTableView from './budgetTable/BudgetTableView';
@@ -19,7 +19,7 @@ const DashboardView = ({ userDetails, budgets }) => {
         budgets={budgets}
       /> 
       <Content className='dashboardContent'>
-        <LeftDrawerView />
+        <LeftDrawerContainer />
         <Layout className='dashboardBudgetContainer'>
           <header className='dashboardBudgetHeader'>
             <BudgetHeaderView />
