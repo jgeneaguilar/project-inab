@@ -1,12 +1,16 @@
 import { combineReducers } from 'redux';
-import budget from './budgetReducer';
 import user from './userReducer';
+import budgets from './budgetReducer';
+import currentBudget from './currentBudgetReducer';
+import accounts from './accountReducer';
 import modal from './modalReducer';
 
 
 const rootReducer = combineReducers({
-  budget,
   user,
+  budgets,
+  currentBudget,
+  accounts,
   modal
 });
 

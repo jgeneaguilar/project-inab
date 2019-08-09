@@ -6,17 +6,20 @@ export function createBudget(budget) {
 }
 
 export function loadBudgetsSuccess(budgets) {
-  return { type: types.LOAD_BUDGETS_SUCCESS, budgets};
+  return { type: types.LOAD_BUDGETS_SUCCESS, budgets };
 }
 
 export function loadBudgets() {
   return function(dispatch) {
-    return budgetApi.getBudgets()
-      .then(budgets => {
-        console.log('Load Budgets', budgets);
-        dispatch(loadBudgetsSuccess(budgets));
+    return budgetApi.getAllBudgets()
+      .then(allBudgets => {
+        // console.log('Load Budgets', );
+        dispatch(loadBudgetsSuccess(allBudgets));
         // set default budget
-        dispatch(setCurrentBudget(budgets[0]));
+        budgetApi.getBudget(allBudgets[0]['_id'])
+          .then(budget => (
+            dispatch(setCurrentBudget(budget))
+          ));
       }).catch(error => {
         console.log(error);
       });
