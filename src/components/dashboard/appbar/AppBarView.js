@@ -3,7 +3,7 @@ import PropTypes from 'prop-types' ;
 import { Layout, PageHeader, Icon, Button, Divider, Avatar } from 'antd';
 import './styles.scss';
 
-const AppBarView = ({ userDetails, budgets }) => {
+const AppBarView = ({ currentBudget }) => {
 
   const { Header } = Layout;
 
@@ -11,22 +11,21 @@ const AppBarView = ({ userDetails, budgets }) => {
     <Header className='appBarContainer'>
       <PageHeader className='dashboardHeader'>
         <Icon className='menuIcon' type='menu' />
-        { budgets && budgets.length > 0 ? (
+        { currentBudget ? (
           <Button>
           {/** using the first budget as the default */}
-          { budgets[0]['name'] || 'My Budget' }
+          { currentBudget['name'] || 'My Budget' }
         </Button>
         ): null}
         <Divider type='vertical' />
-        <Avatar icon='user' src={userDetails && userDetails.avatar} />
+        <Avatar icon='user' />
       </PageHeader>
     </Header>
   );
 }
 
 AppBarView.propTypes = {
-  userDetails: PropTypes.object.isRequired,
-  budgets: PropTypes.array.isRequired
+  currentBudget: PropTypes.object.isRequired
 };
 
 export default AppBarView;

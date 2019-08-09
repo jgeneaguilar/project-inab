@@ -1,21 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types' ;
 import AppBarView from './AppBarView';
 
-const AppBarContainer = ({ userDetails, budgets }) => {
+const AppBarContainer = ({ currentBudget }) => {
   return (
     <div>
       <AppBarView 
-        userDetails={userDetails}
-        budgets={budgets}
+        currentBudget={currentBudget}
       />
     </div>
   );
 }
 
 AppBarContainer.propTypes = {
-  userDetails: PropTypes.object.isRequired,
-  budgets: PropTypes.array.isRequired
+  currentBudget: PropTypes.object.isRequired
 };
 
-export default AppBarContainer;
+function mapStateToProps(state) {
+  return { currentBudget: state.currentBudget }
+}
+
+export default connect(mapStateToProps)(AppBarContainer);

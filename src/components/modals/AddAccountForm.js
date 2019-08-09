@@ -87,7 +87,7 @@ const AddAccountView = ({ hideModal, currentBudget, addAccount }) => {
 }
 
 function mapStateToProps(state) {
-  return { currentBudget: state.budget.currentBudget };
+  return { currentBudget: state.currentBudget };
 }
 
 export default connect(

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
 import './styles.scss';
 
-const LeftDrawerView = ({ handleClick }) => {
+const LeftDrawerView = ({ accounts, handleClick }) => {
 
   const { Item, SubMenu, Divider } = Menu;
 
@@ -12,6 +13,7 @@ const LeftDrawerView = ({ handleClick }) => {
         theme='light'
         inlineCollapsed={false}
         className='leftDrawerMenu'
+        defaultOpenKeys={['budgetAccounts']}
       >
         <Item key='budget'>
           <Icon type='reconciliation' />
@@ -26,26 +28,29 @@ const LeftDrawerView = ({ handleClick }) => {
           <span>All Accounts</span>
         </Item>
         <Divider type='horizontal' className='leftDrawerDivider' />
-        <SubMenu
-          key='budgetAccounts'
-          title={
-            <span>
-              <Icon type='wallet' />
-              <span className='leftDrawerMenuTitle'>Budget</span>
-              <span className='leftDrawerMenuAmount'>P 100,000</span>
-            </span>
-          }
-        >
-          <Item>
-            <span className='leftDrawerMenuTitle'>Cash</span>
-            <span className='leftDrawerMenuAmount'>P 50,000</span>
-          </Item>
-          <Item>
-            <span className='leftDrawerMenuTitle'>Savings</span>
-            <span className='leftDrawerMenuAmount'>P 50,000</span>
-          </Item>
-        </SubMenu>
+
+        {/* BUDGET ACCOUNTS */}
+        { accounts && accounts.length > 0 ?
+          (<SubMenu
+            key='budgetAccounts'
+            title={
+              <span>
+                <Icon type='wallet' />
+                <span className='leftDrawerMenuTitle'>Budget</span>
+                <span className='leftDrawerMenuAmount'>P 100,000</span>
+              </span>
+            }
+          >
+            {accounts.map(account => (
+              <Item key={account._id}>
+                <span className='leftDrawerMenuTitle'>{account.name}</span>
+                <span className='leftDrawerMenuAmount'>{account.balance}</span>
+              </Item>
+            ))}
+          </SubMenu>) : null }
         <Divider type='horizontal' className='leftDrawerDivider' />
+
+        {/* TRACKING ACCOUNTS */}
         <SubMenu
           key='trackingAccounts'
           title={
@@ -66,6 +71,7 @@ const LeftDrawerView = ({ handleClick }) => {
           </Item>
         </SubMenu>
         <Divider type='horizontal' className='leftDrawerDivider' />
+
         {/* TODO: research a better way to implement the Add Account Button */}
         <Item
           onClick={handleClick}
@@ -73,7 +79,6 @@ const LeftDrawerView = ({ handleClick }) => {
           <Button 
             type='primary' 
             icon='plus-circle'
-            
           >
             Add Account
           </Button>
@@ -81,5 +86,10 @@ const LeftDrawerView = ({ handleClick }) => {
       </Menu>
   );
 }
+
+LeftDrawerView.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  accounts: PropTypes.array.isRequired
+};
 
 export default LeftDrawerView;
