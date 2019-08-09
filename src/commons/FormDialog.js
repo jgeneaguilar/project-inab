@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
-const FormDialog = ({ visible, title, children, okText, onCancel, onOk, loading }) => {
+const FormDialog = ({ visible, title, children, okText, onCancel, onOk, confirmLoading }) => {
   return (
     <Modal
       visible={visible}
@@ -10,7 +10,7 @@ const FormDialog = ({ visible, title, children, okText, onCancel, onOk, loading 
       okText={okText}
       onCancel={onCancel}
       onOk={onOk}
-      confirmLoading={loading}
+      confirmLoading={confirmLoading}
     >
       {/* mostly input types */}
       {children}
@@ -26,7 +26,7 @@ FormDialog.propTypes = {
   okText: PropTypes.string,
   onCancel: PropTypes.func,
   onOk: PropTypes.func,
-  loading: PropTypes.bool,
+  confirmLoading: PropTypes.bool,
 };
 
 export default FormDialog;

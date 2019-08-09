@@ -14,5 +14,5 @@ export const login = ({ email, password }) => {
 
 export const getUserData = () => {
   console.log(api.defaults.headers.common, "getUserData()")
-  return api.get('/users/me')
+  return api.get('/users/me');
 }
