@@ -10,8 +10,7 @@ const LeftDrawerContainer = ({ currentBudget, accounts, showModal }) => {
   function handleClick() {
     showModal(MODAL_TYPES.ADD_ACCOUNT, {})
   }
-  console.log(currentBudget);
-  console.log(accounts);
+
   return (
     <LeftDrawerView 
       handleClick={handleClick}

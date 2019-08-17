@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
+import { 
+  toCurrency, 
+  getTotalBalance, 
+  getBudgetAccounts,
+  getTrackingAccounts
+} from '../../../utils/currenyUtils';
 import './styles.scss';
 
 const LeftDrawerView = ({ accounts, handleClick }) => {
@@ -27,6 +33,7 @@ const LeftDrawerView = ({ accounts, handleClick }) => {
           <Icon type='bank' />
           <span>All Accounts</span>
         </Item>
+
         <Divider type='horizontal' className='leftDrawerDivider' />
 
         {/* BUDGET ACCOUNTS */}
@@ -37,39 +44,48 @@ const LeftDrawerView = ({ accounts, handleClick }) => {
               <span>
                 <Icon type='wallet' />
                 <span className='leftDrawerMenuTitle'>Budget</span>
-                <span className='leftDrawerMenuAmount'>P 100,000</span>
+                <span className='leftDrawerMenuAmount'>
+                  {getTotalBalance(getBudgetAccounts(accounts))}
+                </span>
               </span>
             }
           >
-            {accounts.map(account => (
+            {getBudgetAccounts(accounts).map(account => (
               <Item key={account._id}>
                 <span className='leftDrawerMenuTitle'>{account.name}</span>
-                <span className='leftDrawerMenuAmount'>{account.balance}</span>
+                <span className='leftDrawerMenuAmount'>
+                  {toCurrency(account.balance)}
+                </span>
               </Item>
             ))}
           </SubMenu>) : null }
+
         <Divider type='horizontal' className='leftDrawerDivider' />
 
         {/* TRACKING ACCOUNTS */}
-        <SubMenu
-          key='trackingAccounts'
-          title={
-            <span>
-              <Icon type='radar-chart' />
-              <span className='leftDrawerMenuTitle'>Tracking</span>
-              <span className='leftDrawerMenuAmount'>P 240,000</span>
-            </span>
-          }
-        >
-          <Item>
-            <span className='leftDrawerMenuTitle'>Mutual Fund</span>
-            <span className='leftDrawerMenuAmount'>P 180,000</span>
-          </Item>
-          <Item>
-            <span className='leftDrawerMenuTitle'>Emergency Fund</span>
-            <span className='leftDrawerMenuAmount'>P 60,000</span>
-          </Item>
-        </SubMenu>
+        { accounts && accounts.length > 0 ?
+          (<SubMenu
+            key='trackingAccounts'
+            title={
+              <span>
+                <Icon type='radar-chart' />
+                <span className='leftDrawerMenuTitle'>Tracking</span>
+                <span className='leftDrawerMenuAmount'>
+                  {getTotalBalance(getTrackingAccounts(accounts))}
+                </span>
+              </span>
+            }
+          >
+            {getTrackingAccounts(accounts).map(account => (
+              <Item key={account._id}>
+                <span className='leftDrawerMenuTitle'>{account.name}</span>
+                <span className='leftDrawerMenuAmount'>
+                  {toCurrency(account.balance)}
+                </span>
+              </Item>
+            ))}
+          </SubMenu>) : null }
+
         <Divider type='horizontal' className='leftDrawerDivider' />
 
         {/* TODO: research a better way to implement the Add Account Button */}
