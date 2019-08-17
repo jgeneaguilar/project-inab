@@ -26,8 +26,7 @@ const LoginPage = ({ actions }) => {
   function onLogin(event) {
     event.preventDefault();
     setLoading(true);
-    actions.userLogin(loginCredentials)
-      .then(() => setLoading(false));
+    actions.userLogin(loginCredentials);
   }
 
   return (
