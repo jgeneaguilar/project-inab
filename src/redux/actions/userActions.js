@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 import * as usersApi from '../../api/usersAPI';
 import { setToken } from '../../api/baseAPI';
-// import { setLocalToken } from '../../utils';
+import { setUserCredentials, getUserCredentials } from '../../utils/storageUtils';
 
 export function userLoginSuccess(userData) {
   return { type: types.USER_LOGIN_SUCCESS, _id: userData._id };
@@ -15,9 +15,19 @@ export function userLogin(loginCredentials) {
         setToken(data.token);
         dispatch(userLoginSuccess(data));
         // To speed up login process during Dev
-        // setLocalToken(data.token); 
+        setUserCredentials(data._id, data.token); 
       });
   };
 }
+
+export function checkUserLogin() {
+  return function(dispatch) {
+    const data = getUserCredentials();
+    if (data._id && data.token) {
+      setToken(data.token)
+      dispatch(userLoginSuccess(data));
+    }
+  };
+} 
 
 
