@@ -5,7 +5,7 @@ import * as budgetApi from '../../api/budgetsAPI';
 /** ACCOUNTS */
 
 export function addAccountSuccess(account) {
-  return { type: types.ADD_ACCOUNT, account};
+  return { type: types.ADD_ACCOUNT_SUCCESS, account};
 }
 
 export function addAccount(budgetId, accountData) {

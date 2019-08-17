@@ -3,6 +3,7 @@ import './App.css';
 // import HomePage from './components/home/HomePage';
 import LoginPage from './components/login/LoginPage';
 import DashboardContainer from './components/dashboard/DashboardContainer';
+import NotFound from './components/NotFound';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -20,6 +21,7 @@ function App({ isLoggedIn }) {
       <Route path='/' exact render={() => redirect }/>
       <Route exact path='/dashboard' component={DashboardContainer}/>
       <Route path='/login' render={() => redirect }/>
+      <Route component={NotFound}/>
     </Switch>
   );
 }

@@ -2,42 +2,31 @@ import React, { useEffect, Fragment } from 'react';
 import DashboardView from './DashboardView';
 import ModalRoot from '../modals';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as budgetsActions from '../../redux/actions/budgetsActions';
+import { loadBudgets } from '../../redux/actions/budgetsActions';
 
 
-const DashboardContainer = ({ budgets, actions }) => {
-
+const DashboardContainer = ({ currentBudget, loadBudgets }) => {
   
   useEffect(() => {
-    actions.loadBudgets()
+    loadBudgets();
     // TODO: research about useCallback();
   }, []);
 
+
   return (
+    currentBudget ? (
     <Fragment>
-      <DashboardView 
-        // userData={userData} 
-        budgets={budgets}
-      />
+      <DashboardView />
       <ModalRoot />
-    </Fragment>
-  );
+    </Fragment> ) : null
+  )
 }
 
 function mapStateToProps(state) {
   return {
-    budgets: state.budget.budgets
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadBudgets: bindActionCreators(budgetsActions.loadBudgets, dispatch)
-    }
+    currentBudget: state.currentBudget
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
+export default connect(mapStateToProps, { loadBudgets })(DashboardContainer);
