@@ -6,7 +6,7 @@ import AppBarContainer from './appbar/AppBarContainer';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
 import BudgetHeaderView from './budgetHeader/BudgetHeaderView';
 import BudgetToolbarContainer from './budgetToolbar/BudgetToolbarContainer';
-import BudgetTableView from './budgetTable/BudgetTableView';
+import BudgetTableContainer from './budgetTable/BudgetTableContainer';
 
 const DashboardView = () => {
 
@@ -23,7 +23,7 @@ const DashboardView = () => {
             <BudgetToolbarContainer />
           </header>
           <Content className='dashboardBudgetContent'>
-            <BudgetTableView />
+            <BudgetTableContainer />
           </Content>
         </Layout>
       </Content>
