@@ -20,15 +20,16 @@ const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
         trigger='click'
         visible={clicked}
         onVisibleChange={handleClickChange}
-
+        overlayClassName='masterCategoryPopover'
       >
         <Button 
           type='primary'
           size='small'
           ghost
           icon='plus-circle'
+          className='budgetToolbarMasterCategoryBtn'
         >
-          Category Group
+          Master Category
         </Button>
       </Popover>
     </PageHeader>

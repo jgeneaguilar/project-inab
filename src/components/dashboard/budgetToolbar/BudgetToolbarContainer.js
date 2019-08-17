@@ -43,13 +43,18 @@ const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {
   );
 
   const content = (
-    <div className=''>
+    <div className='masterCategoryPopoverActions'>
       <Button
         onClick={onCancel}
+        className='masterCategoryPopoverCancel'
       >
         Cancel
       </Button>
-      <Button type='primary' onClick={onSubmit}>
+      <Button 
+        type='primary' 
+        onClick={onSubmit}
+        className='masterCategoryPopoverOK'
+      >
         OK
       </Button>
     </div>
