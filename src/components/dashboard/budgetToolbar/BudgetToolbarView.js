@@ -2,27 +2,9 @@ import React from 'react';
 import { PageHeader, Input, Popover, Button } from 'antd';
 import './styles.scss';
 
-const BudgetToolbarView = () => {
+const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
 
   const { Search } = Input;
-
-  const title = (
-    <Input 
-      autoFocus
-      placeholder='Enter Master Category'
-    />
-  );
-
-  const content = (
-    <div className=''>
-      <Button>
-        Cancel
-      </Button>
-      <Button type='primary'>
-        OK
-      </Button>
-    </div>
-  );
 
   return (
     <PageHeader className='budgetToolbarContainer'>
@@ -36,6 +18,9 @@ const BudgetToolbarView = () => {
         content={content}
         placement='bottom'
         trigger='click'
+        visible={clicked}
+        onVisibleChange={handleClickChange}
+
       >
         <Button 
           type='primary'
