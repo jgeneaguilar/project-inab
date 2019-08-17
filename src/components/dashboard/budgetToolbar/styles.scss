@@ -7,3 +7,23 @@
 .budgetToolbarInputFilter.ant-input-affix-wrapper {
   width: 160px;
 }
+
+.budgetToolbarMasterCategoryBtn.ant-btn-primary {
+  margin-left: 8px;
+}
+
+.masterCategoryPopover {
+  .ant-popover-title {
+    padding: 8px 12px;
+  }
+  .ant-popover-inner-content {
+    padding: 8px 12px;
+    text-align: right;
+    .masterCategoryPopoverOK.ant-btn-primary {
+      margin-left: 8px;
+    }
+  }
+}
+
+
+

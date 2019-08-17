@@ -3,6 +3,7 @@ export default {
   budgets: [],
   currentBudget: null, // type obj
   accounts: [],
+  masterCategories: [],
   modal: {
     modalType: null,
     modalProps: {},

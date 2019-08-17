@@ -1,8 +1,8 @@
 import React from 'react';
-import { PageHeader, Input, Button } from 'antd';
+import { PageHeader, Input, Popover, Button } from 'antd';
 import './styles.scss';
 
-const BudgetToolbarView = () => {
+const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
 
   const { Search } = Input;
 
@@ -13,14 +13,25 @@ const BudgetToolbarView = () => {
         size='small'
         className='budgetToolbarInputFilter'
       />
-      <Button 
-        type='primary'
-        size='small'
-        ghost
-        icon='plus-circle'
+      <Popover
+        title={title}
+        content={content}
+        placement='bottom'
+        trigger='click'
+        visible={clicked}
+        onVisibleChange={handleClickChange}
+        overlayClassName='masterCategoryPopover'
       >
-        Category Group
-      </Button>
+        <Button 
+          type='primary'
+          size='small'
+          ghost
+          icon='plus-circle'
+          className='budgetToolbarMasterCategoryBtn'
+        >
+          Master Category
+        </Button>
+      </Popover>
     </PageHeader>
   );
 }
