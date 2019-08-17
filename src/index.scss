@@ -1,0 +1,20 @@
+body {
+  margin: 0
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.ant-menu.compact {
+  &.ant-menu-vertical {
+    .ant-menu-item,
+    .ant-menu-item:not(:last-child) {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}

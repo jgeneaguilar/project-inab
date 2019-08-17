@@ -1,18 +1,26 @@
 .appBarContainer.ant-layout-header {
   padding: 0 24px;
-}
-.dashboardHeader.ant-page-header {
-  background: #001529;
-  height: 48px;
-  display: flex;
-  flex: 1 0 auto;
-  .ant-page-header-content {
-    padding-top: 0;
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 auto;
+
+  .ant-col > * {
+    margin-left: 1em;
   }
 }
+
+.dashboardHeader.ant-page-header {
+  background: #001529;
+}
+
 .menuIcon.anticon.anticon-menu {
   color: white;
+}
+
+.ant-dropdown-menu.link li {
+  &:not(.ant-dropdown-menu-item-divider) {
+    color: #1890ff;
+    background-color: transparent;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    height: 32px;
+}
 }

@@ -9,7 +9,7 @@ export function toCurrency(number) {
 
 function getSumOfBalance(arr) {
   let newArr = arr.map(account => account.balance);
-  return newArr.reduce((a, b) => a + b);
+  return newArr.reduce((a, b) => a + b, 0);
 }
 
 export function getTotalBalance(arr) {
