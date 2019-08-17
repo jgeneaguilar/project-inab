@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import BudgetToolbarView from './BudgetToolbarView';
 
 const BudgetToolbarContainer = props => {
@@ -8,8 +8,8 @@ const BudgetToolbarContainer = props => {
   );
 }
 
-BudgetToolbarContainer.propTypes = {
+// BudgetToolbarContainer.propTypes = {
 
-};
+// };
 
 export default BudgetToolbarContainer;
