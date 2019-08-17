@@ -3,6 +3,7 @@ import user from './userReducer';
 import budgets from './budgetReducer';
 import currentBudget from './currentBudgetReducer';
 import accounts from './accountReducer';
+import masterCategories from './masterCategoryReducer';
 import modal from './modalReducer';
 
 
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   budgets,
   currentBudget,
   accounts,
+  masterCategories,
   modal
 });
 

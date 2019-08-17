@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import BudgetToolbarView from './BudgetToolbarView';
 import { Input, Button } from 'antd';
+import { connect } from 'react-redux';
+import { addMasterCategory } from '../../../redux/actions/masterCategoryActions';
 
-const BudgetToolbarContainer = props => {
+
+const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {
 
   // Input value
   const [masterCategory, setMasterCategory] = useState('');
@@ -24,9 +27,10 @@ const BudgetToolbarContainer = props => {
     handleClickChange(false);
   }
 
-  // function onSubmit() {
-  //   // onClick OK
-  // }
+  function onSubmit() {
+    addMasterCategory(currentBudget._id, masterCategory)
+      .then(() => onCancel()); // exit and clear field
+  }
 
   const title = (
     <Input 
@@ -34,6 +38,7 @@ const BudgetToolbarContainer = props => {
       placeholder='Enter Master Category'
       value={masterCategory}
       onChange={handleChange}
+      onPressEnter={onSubmit}
     />
   );
 
@@ -44,7 +49,7 @@ const BudgetToolbarContainer = props => {
       >
         Cancel
       </Button>
-      <Button type='primary'>
+      <Button type='primary' onClick={onSubmit}>
         OK
       </Button>
     </div>
@@ -60,8 +65,16 @@ const BudgetToolbarContainer = props => {
   );
 }
 
-// BudgetToolbarContainer.propTypes = {
+BudgetToolbarContainer.propTypes = {
+  currentBudget: PropTypes.object.isRequired,
+  addMasterCategory: PropTypes.func.isRequired
+};
 
-// };
+function mapStateToProps(state) {
+  return { currentBudget: state.currentBudget };
+}
 
-export default BudgetToolbarContainer;
+export default connect(
+  mapStateToProps, 
+  { addMasterCategory }
+)(BudgetToolbarContainer);
