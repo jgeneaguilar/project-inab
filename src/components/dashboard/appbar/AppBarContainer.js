@@ -4,6 +4,7 @@ import PropTypes from 'prop-types' ;
 import AppBarView from './AppBarView';
 
 const AppBarContainer = ({ currentBudget }) => {
+  
   return (
     <div>
       <AppBarView 

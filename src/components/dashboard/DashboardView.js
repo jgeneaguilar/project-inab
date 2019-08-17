@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import './styles.scss';
-import AppBarView from './appbar/AppBarView';
+import AppBarContainer from './appbar/AppBarContainer';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
 import BudgetHeaderView from './budgetHeader/BudgetHeaderView';
 import BudgetToolbarView from './budgetToolbar/BudgetToolbarView';
@@ -14,7 +14,7 @@ const DashboardView = () => {
 
   return (
     <Layout className='dashboardContainer'>
-      <AppBarView /> 
+      <AppBarContainer /> 
       <Content className='dashboardContent'>
         <LeftDrawerContainer />
         <Layout className='dashboardBudgetContainer'>

@@ -14,7 +14,7 @@ const AppBarView = ({ currentBudget }) => {
         { currentBudget ? (
           <Button>
           {/** using the first budget as the default */}
-          { currentBudget['name'] || 'My Budget' }
+          { currentBudget.name || 'My Budget' }
         </Button>
         ): null}
         <Divider type='vertical' />
