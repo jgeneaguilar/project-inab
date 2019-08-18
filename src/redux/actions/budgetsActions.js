@@ -1,6 +1,8 @@
 import * as types from './actionTypes';
 import * as budgetApi from '../../api/budgetsAPI';
+import { loadBudget } from './currentBudgetActions';
 
+// Action Creators
 export function loadBudgetsSuccess(budgets) {
   return { type: types.LOAD_BUDGETS_SUCCESS, budgets };
 }
@@ -9,6 +11,7 @@ export function createBudgetSuccess(budget) {
   return { type: types.CREATE_BUDGET, budget};
 }
 
+// Thunk
 export function createBudget(budget) {
   return function(dispatch) {
     return budgetApi.createBudget(budget)
@@ -16,15 +19,6 @@ export function createBudget(budget) {
         dispatch(createBudgetSuccess(data._id));
         dispatch(loadBudget(data._id));
       });
-  };
-}
-
-export function loadBudget(budgetId) {
-  return function(dispatch) {
-    budgetApi.getBudget(budgetId)
-      .then(budget => (
-        dispatch(setCurrentBudget(budget))
-      ));
   };
 }
 
@@ -41,9 +35,5 @@ export function loadBudgets() {
       }).catch(error => {
         console.log(error);
       });
-  }
-}
-
-export function setCurrentBudget(currentBudget) {
-  return { type: types.SET_CURRENT_BUDGET, currentBudget }
+  };
 }

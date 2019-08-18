@@ -1,7 +1,8 @@
-import React  from 'react';
+import React from 'react';
 import AddAccountForm from './AddAccountForm';
 import { connect } from 'react-redux';
 import CreateBudgetForm from './CreateBudgetForm';
+
 
 export const MODAL_COMPONENTS = {
   ADD_ACCOUNT: AddAccountForm,
@@ -23,7 +24,7 @@ const ModalRoot = ({ modalType, modalProps }) => {
   
   const CurrentModal = MODAL_COMPONENTS[modalType];
 
-  return <CurrentModal {...modalProps} />
+  return <CurrentModal {...modalProps} />;
 }
 
 

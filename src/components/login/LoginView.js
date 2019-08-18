@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Layout, Card, Form, Icon, Input, Button, Checkbox, Spin } from 'antd';
 import './styles.scss';
 
-const LoginView = ({ loginCredentials: { email, password }, handleChange,
-  onLogin, loading }) => {
+const LoginView = ({ 
+  loginCredentials: { email, password }, handleChange, onLogin, loading 
+}) => {
 
   const { Header, Content } = Layout;
 
@@ -17,7 +18,7 @@ const LoginView = ({ loginCredentials: { email, password }, handleChange,
         <div>
           <Spin spinning={loading}>
             <Card title='Log in to continue' className='formContainer'>
-              <Form onSubmit={onLogin} className='login-form'>
+              <Form onSubmit={onLogin} className='loginForm'>
                 <Input
                   prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder='Email Address'
@@ -33,13 +34,13 @@ const LoginView = ({ loginCredentials: { email, password }, handleChange,
                   value={password}
                 />
                 <Checkbox>Remember me</Checkbox>
-                <a className='login-form-forgot' href='/'>
+                <a className='loginFormForgot' href='/'>
                   Forgot password
                 </a>
                 <Button 
                   type='primary' 
                   htmlType='submit' 
-                  className='login-form-button'
+                  className='loginFormBtn'
                 >
                   Log in
                 </Button>

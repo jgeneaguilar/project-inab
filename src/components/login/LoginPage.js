@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginView from './LoginView';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as userActions from '../../redux/actions/userActions';
+import { userLogin } from '../../redux/actions/userActions';
 
-const LoginPage = ({ actions }) => {
+
+const LoginPage = ({ userLogin }) => {
 
   // Input values
   const [loginCredentials, setloginCredentials] = useState({
@@ -26,7 +26,7 @@ const LoginPage = ({ actions }) => {
   function onLogin(event) {
     event.preventDefault();
     setLoading(true);
-    actions.userLogin(loginCredentials);
+    userLogin(loginCredentials);
   }
 
   return (
@@ -40,16 +40,9 @@ const LoginPage = ({ actions }) => {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      userLogin: bindActionCreators(userActions.userLogin, dispatch)
-    }
-  }
-}
-
 LoginPage.propTypes = {
-  actions: PropTypes.object.isRequired
+  userLogin: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+
+export default connect(null, { userLogin })(LoginPage);

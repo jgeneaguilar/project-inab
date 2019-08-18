@@ -1,5 +1,6 @@
 import { AccountTypes } from '../components/modals/formConstants';
 
+
 // format currency
 export function toCurrency(number) {
   // number is an integer number of cents in string format
@@ -17,9 +18,9 @@ export function getTotalBalance(arr) {
 }
 
 export function getBudgetAccounts(arr) {
-  return arr.filter(account => account.type !== AccountTypes.ASSET_OTHER && account.type !== AccountTypes.LIABILITY_OTHER)
+  return arr.filter(account => account.type !== AccountTypes.ASSET_OTHER && account.type !== AccountTypes.LIABILITY_OTHER);
 }
 
 export function getTrackingAccounts(arr) {
-  return arr.filter(account => account.type === AccountTypes.ASSET_OTHER || account.type === AccountTypes.LIABILITY_OTHER)
+  return arr.filter(account => account.type === AccountTypes.ASSET_OTHER || account.type === AccountTypes.LIABILITY_OTHER);
 }

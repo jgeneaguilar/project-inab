@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux';
 import FormDialog from '../../commons/FormDialog';
-import { hideModal } from '../../redux/actions/modalActions';
 import { Input } from 'antd';
+import { connect } from 'react-redux';
+import { hideModal } from '../../redux/actions/modalActions';
 import { createBudget } from '../../redux/actions/budgetsActions';
+
 
 const CreateBudgetForm = ({ hideModal, createBudget }) => {
 
@@ -22,7 +23,7 @@ const CreateBudgetForm = ({ hideModal, createBudget }) => {
       });
   }
 
-  const handleChange =  ({ target: { name, value }}) => {
+  const handleChange = ({ target: { name, value }}) => {
     setBudgetData({
       ...budgetData,
       [name]: value
@@ -39,7 +40,6 @@ const CreateBudgetForm = ({ hideModal, createBudget }) => {
   };
 
   return (
-    
     <FormDialog
       {...formDialogProps}>
       <Input 
@@ -48,7 +48,7 @@ const CreateBudgetForm = ({ hideModal, createBudget }) => {
         onChange={handleChange}
       />
     </FormDialog>
-  )
+  );
 }
 
 export default connect(

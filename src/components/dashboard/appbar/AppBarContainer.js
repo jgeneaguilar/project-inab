@@ -7,12 +7,10 @@ import { showModal } from '../../../redux/actions/modalActions';
 const AppBarContainer = ({ currentBudget, showModal }) => {
   
   return (
-    <div>
-      <AppBarView 
-        currentBudget={currentBudget}
-        showModal={showModal}
-      />
-    </div>
+    <AppBarView 
+      currentBudget={currentBudget}
+      showModal={showModal}
+    />
   );
 }
 
@@ -22,7 +20,7 @@ AppBarContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { currentBudget: state.currentBudget }
+  return { currentBudget: state.currentBudget };
 }
 
 export default connect(mapStateToProps, { showModal })(AppBarContainer);

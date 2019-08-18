@@ -5,7 +5,7 @@ import LeftDrawerView from './LeftDrawerView';
 import { showModal } from '../../../redux/actions/modalActions';
 import { MODAL_TYPES } from '../../modals';
 
-const LeftDrawerContainer = ({ currentBudget, accounts, showModal }) => {
+const LeftDrawerContainer = ({ accounts, showModal }) => {
 
   function handleClick() {
     showModal(MODAL_TYPES.ADD_ACCOUNT, {})
@@ -25,10 +25,7 @@ LeftDrawerContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { 
-    accounts: state.accounts,
-    currentBudget: state.currentBudget
-  };
+  return { accounts: state.accounts };
 }
 
 export default connect(mapStateToProps, { showModal })(LeftDrawerContainer);

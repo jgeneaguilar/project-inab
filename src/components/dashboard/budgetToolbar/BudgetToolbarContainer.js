@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import BudgetToolbarView from './BudgetToolbarView';
 import { Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { addMasterCategory } from '../../../redux/actions/masterCategoryActions';
+import { 
+  addMasterCategory 
+} from '../../../redux/actions/masterCategoryActions';
 
 
 const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {

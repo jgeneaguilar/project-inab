@@ -6,7 +6,7 @@ import {
   getTotalBalance, 
   getBudgetAccounts,
   getTrackingAccounts
-} from '../../../utils/currenyUtils';
+} from '../../../utils/currencyUtils';
 import './styles.scss';
 
 const LeftDrawerView = ({ accounts, handleClick }) => {

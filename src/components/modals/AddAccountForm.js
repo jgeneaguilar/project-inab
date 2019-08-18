@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import FormDialog from '../../commons/FormDialog';
 import { Input, Select } from 'antd';
+import { connect } from 'react-redux';
 import { BudgetAccounts, TrackingAccounts } from './formConstants';
 import { hideModal } from '../../redux/actions/modalActions';
 import { addAccount } from '../../redux/actions/accountActions';
 
 
-const AddAccountView = ({ hideModal, currentBudget, addAccount }) => {
+const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
 
   const { Option, OptGroup } = Select;
 
@@ -26,7 +26,6 @@ const AddAccountView = ({ hideModal, currentBudget, addAccount }) => {
     });
   }
 
-  // TODO: only 1 onChange function for all fields
   function handleSelect(value) {
     setAccountData({
       ...accountData,
@@ -40,6 +39,8 @@ const AddAccountView = ({ hideModal, currentBudget, addAccount }) => {
       .then(() => {
         setConfirmLoading(false);
         hideModal();
+      }).catch(() => {
+        setConfirmLoading(false); 
       });
   }
 
@@ -93,4 +94,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps, 
   { hideModal, addAccount }
-)(AddAccountView);
+)(AddAccountForm);

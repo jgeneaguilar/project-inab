@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
-const FormDialog = ({ visible, title, children, okText, onCancel, onOk, confirmLoading }) => {
+const FormDialog = ({ 
+  visible, title, children, okText, onCancel, onOk, confirmLoading 
+}) => {
   return (
     <Modal
       visible={visible}
@@ -18,14 +20,13 @@ const FormDialog = ({ visible, title, children, okText, onCancel, onOk, confirmL
   );
 }
 
-// TODO: update the isRequired
 FormDialog.propTypes = {
   visible: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  children: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   okText: PropTypes.string,
-  onCancel: PropTypes.func,
-  onOk: PropTypes.func,
+  onCancel: PropTypes.func.isRequired,
+  onOk: PropTypes.func.isRequired,
   confirmLoading: PropTypes.bool,
 };
 

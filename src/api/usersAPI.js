@@ -12,7 +12,4 @@ export const login = ({ email, password }) => {
     .then(res => res.data);
 }
 
-export const getUserData = () => {
-  console.log(api.defaults.headers.common, "getUserData()")
-  return api.get('/users/me');
-}
+export const getUserData = () => api.get('/users/me');
