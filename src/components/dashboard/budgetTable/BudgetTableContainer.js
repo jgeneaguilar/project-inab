@@ -4,7 +4,9 @@ import BudgetTableView from './BudgetTableView';
 import { connect } from 'react-redux'
 
 
-const BudgetTableContainer = ({ masterCategories }) => {
+const BudgetTableContainer = ({ 
+  currentBudget, masterCategories, categories 
+}) => {
 
   const data = masterCategories.map(masterCategory => (
     {
@@ -13,6 +15,15 @@ const BudgetTableContainer = ({ masterCategories }) => {
       budgeted: 'Php0.00',
       activity: 'Php0.00',
       available: 'Php0.00',
+      children: categories
+        .filter(category => category.master_category_id === masterCategory._id)
+        .map(category => ({
+          key: category._id,
+          category: category.name,
+          budgeted: 'Php0.00',
+          activity: 'Php0.00',
+          available: 'Php0.00',
+        }))
     }
   ));
   
@@ -24,11 +35,17 @@ const BudgetTableContainer = ({ masterCategories }) => {
 }
 
 BudgetTableContainer.propTypes = {
-  masterCategories: PropTypes.array.isRequired
+  currentBudget: PropTypes.object.isRequired,
+  masterCategories: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
-  return { masterCategories: state.masterCategories };
+  return { 
+    currentBudget: state.currentBudget,
+    masterCategories: state.masterCategories,
+    categories: state.categories
+  };
 }
 
 export default connect(mapStateToProps)(BudgetTableContainer);
