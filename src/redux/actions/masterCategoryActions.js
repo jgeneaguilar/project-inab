@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import * as budgetApi from '../../api/budgetsAPI';
+import * as masterCategoryApi from '../../api/masterCategoriesAPI';
 
 
 // Action Creators
@@ -10,7 +10,7 @@ export function addMasterCategorySuccess(masterCategory) {
 // Thunk
 export function addMasterCategory(budgetId, masterCategoryName) {
   return function(dispatch) {
-    return budgetApi.createMasterCategory(budgetId, masterCategoryName)
+    return masterCategoryApi.createMasterCategory(budgetId, masterCategoryName)
       .then(masterCategory => {
         dispatch(addMasterCategorySuccess(masterCategory));
       }).catch(error => {

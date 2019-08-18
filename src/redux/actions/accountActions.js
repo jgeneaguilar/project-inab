@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import * as budgetApi from '../../api/budgetsAPI';
+import * as accountApi from '../../api/accountsAPI';
 
 // Action Creators
 export function addAccountSuccess(account) {
@@ -9,7 +9,7 @@ export function addAccountSuccess(account) {
 // Thunk
 export function addAccount(budgetId, accountData) {
   return function(dispatch) {
-    return budgetApi.createAccount(budgetId, accountData)
+    return accountApi.createAccount(budgetId, accountData)
       .then(account => {
         dispatch(addAccountSuccess(account));
       }).catch(error => {
