@@ -4,6 +4,7 @@ export default {
   currentBudget: null, // type obj
   accounts: [],
   masterCategories: [],
+  categories: [],
   // transactions: [],
   // payees: [],
   modal: {
