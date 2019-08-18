@@ -7,11 +7,12 @@
   display: flex;
   flex-direction: row;
   }
+  .budgetHeaderDivider.ant-divider-vertical {
+    height: 64px;
+  }
 }
 
-.budgetHeaderDivider.ant-divider-vertical {
-  height: 64px;
-}
+
 
 %budget-header-content-flex {
   display: flex;
