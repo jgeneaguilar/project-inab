@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BudgetTableView from './BudgetTableView';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 
 const BudgetTableContainer = ({ 
@@ -11,6 +11,7 @@ const BudgetTableContainer = ({
   const data = masterCategories.map(masterCategory => (
     {
       key: masterCategory._id,
+      type: 'master',
       category: masterCategory.name,
       budgeted: 'Php0.00',
       activity: 'Php0.00',
@@ -19,6 +20,7 @@ const BudgetTableContainer = ({
         .filter(category => category.master_category_id === masterCategory._id)
         .map(category => ({
           key: category._id,
+          type: 'category',
           category: category.name,
           budgeted: 'Php0.00',
           activity: 'Php0.00',
