@@ -27,10 +27,10 @@ const useFormPopover = (onSubmit) => {
   }
 
   function handleSubmit(event) {
-    if (event) event.preventDefault();
+    event.preventDefault();
       onSubmit();
-      onCancel();
   }
+
   return {
     values,
     clicked,

@@ -4,19 +4,12 @@ import BudgetTableView from './BudgetTableView';
 import FormPopover from '../../../commons/FormPopover';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
+import { addCategory } from '../../../redux/actions/categoryActions';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories 
+  currentBudget, masterCategories, categories, addCategory
 }) => {
-
-  function onSubmit() {
-    console.log('Hello from BudgetTable');
-  }
-
-  const onSubmitFunc = (values) => {
-    console.log('params', values)
-  }
   
   const columns = [
     {
@@ -25,12 +18,23 @@ const BudgetTableContainer = ({
       key: 'category',
       render: (text, record) => {
         if (record.type === 'master') {
+
+        function onSubmitFunc(values) {
+          const masterCategoryId = record.key;
+          return addCategory(
+            currentBudget._id, masterCategoryId, values.name
+          );
+        }
+
           return (
             <span className='masterCategoryNameCell'>
               <div className='masterCategoryName'>
                 {text}
               </div>
-              <FormPopover asyncFunc={onSubmitFunc} placeholder='Enter Category Name'>
+              <FormPopover 
+                asyncFunc={onSubmitFunc} 
+                placeholder='Enter Category Name'
+              >
                 <Icon 
                   type='plus-circle' 
                   size='small'
@@ -94,7 +98,8 @@ const BudgetTableContainer = ({
 BudgetTableContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
   masterCategories: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  addCategory: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -105,4 +110,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(BudgetTableContainer);
+
+export default connect(mapStateToProps, { addCategory })(BudgetTableContainer);
