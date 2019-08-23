@@ -14,8 +14,8 @@ const FormPopover = ({ children, placeholder, asyncFunc, params }) => {
   } = useFormPopover(onSubmit);
 
   function onSubmit() {
-    asyncFunc(params, values)
-      .then(() => onCancel()); // exit and clear field
+    asyncFunc(values)
+      // .then(() => onCancel()); // exit and clear field
   }
 
   const title = (

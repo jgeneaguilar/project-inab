@@ -13,6 +13,10 @@ const BudgetTableContainer = ({
   function onSubmit() {
     console.log('Hello from BudgetTable');
   }
+
+  const onSubmitFunc = (values) => {
+    console.log('params', values)
+  }
   
   const columns = [
     {
@@ -26,7 +30,7 @@ const BudgetTableContainer = ({
               <div className='masterCategoryName'>
                 {text}
               </div>
-              <FormPopover placeholder='Enter Category Name'>
+              <FormPopover asyncFunc={onSubmitFunc} placeholder='Enter Category Name'>
                 <Icon 
                   type='plus-circle' 
                   size='small'
