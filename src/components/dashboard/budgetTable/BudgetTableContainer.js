@@ -1,12 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BudgetTableView from './BudgetTableView';
+import FormPopover from '../../../commons/FormPopover';
+import { Icon } from 'antd';
 import { connect } from 'react-redux';
 
 
 const BudgetTableContainer = ({ 
   currentBudget, masterCategories, categories 
 }) => {
+
+  function onSubmit() {
+    console.log('Hello from BudgetTable');
+  }
+  
+  const columns = [
+    {
+      title: 'CATEGORY',
+      dataIndex: 'category',
+      key: 'category',
+      render: (text, record) => {
+        if (record.type === 'master') {
+          return (
+            <span className='masterCategoryNameCell'>
+              <div className='masterCategoryName'>
+                {text}
+              </div>
+              <FormPopover placeholder='Enter Category Name'>
+                <Icon 
+                  type='plus-circle' 
+                  size='small'
+                  title='Add a category'
+                  className='addCategoryIconButton'
+                />
+              </FormPopover>
+            </span>
+          );
+        } else {
+          return text;
+        }
+      }
+    },
+    {
+      title: 'BUDGETED',
+      dataIndex: 'budgeted',
+      key: 'budgeted'
+    },
+    {
+      title: 'ACTIVITY',
+      dataIndex: 'activity',
+      key: 'activity'
+    },
+    {
+      title: 'AVAILABLE',
+      dataIndex: 'available',
+      key: 'available'
+    }
+  ];
 
   const data = masterCategories.map(masterCategory => (
     {
@@ -31,6 +81,7 @@ const BudgetTableContainer = ({
   
   return (
     <BudgetTableView 
+      columns={columns}
       data={data}
     />
   );
