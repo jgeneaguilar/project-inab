@@ -3,6 +3,7 @@ import React, { useEffect, Fragment } from 'react';
 import AuthenticatedRoute from './commons/AuthenticatedRoute';
 import LoginPage from './components/login/LoginPage';
 import DashboardContainer from './components/dashboard/DashboardContainer';
+import SessionExpired from './components/SessionExpired';
 import NotFound from './components/NotFound';
 import './App.css';
 import { Empty } from 'antd';
@@ -38,6 +39,7 @@ function App({ isLoggedIn, checkUserLogin }) {
                 component={DashboardContainer} 
               />
               <Route path='/login' render={() => redirect}  />
+              <Route path='/sessionExpired' component={SessionExpired} />
               <Route component={NotFound} />
             </Switch>
           )

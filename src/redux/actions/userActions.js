@@ -20,7 +20,7 @@ export function userLogin(loginCredentials) {
         setToken(data.token);
         dispatch(userLoginSuccess(data));
         setUserCredentials(data._id, data.token); 
-      });
+      }).catch(error => console.log(error));
   };
 }
 

@@ -14,3 +14,8 @@ export function setUserCredentials(userId, authToken) {
   localStorage.setItem(KEY.USER_ID, userId);
   localStorage.setItem(KEY.AUTH_TOKEN, authToken);
 }
+
+export function removeUserCredentials() {
+  localStorage.removeItem(KEY.USER_ID);
+  localStorage.removeItem(KEY.AUTH_TOKEN);
+}

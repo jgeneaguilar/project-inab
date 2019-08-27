@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { removeUserCredentials } from '../utils/storageUtils';
 
 
 const inabURL = 'https://inab-api.herokuapp.com/api/';
@@ -13,3 +14,17 @@ export const setToken = authToken => {
 }
 
 export default api;
+
+
+// Add a 401 response interceptor
+api.interceptors.response.use(null, function(error) { 
+  if (error.response.status === 401) {
+    console.log('Hey! You can\'t get in here!');
+    removeUserCredentials();
+    function redirectToLogin() {
+      window.location = '/sessionExpired';
+    }
+    redirectToLogin();
+  }
+  return Promise.reject(error);
+});
