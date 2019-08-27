@@ -25,6 +25,7 @@ const LoginView = ({
                   name='email'
                   onChange={handleChange}
                   value={email}
+                  className='loginFormEmailInput'
                 />
                 <Input.Password
                   prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -32,6 +33,7 @@ const LoginView = ({
                   name='password'
                   onChange={handleChange}
                   value={password}
+                  className='loginFormPasswordInput'
                 />
                 <Checkbox>Remember me</Checkbox>
                 <a className='loginFormForgot' href='/'>

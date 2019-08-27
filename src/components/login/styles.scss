@@ -19,12 +19,19 @@
 
 /* Form */
 .loginForm {
-  max-width: 300px;
+  .ant-input-affix-wrapper {
+    margin-bottom: 12px;
+  }
+  .loginFormPasswordInput {
+    margin-bottom: 24px;
+  }
 }
 .loginFormForgot {
   float: right;
+  margin-bottom: 12px;
 }
 .loginFormBtn {
   width: 100%;
+  margin-bottom: 12px;
 }
 
