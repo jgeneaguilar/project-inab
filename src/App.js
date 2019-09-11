@@ -16,7 +16,7 @@ function App({ isLoggedIn, checkUserLogin }) {
 
   useEffect(() => {
     checkUserLogin();
-  }, []);
+  }, [checkUserLogin]);
 
   const redirect = isLoggedIn ? (
     <Redirect to='/dashboard' />

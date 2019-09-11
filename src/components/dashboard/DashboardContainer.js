@@ -9,8 +9,7 @@ const DashboardContainer = ({ currentBudget, loadBudgets }) => {
   
   useEffect(() => {
     loadBudgets();
-    // TODO: research about useCallback();
-  }, []);
+  }, [loadBudgets]);
 
 
   return (
