@@ -1,8 +1,10 @@
 import React from 'react';
-import { PageHeader, Input, Popover, Button } from 'antd';
+import PropTypes from 'prop-types';
+import FormPopover from '../../../commons/FormPopover';
+import { PageHeader, Input, Button } from 'antd';
 import './styles.scss';
 
-const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
+const BudgetToolbarView = ({ asyncFunc }) => {
 
   const { Search } = Input;
 
@@ -13,14 +15,9 @@ const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
         size='small'
         className='budgetToolbarInputFilter'
       />
-      <Popover
-        title={title}
-        content={content}
-        placement='bottom'
-        trigger='click'
-        visible={clicked}
-        onVisibleChange={handleClickChange}
-        overlayClassName='masterCategoryPopover'
+      <FormPopover
+        placeholder='Enter Master Category'
+        asyncFunc={asyncFunc}
       >
         <Button 
           type='primary'
@@ -31,9 +28,13 @@ const BudgetToolbarView = ({ title, content, clicked, handleClickChange }) => {
         >
           Master Category
         </Button>
-      </Popover>
+      </FormPopover>
     </PageHeader>
   );
 }
+
+BudgetToolbarView.propTypes = {
+  asyncFunc: PropTypes.func.isRequired,
+};
 
 export default BudgetToolbarView;

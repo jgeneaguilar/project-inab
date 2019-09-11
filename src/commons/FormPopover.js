@@ -10,19 +10,18 @@ import './styles.scss';
 const FormPopover = ({ children, placeholder, asyncFunc }) => {
 
   const { 
-    values, clicked, handleChange, handleClickChange, handleSubmit, onCancel 
+    inputValue, clicked, handleChange, handleClickChange, handleSubmit, onCancel 
   } = useFormPopover(onSubmit);
 
   function onSubmit() {
-    asyncFunc(values).then(() => onCancel());
+    asyncFunc(inputValue).then(() => onCancel());
   }
 
   const title = (
     <Input 
       ref={(input) => input && input.focus()}
       placeholder={placeholder}
-      name='name'
-      value={values.name}
+      value={inputValue}
       onChange={handleChange}
       onPressEnter={handleSubmit}
     />
@@ -48,16 +47,16 @@ const FormPopover = ({ children, placeholder, asyncFunc }) => {
 
   return (
     <Popover
-        title={title}
-        content={content}
-        placement='bottom'
-        trigger='click'
-        visible={clicked}
-        onVisibleChange={handleClickChange}
-        overlayClassName='formPopover'
-      >
-        {children}
-      </Popover>
+      title={title}
+      content={content}
+      placement='bottom'
+      trigger='click'
+      visible={clicked}
+      onVisibleChange={handleClickChange}
+      overlayClassName='formPopover'
+    >
+      {children}
+    </Popover>
   );
 }
 

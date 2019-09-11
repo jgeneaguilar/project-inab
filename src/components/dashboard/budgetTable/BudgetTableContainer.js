@@ -19,11 +19,9 @@ const BudgetTableContainer = ({
       render: (text, record) => {
         if (record.type === 'master') {
 
-        function onSubmitFunc(values) {
+        function onSubmitFunc(inputValue) {
           const masterCategoryId = record.key;
-          return addCategory(
-            currentBudget._id, masterCategoryId, values.name
-          );
+          return addCategory(currentBudget._id, masterCategoryId, inputValue);
         }
 
           return (
