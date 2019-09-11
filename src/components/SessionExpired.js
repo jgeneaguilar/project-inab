@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 const SessionExpired = props => {
 
-  const [secLeft, setSecLeft] = useState(10);
+  const [secLeft, setSecLeft] = useState(3);
 
   useEffect(() => {
     

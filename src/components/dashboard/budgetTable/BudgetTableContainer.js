@@ -52,17 +52,21 @@ const BudgetTableContainer = ({
     {
       title: 'BUDGETED',
       dataIndex: 'budgeted',
-      key: 'budgeted'
+      key: 'budgeted',
+      className: 'columnMoney',
+      editable: true,
     },
     {
       title: 'ACTIVITY',
       dataIndex: 'activity',
-      key: 'activity'
+      key: 'activity',
+      className: 'columnMoney'
     },
     {
       title: 'AVAILABLE',
       dataIndex: 'available',
-      key: 'available'
+      key: 'available',
+      className: 'columnMoney'
     }
   ];
 
@@ -86,10 +90,30 @@ const BudgetTableContainer = ({
         }))
     }
   ));
+
+  function handleSave(row) {
+    console.log(row);
+  }
+
+  const newColumns = columns.map(col => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: record => ({
+        record,
+        editable: col.editable && record.type === 'category',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        handleSave: handleSave
+      }),
+    };
+  });
   
   return (
     <BudgetTableView 
-      columns={columns}
+      columns={newColumns}
       data={data}
     />
   );

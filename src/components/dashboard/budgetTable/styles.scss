@@ -15,3 +15,27 @@
   }
 }
 
+th.columnMoney,
+td.columnMoney {
+  text-align: right !important;
+}
+
+.budgetedInput.ant-input {
+  width: 100px;
+  height: 24px;
+}
+
+.editable-cell {
+  position: relative;
+}
+
+.editableCellValueWrap {
+  // padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editableRow:hover .editableCellValueWrap {
+  border: 1px solid #1890ff;
+  border-radius: 4px;
+  // padding: 4px 11px;
+}
