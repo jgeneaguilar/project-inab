@@ -5,10 +5,11 @@ import FormPopover from '../../../commons/FormPopover';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
 import { addCategory } from '../../../redux/actions/categoryActions';
+import { updateMasterCategory } from '../../../redux/actions/masterCategoryActions';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories, addCategory
+  currentBudget, masterCategories, categories, addCategory, updateMasterCategory
 }) => {
   
   const columns = [
@@ -17,20 +18,42 @@ const BudgetTableContainer = ({
       dataIndex: 'category',
       key: 'category',
       render: (text, record) => {
-        if (record.type === 'master') {
 
-        function onSubmitFunc(inputValue) {
-          const masterCategoryId = record.key;
-          return addCategory(currentBudget._id, masterCategoryId, inputValue);
+        // Selector
+        function getCatNameById(array) {
+          return array.find(cat => cat._id === record.key);
         }
 
+        const mCat = getCatNameById(masterCategories);
+        // const cat = getCatNameById(categories);
+
+        if (record.type === 'master') {
+
+          function onEditSave(inputValue) {
+            const masterCategoryId = record.key;
+            return updateMasterCategory(
+              currentBudget._id, masterCategoryId, inputValue
+            );
+          }
+
+          function onSubmitAddCat(inputValue) {
+            const masterCategoryId = record.key;
+            return addCategory(currentBudget._id, masterCategoryId, inputValue);
+          }
+          
           return (
             <span className='masterCategoryNameCell'>
               <div className='masterCategoryName'>
-                {text}
+                <FormPopover 
+                  asyncFunc={onEditSave} 
+                  initialValue={mCat.name}
+                  placeholder='Enter Master Category'
+                >
+                 {text}
+                </FormPopover>
               </div>
               <FormPopover 
-                asyncFunc={onSubmitFunc} 
+                asyncFunc={onSubmitAddCat} 
                 placeholder='Enter Category Name'
               >
                 <Icon 
@@ -121,7 +144,8 @@ BudgetTableContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
   masterCategories: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
-  addCategory: PropTypes.func.isRequired
+  addCategory: PropTypes.func.isRequired,
+  updateMasterCategory: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -133,4 +157,7 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { addCategory })(BudgetTableContainer);
+export default connect(
+  mapStateToProps, 
+  { addCategory, updateMasterCategory }
+)(BudgetTableContainer);

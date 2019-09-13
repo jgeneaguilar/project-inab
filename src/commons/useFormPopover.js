@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 
-const useFormPopover = (onSubmit) => {
+const useFormPopover = (asyncFunc, initialValue) => {
 
   const [inputValue, setInputValue] = useState('');
 
   const [clicked, setClicked] = useState(false);
+
 
   function handleChange(event) {
     event.persist();
@@ -14,7 +15,11 @@ const useFormPopover = (onSubmit) => {
 
   function handleClickChange(visible) {
     setClicked(visible);
-    setInputValue('');
+    if (visible) {
+      setInputValue(initialValue);
+    } else {
+      setInputValue('');
+    }
   }
 
   // for the Cancel Button
@@ -24,7 +29,7 @@ const useFormPopover = (onSubmit) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-      onSubmit();
+    asyncFunc(inputValue).then(() => onCancel());
   }
 
   return {

@@ -10,6 +10,10 @@ export default function masterCategoryReducer(
       return action.currentBudget.master_categories;
     case types.ADD_MASTER_CATEGORY_SUCCESS:
       return [ ...state, action.masterCategory ];
+    case types.UPDATE_MASTER_CATEGORY_SUCCESS:
+      return state.map(mCat =>
+        mCat._id === action.masterCategory._id ? action.masterCategory : mCat
+      );
     default:
       return state;
   }

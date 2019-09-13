@@ -7,15 +7,11 @@ import './styles.scss';
 
 // A Popover with an input field and a cancel and submit button
 
-const FormPopover = ({ children, placeholder, asyncFunc }) => {
+const FormPopover = ({ children, placeholder, asyncFunc, initialValue }) => {
 
   const { 
     inputValue, clicked, handleChange, handleClickChange, handleSubmit, onCancel 
-  } = useFormPopover(onSubmit);
-
-  function onSubmit() {
-    asyncFunc(inputValue).then(() => onCancel());
-  }
+  } = useFormPopover(asyncFunc, initialValue);
 
   const title = (
     <Input 
@@ -63,7 +59,8 @@ const FormPopover = ({ children, placeholder, asyncFunc }) => {
 FormPopover.propTypes = {
   children: PropTypes.node.isRequired,
   placeholder: PropTypes.string.isRequired,
-  asyncFunc: PropTypes.func.isRequired
+  asyncFunc: PropTypes.func.isRequired,
+  initialValue: PropTypes.string
 };
 
 export default FormPopover;
