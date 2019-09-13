@@ -5,6 +5,7 @@ export default {
   accounts: [],
   masterCategories: [],
   categories: [],
+  categoryBudgets: [],
   // transactions: [],
   // payees: [],
   modal: {
