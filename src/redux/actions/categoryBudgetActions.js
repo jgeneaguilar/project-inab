@@ -23,7 +23,7 @@ export function addCategoryBudget(budgetId, timespan, categoryId, budgetedAmt) {
 
 export function loadCategoryBudgets(budgetId, timespan) {
   return function(dispatch) {
-    return categoryBudgetsAPI.getCategoryBudget(budgetId, timespan)
+    return categoryBudgetsAPI.getCategoryBudgets(budgetId, timespan)
       .then(categoryBudgets => 
         dispatch(loadCategoryBudgetsSuccess(categoryBudgets))
       ).catch(error => console.log(error));
