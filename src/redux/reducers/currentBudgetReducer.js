@@ -8,7 +8,9 @@ export default function currentBudgetReducer(
   switch(action.type) {
     case types.SET_CURRENT_BUDGET:
       const { _id, name, } = action.currentBudget;
-      return { _id, name }
+      return { ...state, _id, name };
+    case types.SET_CURRENT_TIMESPAN:
+      return { ...state, currentTimespan: action.currentTimespan };
     default:
       return state;
   }
