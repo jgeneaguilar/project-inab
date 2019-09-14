@@ -54,6 +54,8 @@ export class EditableCell extends Component {
           <Input 
             ref={node => (this.input = node)}
             className='budgetedInput'
+            size='small'
+            prefix='$'
             onPressEnter={this.save}
             onBlur={this.save}
           />
