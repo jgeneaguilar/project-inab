@@ -21,6 +21,7 @@ export class EditableCell extends Component {
     this.setState({ editing }, () => {
       if (editing) {
         this.input.focus();
+        this.input.select();
       }
     });
   }

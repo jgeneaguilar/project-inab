@@ -6,8 +6,11 @@ export default function categoryBudgetReducer(
   action
 ) {
   switch(action.type) {
-    case types.ADD_CATEGORY_BUDGET_SUCCESS:
-      return [ ...state, action.categoryBudget ];
+    case types.SAVE_CATEGORY_BUDGET_SUCCESS:
+      return state.map(categoryBudget => 
+        categoryBudget._id === action.categoryBudget._id
+          ? action.categoryBudget : categoryBudget
+        );
     case types.LOAD_CATEGORY_BUDGETS_SUCCESS:
       return [ ...state, ...action.categoryBudgets ];
     default:

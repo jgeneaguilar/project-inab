@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as budgetApi from '../../api/budgetsAPI';
 import { loadCategoryBudgets } from './categoryBudgetActions';
+import { TIMESPAN } from './timespan';
 
 
 // Action Creators
@@ -8,8 +9,6 @@ export function setCurrentBudget(currentBudget) {
   return { type: types.SET_CURRENT_BUDGET, currentBudget };
 }
 
-// TIMESPAN is HARDCODED for now
-const TIMESPAN = '092019';
 
 // Thunk
 export function loadBudget(budgetId) {

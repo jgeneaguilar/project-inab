@@ -2,8 +2,8 @@ import * as types from './actionTypes';
 import * as categoryBudgetsAPI from '../../api/categoryBudgetsAPI';
 
 // Action Creators
-function addCategoryBudgetSuccess(categoryBudget) {
-  return { type: types.ADD_CATEGORY_BUDGET_SUCCESS, categoryBudget };
+function saveCategoryBudgetSuccess(categoryBudget) {
+  return { type: types.SAVE_CATEGORY_BUDGET_SUCCESS, categoryBudget };
 }
 
 function loadCategoryBudgetsSuccess(categoryBudgets) {
@@ -12,11 +12,11 @@ function loadCategoryBudgetsSuccess(categoryBudgets) {
 
 
 // Thunk
-export function addCategoryBudget(budgetId, timespan, categoryId, budgetedAmt) {
+export function saveCategoryBudget(budgetId, timespan, categoryId, budgetedAmt) {
   return function(dispatch) {
     return categoryBudgetsAPI.createCategoryBudget(
       budgetId, timespan, categoryId, budgetedAmt
-    ).then(categoryBudget => dispatch(addCategoryBudgetSuccess(categoryBudget)))
+    ).then(categoryBudget => dispatch(saveCategoryBudgetSuccess(categoryBudget)))
     .catch(error => console.log(error));
   };
 }

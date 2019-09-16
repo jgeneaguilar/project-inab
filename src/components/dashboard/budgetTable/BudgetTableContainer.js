@@ -6,11 +6,13 @@ import { Icon } from 'antd';
 import { connect } from 'react-redux';
 import { addCategory } from '../../../redux/actions/categoryActions';
 import { updateMasterCategory } from '../../../redux/actions/masterCategoryActions';
+import { saveCategoryBudget } from '../../../redux/actions/categoryBudgetActions';
 import { toDecimal } from '../../../utils/currencyUtils';
+import { TIMESPAN } from '../../../redux/actions/timespan';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets
+  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget
 }) => {
 
   const columns = [
@@ -122,7 +124,8 @@ const BudgetTableContainer = ({
   }
 
   function handleSave(row) {
-    console.log(row);
+    const budgeted = row.budgeted * 100;
+    saveCategoryBudget(currentBudget._id, TIMESPAN, row.key, budgeted);
   }
 
   const newColumns = columns.map(col => {
@@ -169,5 +172,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps, 
-  { addCategory, updateMasterCategory }
+  { addCategory, updateMasterCategory, saveCategoryBudget }
 )(BudgetTableContainer);
