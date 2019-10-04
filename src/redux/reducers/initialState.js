@@ -5,6 +5,7 @@ export default {
   accounts: [],
   masterCategories: [],
   categories: [],
+  currentTimespan: '',
   categoryBudgets: [],
   // transactions: [],
   // payees: [],

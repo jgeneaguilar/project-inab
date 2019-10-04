@@ -5,6 +5,7 @@ import currentBudget from './currentBudgetReducer';
 import accounts from './accountReducer';
 import masterCategories from './masterCategoryReducer';
 import categories from './categoryReducer';
+import currentTimespan from './timespanReducer';
 import categoryBudgets from './categoryBudgetReducer';
 import modal from './modalReducer';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   accounts,
   masterCategories,
   categories,
+  currentTimespan,
   categoryBudgets,
   modal
 });
