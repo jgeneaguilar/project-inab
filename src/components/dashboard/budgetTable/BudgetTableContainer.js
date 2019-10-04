@@ -8,11 +8,10 @@ import { addCategory } from '../../../redux/actions/categoryActions';
 import { updateMasterCategory } from '../../../redux/actions/masterCategoryActions';
 import { saveCategoryBudget } from '../../../redux/actions/categoryBudgetActions';
 import { toDecimal } from '../../../utils/currencyUtils';
-import { TIMESPAN } from '../../../redux/actions/timespan';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget
+  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget, currentTimespan
 }) => {
 
   const columns = [
@@ -22,7 +21,6 @@ const BudgetTableContainer = ({
       key: 'category',
       render: (text, record) => {
 
-        // Selector
         function getCatNameById(array) {
           return array.find(cat => cat._id === record.key);
         }
@@ -108,24 +106,22 @@ const BudgetTableContainer = ({
           key: category._id,
           type: 'category',
           category: category.name,
-          budgeted: toDecimal(getCategoryBudgetByCatId(categoryBudgets, category)),
+          budgeted: toDecimal(getBudgeted(categoryBudgets, category._id)),
           activity: 'Php0.00',
           available: 'Php0.00',
         }))
     }
   ));
 
+    
+    function getBudgeted(array, id) {
+      return array[id] ? array[id]['budgeted'] : '0';
+    }
 
-  function getCategoryBudgetByCatId(arr, category) {
-    const categoryBudget = arr.find(
-      catBudget => catBudget.category_id === category._id
-    );
-    return categoryBudget ? categoryBudget.budgeted : '000';
-  }
 
   function handleSave(row) {
     const budgeted = row.budgeted * 100;
-    saveCategoryBudget(currentBudget._id, TIMESPAN, row.key, budgeted);
+    saveCategoryBudget(currentBudget._id, currentTimespan, row.key, budgeted);
   }
 
   const newColumns = columns.map(col => {
@@ -165,7 +161,8 @@ function mapStateToProps(state) {
     currentBudget: state.currentBudget,
     masterCategories: state.masterCategories,
     categories: state.categories,
-    categoryBudgets: state.categoryBudgets
+    categoryBudgets: state.categoryBudgets,
+    currentTimespan: state.currentTimespan,
   };
 }
 

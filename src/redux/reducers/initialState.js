@@ -6,7 +6,7 @@ export default {
   masterCategories: [],
   categories: [],
   currentTimespan: '',
-  categoryBudgets: [],
+  categoryBudgets: {},
   // transactions: [],
   // payees: [],
   modal: {

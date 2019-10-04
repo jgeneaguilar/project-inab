@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { loadBudgets } from '../../redux/actions/budgetsActions';
 
 
-const DashboardContainer = ({ currentBudget, loadBudgets }) => {
+const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets }) => {
   
   useEffect(() => {
     loadBudgets();
@@ -13,7 +13,7 @@ const DashboardContainer = ({ currentBudget, loadBudgets }) => {
 
 
   return (
-    currentBudget ? (
+    currentTimespan && currentBudget ? (
     <Fragment>
       <DashboardView />
       <ModalRoot />
@@ -23,7 +23,8 @@ const DashboardContainer = ({ currentBudget, loadBudgets }) => {
 
 function mapStateToProps(state) {
   return {
-    currentBudget: state.currentBudget
+    currentBudget: state.currentBudget,
+    currentTimespan: state.currentTimespan,
   };
 }
 

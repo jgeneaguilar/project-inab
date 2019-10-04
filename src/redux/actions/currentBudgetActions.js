@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import * as budgetApi from '../../api/budgetsAPI';
-import { loadCategoryBudgets } from './categoryBudgetActions';
-import { TIMESPAN } from './timespan';
+import { loadTimespanElements } from './timespanActions';
+import { TIMESPAN } from '../../utils/timeUtils';
 
 
 // Action Creators
@@ -18,8 +18,9 @@ export function loadBudget(budgetId) {
         dispatch(setCurrentBudget(budget));
 
         if (Object.keys(budget).length > 0) {
-          dispatch(loadCategoryBudgets(budget._id, TIMESPAN))
+          // uses hardcoded timespan for now
+          dispatch(loadTimespanElements(budget._id, TIMESPAN))
         }
-      });
+      }).catch(error => console.log(error));
   };
 }
