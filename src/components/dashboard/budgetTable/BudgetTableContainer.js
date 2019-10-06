@@ -92,12 +92,16 @@ const BudgetTableContainer = ({
     }
   ];
 
-  const data = masterCategories.map(masterCategory => (
-    {
+  const data = masterCategories
+    .map(item => mapCategories(item, categories, categoryBudgets));
+
+
+  function mapCategories(masterCategory, categories, categoryBudgets) {
+    return {
       key: masterCategory._id,
       type: 'master',
       category: masterCategory.name,
-      budgeted: 'Php0.00',
+      budgeted: toDecimal(getTotalBudgeted(masterCategory, categories, categoryBudgets)),
       activity: 'Php0.00',
       available: 'Php0.00',
       children: categories
@@ -110,17 +114,31 @@ const BudgetTableContainer = ({
           activity: 'Php0.00',
           available: 'Php0.00',
         }))
-    }
-  ));
+    };
+  }
 
-    
-    function getBudgeted(array, id) {
-      return array[id] ? array[id]['budgeted'] : '0';
-    }
+  // TODO: Refactor
+  function getTotalBudgeted(masterCategory, categories, categoryBudgets) {
+    return categories
+      // filter by master category id
+      .filter(c => c.master_category_id === masterCategory._id)
+      // new array of budgeted amount
+      .map(c => categoryBudgets[c._id] ? 
+          categoryBudgets[c._id]['budgeted'] : 0
+      // sum of budgeted amount
+      ).reduce((a, b) => a + b, 0);
+  }
+  
+  function getBudgeted(obj, id) {
+    return obj[id] ? obj[id]['budgeted'] : '0';
+  }
 
 
   function handleSave(row) {
-    const budgeted = row.budgeted * 100;
+    // TODO: use <InputNumber /> in EditableBudgetTable instead
+    const str = row.budgeted.replace(',', '');
+    const num = parseInt(str);
+    const budgeted = num * 100;
     saveCategoryBudget(currentBudget._id, currentTimespan, row.key, budgeted);
   }
 
