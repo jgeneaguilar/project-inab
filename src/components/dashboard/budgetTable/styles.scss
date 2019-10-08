@@ -18,11 +18,18 @@
 th.columnMoney,
 td.columnMoney {
   text-align: right !important;
+  .ant-form-item-control {
+    line-height: 0;
+  }
+  .ant-input-affix-wrapper,
+  .ant-input {
+    text-align: right;
+  }
 }
 
 .budgetedInput.ant-input {
   width: 100px;
-  height: 24px;
+  height: 23px;
 }
 
 .editable-cell {
@@ -30,12 +37,13 @@ td.columnMoney {
 }
 
 .editableCellValueWrap {
-  // padding: 5px 12px;
+  // invisible border
+  border: 1px solid #fff;
   cursor: pointer;
 }
 
 .editableRow:hover .editableCellValueWrap {
   border: 1px solid #1890ff;
   border-radius: 4px;
-  // padding: 4px 11px;
+
 }
