@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FormDialog from '../../commons/FormDialog';
+import './modals.styles.scss';
 import { Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { BudgetAccounts, TrackingAccounts } from './formConstants';
@@ -58,6 +59,7 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
       {...formDialogProps}
     >
       <Select
+        className='accountFormSelectType'
         placeholder='Select an Account type'
         style={{ width: '100%' }}
         onChange={handleSelect}
@@ -74,11 +76,13 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
         </OptGroup>
       </Select>
       <Input 
+        className='accountFormInputNickname'
         placeholder='Account Nickname'
         name='name'
         onChange={handleChange}
       />
-      <Input 
+      <Input
+        className='accountFormInputBalance' 
         placeholder='Current Account Balance'
         name='balance'
         onChange={handleChange}
