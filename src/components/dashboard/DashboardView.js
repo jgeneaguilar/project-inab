@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import './styles.scss';
 import AppBarContainer from './appbar/AppBarContainer';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
-import BudgetHeaderView from './budgetHeader/BudgetHeaderView';
+import BudgetHeaderContainer from './budgetHeader/BudgetHeaderContainer';
 import BudgetToolbarContainer from './budgetToolbar/BudgetToolbarContainer';
 import BudgetTableContainer from './budgetTable/BudgetTableContainer';
 
@@ -19,7 +19,7 @@ const DashboardView = () => {
         <LeftDrawerContainer />
         <Layout className='dashboardBudgetContainer'>
           <header className='dashboardBudgetHeader'>
-            <BudgetHeaderView />
+            <BudgetHeaderContainer />
             <BudgetToolbarContainer />
           </header>
           <Content className='dashboardBudgetContent'>

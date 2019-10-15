@@ -1,6 +1,5 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-import { TIMESPAN } from '../../utils/timeUtils';
 
 export default function currentTimespanReducer(
   state = initialState.currentTimespan,
@@ -8,7 +7,7 @@ export default function currentTimespanReducer(
 ) {
   switch(action.type) {
     case types.SET_CURRENT_TIMESPAN:
-      return TIMESPAN;
+      return action.timespan;
     default:
       return state;
   }

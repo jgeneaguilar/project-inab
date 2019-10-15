@@ -1,11 +1,12 @@
 import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import DashboardView from './DashboardView';
 import ModalRoot from '../modals';
 import { connect } from 'react-redux';
 import { loadBudgets } from '../../redux/actions/budgetsActions';
 
 
-const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets }) => {
+const DashboardContainer = ({ currentBudget, loadBudgets }) => {
   
   useEffect(() => {
     loadBudgets();
@@ -13,7 +14,7 @@ const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets }) => 
 
 
   return (
-    currentTimespan && currentBudget ? (
+    currentBudget ? (
     <Fragment>
       <DashboardView />
       <ModalRoot />
@@ -21,10 +22,14 @@ const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets }) => 
   )
 }
 
+DashboardContainer.propTypes = {
+  currentBudget: PropTypes.object,
+  loadBudgets: PropTypes.func.isRequired,
+};
+
 function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
-    currentTimespan: state.currentTimespan,
   };
 }
 

@@ -1,14 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PageHeader, Icon, Divider } from 'antd';
 import './styles.scss';
+import { type } from './BudgetHeaderContainer';
+import { formatMonthDisplay } from '../../../utils/timeUtils';
 
-const BudgetHeaderView = () => {
+
+const BudgetHeaderView = ({ month, dispatch }) => {
   return (
     <PageHeader className='budgetHeaderContainer'>
       <div className='budgetHeaderMonth'>
-        <Icon type='left-circle' />
-        <h3>July 2019</h3>
-        <Icon type='right-circle' />
+        <Icon 
+          type='left-circle' 
+          onClick={() => dispatch({ type: type.decrement })}
+        />
+        <h3>{formatMonthDisplay(month)}</h3>
+        <Icon 
+          type='right-circle' 
+          onClick={() => dispatch({ type: type.increment })
+        }/>
       </div>
       <Divider type='vertical' className='budgetHeaderDivider' />
       <div className='budgetHeaderStats'>
@@ -34,5 +44,10 @@ const BudgetHeaderView = () => {
     </PageHeader>
   );
 }
+
+BudgetHeaderView.propTypes = {
+  month: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 export default BudgetHeaderView;
