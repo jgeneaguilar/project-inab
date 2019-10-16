@@ -1,10 +1,25 @@
 import api from './baseAPI';
 
+
+let call;
+
+function getOnlyOnce(config) {
+  // cancel previous requests
+  if (call) {
+    call.cancel('Request cancelled. Only one request is allowed at a time.');
+  }
+  call = api.CancelToken.source();
+  config.cancelToken = call.token;
+
+  return api(config);
+}
+
 export const getTimespanElements = (budgetId, timespan) => {
-  const params = {
-    timespan
+  let config = {
+    method: 'get',
+    url: `/budgets/${budgetId}/timespan`,
+    params: { timespan }
   };
 
-  return api.get(`/budgets/${budgetId}/timespan`, { params })
-    .then(res => res.data);
+  return getOnlyOnce(config).then(res => res.data);
 }
