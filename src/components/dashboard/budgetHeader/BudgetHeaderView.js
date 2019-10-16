@@ -4,9 +4,13 @@ import { PageHeader, Icon, Divider } from 'antd';
 import './styles.scss';
 import { type } from './BudgetHeaderContainer';
 import { formatMonthDisplay } from '../../../utils/timeUtils';
+import { 
+  getTotalBalance, 
+  getBudgetAccounts,
+} from '../../../utils/currencyUtils';
 
 
-const BudgetHeaderView = ({ month, dispatch }) => {
+const BudgetHeaderView = ({ month, dispatch, accounts }) => {
   return (
     <PageHeader className='budgetHeaderContainer'>
       <div className='budgetHeaderMonth'>
@@ -23,7 +27,7 @@ const BudgetHeaderView = ({ month, dispatch }) => {
       <Divider type='vertical' className='budgetHeaderDivider' />
       <div className='budgetHeaderStats'>
         <div className='budgetHeaderTBB'>
-          <h3>Php 0.00</h3>
+          <h3>{getTotalBalance(getBudgetAccounts(accounts))}</h3>
           <h5>To be Budgeted</h5>
         </div>
         <div className='budgetHeaderTotals'>
@@ -47,7 +51,8 @@ const BudgetHeaderView = ({ month, dispatch }) => {
 
 BudgetHeaderView.propTypes = {
   month: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  accounts: PropTypes.array.isRequired,
 };
 
 export default BudgetHeaderView;

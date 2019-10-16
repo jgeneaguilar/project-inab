@@ -26,7 +26,7 @@ function monthReducer(state, action) {
 }
 
 
-const BudgetHeaderContainer = ({ currentBudget, loadTimespanElements }) => {
+const BudgetHeaderContainer = ({ currentBudget, accounts, loadTimespanElements }) => {
 
   const initialState = { month: currentMonth };
 
@@ -43,18 +43,21 @@ const BudgetHeaderContainer = ({ currentBudget, loadTimespanElements }) => {
     <BudgetHeaderView 
       month={state.month}
       dispatch={dispatch}
+      accounts={accounts}
     />
   );
 }
 
 BudgetHeaderContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
+  accounts: PropTypes.array.isRequired,
   loadTimespanElements: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    currentBudget: state.currentBudget
+    currentBudget: state.currentBudget,
+    accounts: state.accounts
   };
 }
 
