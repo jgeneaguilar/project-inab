@@ -9,13 +9,13 @@ const LeftDrawerContainer = ({ accounts, showModal }) => {
 
   // Create a single handleClick function??
   function handleClick(antProps) {
-    showModal(MODAL_TYPES.ADD_ACCOUNT, {})
+    showModal(MODAL_TYPES.UPDATE_ACCOUNT, {})
   }
 
   function handleEditClick(antProps) {
     const acctData = accounts.find(acct => acct._id === antProps.key);
     const { name, type: accountType, balance } = acctData;
-    showModal(MODAL_TYPES.ADD_ACCOUNT, {
+    showModal(MODAL_TYPES.UPDATE_ACCOUNT, {
       currentValue: { name, accountType, balance }
     });
   }

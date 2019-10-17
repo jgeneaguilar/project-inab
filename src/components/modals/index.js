@@ -1,17 +1,17 @@
 import React from 'react';
-import AddAccountForm from './AddAccountForm';
+import UpdateAccountForm from './UpdateAccountForm';
 import { connect } from 'react-redux';
 import CreateBudgetForm from './CreateBudgetForm';
 
 
 export const MODAL_COMPONENTS = {
-  ADD_ACCOUNT: AddAccountForm,
+  UPDATE_ACCOUNT: UpdateAccountForm,
   CREATE_BUDGET: CreateBudgetForm
 };
 
 // to be used by the showModal() action creator
 export const MODAL_TYPES = {
-  ADD_ACCOUNT: 'ADD_ACCOUNT',
+  UPDATE_ACCOUNT: 'UPDATE_ACCOUNT',
   CREATE_BUDGET: 'CREATE_BUDGET'
 };
 

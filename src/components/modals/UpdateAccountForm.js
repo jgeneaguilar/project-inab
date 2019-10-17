@@ -9,7 +9,7 @@ import { hideModal } from '../../redux/actions/modalActions';
 import { addAccount } from '../../redux/actions/accountActions';
 
 
-const AddAccountForm = ({ hideModal, currentBudget, addAccount, currentValue }) => {
+const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue }) => {
   const { Option, OptGroup } = Select;
 
   let initialValue = currentValue || 
@@ -101,7 +101,7 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount, currentValue }) 
   );
 }
 
-AddAccountForm.propTypes = {
+UpdateAccountForm.propTypes = {
   hideModal: PropTypes.func.isRequired,
   currentBudget: PropTypes.object.isRequired,
   addAccount: PropTypes.func.isRequired,
@@ -115,4 +115,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps, 
   { hideModal, addAccount }
-)(AddAccountForm);
+)(UpdateAccountForm);
