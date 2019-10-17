@@ -7,13 +7,23 @@ import { MODAL_TYPES } from '../../modals';
 
 const LeftDrawerContainer = ({ accounts, showModal }) => {
 
-  function handleClick() {
+  // Create a single handleClick function??
+  function handleClick(antProps) {
     showModal(MODAL_TYPES.ADD_ACCOUNT, {})
+  }
+
+  function handleEditClick(antProps) {
+    const acctData = accounts.find(acct => acct._id === antProps.key);
+    const { name, type: accountType, balance } = acctData;
+    showModal(MODAL_TYPES.ADD_ACCOUNT, {
+      currentValue: { name, accountType, balance }
+    });
   }
 
   return (
     <LeftDrawerView 
       handleClick={handleClick}
+      handleEditClick={handleEditClick}
       accounts={accounts}
     />
   );

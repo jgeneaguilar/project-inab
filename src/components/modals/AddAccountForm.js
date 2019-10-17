@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import FormDialog from '../../commons/FormDialog';
 import './modals.styles.scss';
 import { Input, Select } from 'antd';
@@ -8,15 +9,16 @@ import { hideModal } from '../../redux/actions/modalActions';
 import { addAccount } from '../../redux/actions/accountActions';
 
 
-const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
-
+const AddAccountForm = ({ hideModal, currentBudget, addAccount, currentValue }) => {
   const { Option, OptGroup } = Select;
 
-  const [accountData, setAccountData] = useState({
-    name: '',
-    accountType: '',
-    balance: ''
-  });
+  let initialValue = currentValue || 
+    // accountType's default value is undefined so that the placeholder will
+    // show. It won't show if the value is null or ''.
+    // https://github.com/ant-design/ant-design/issues/16417
+    { name: '', accountType: undefined, balance: '' };
+
+  const [accountData, setAccountData] = useState(initialValue);
 
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -54,6 +56,11 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
     confirmLoading: confirmLoading
   };
 
+  if (currentValue) {
+    formDialogProps.title = 'Edit Account';
+    formDialogProps.okText = 'Save';
+  }
+
   return (
     <FormDialog
       {...formDialogProps}
@@ -63,6 +70,7 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
         placeholder='Select an Account type'
         style={{ width: '100%' }}
         onChange={handleSelect}
+        value={accountData.accountType}
       >
         <OptGroup label='Budget'>
           {BudgetAccounts.map(account => (
@@ -80,16 +88,25 @@ const AddAccountForm = ({ hideModal, currentBudget, addAccount }) => {
         placeholder='Account Nickname'
         name='name'
         onChange={handleChange}
+        value={accountData.name}
       />
       <Input
         className='accountFormInputBalance' 
         placeholder='Current Account Balance'
         name='balance'
         onChange={handleChange}
+        value={accountData.balance}
       />
     </FormDialog>
   );
 }
+
+AddAccountForm.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+  currentBudget: PropTypes.object.isRequired,
+  addAccount: PropTypes.func.isRequired,
+  currentValue: PropTypes.object,
+};
 
 function mapStateToProps(state) {
   return { currentBudget: state.currentBudget };

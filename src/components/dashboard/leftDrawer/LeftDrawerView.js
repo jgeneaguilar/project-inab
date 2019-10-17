@@ -9,7 +9,7 @@ import {
 } from '../../../utils/currencyUtils';
 import './styles.scss';
 
-const LeftDrawerView = ({ accounts, handleClick }) => {
+const LeftDrawerView = ({ accounts, handleClick, handleEditClick }) => {
 
   const { Item, SubMenu, Divider } = Menu;
 
@@ -51,7 +51,8 @@ const LeftDrawerView = ({ accounts, handleClick }) => {
             }
           >
             {getBudgetAccounts(accounts).map(account => (
-              <Item key={account._id}>
+              <Item key={account._id} onClick={handleEditClick}>
+                <Icon type='form' />
                 <span className='leftDrawerMenuTitle'>{account.name}</span>
                 <span className='leftDrawerMenuAmount'>
                   {toCurrency(account.balance)}
@@ -88,13 +89,11 @@ const LeftDrawerView = ({ accounts, handleClick }) => {
 
         <Divider type='horizontal' className='leftDrawerDivider' />
 
-        {/* TODO: research a better way to implement the Add Account Button */}
-        <Item
-          onClick={handleClick}
-        >
+        <Item>
           <Button 
             type='primary' 
             icon='plus-circle'
+            onClick={handleClick}
           >
             Add Account
           </Button>
