@@ -11,6 +11,8 @@ export default function accountReducer(state = initialState.accounts, action) {
       return state.map(acct => 
           acct._id === action.account._id ? action.account : acct
         );
+    case types.DELETE_ACCOUNT_SUCCESS:
+      return state.filter(acct => acct._id !== action.accountId);
     default:
       return state;
   }

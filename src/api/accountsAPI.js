@@ -21,3 +21,9 @@ export const saveAccount = (budgetId, accountId, accountData) => {
     .patch(`budgets/${budgetId}/accounts/${accountId}`, params)
     .then(res => res.data);
 }
+
+export const deleteAccount = (budgetId, accountId) => {
+  return api
+    .delete(`budgets/${budgetId}/accounts/${accountId}`)
+    .then(res => res.data);
+}
