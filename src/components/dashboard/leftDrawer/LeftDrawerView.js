@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
 import { 
@@ -9,7 +9,9 @@ import {
 } from '../../../utils/currencyUtils';
 import './styles.scss';
 
-const LeftDrawerView = ({ accounts, handleClick, handleEditClick }) => {
+const LeftDrawerView = ({ 
+  accounts, handleClick, handleEditClick, handleDeleteClick 
+}) => {
 
   const { Item, SubMenu, Divider } = Menu;
 
@@ -51,8 +53,27 @@ const LeftDrawerView = ({ accounts, handleClick, handleEditClick }) => {
             }
           >
             {getBudgetAccounts(accounts).map(account => (
-              <Item key={account._id} onClick={handleEditClick}>
-                <Icon type='form' />
+              <Item 
+                key={account._id}
+                itemIcon={(MenuItemProps) => MenuItemProps.active 
+                  ? (
+                    <Fragment>
+                      <Icon 
+                        type='edit' 
+                        onClick={() => handleEditClick(account._id)}
+                        className='editAccountIcon'
+                        // Used inline styling to override just this icon
+                        // May transfer to scss, if able
+                        style={{ margin: '0 4px' }}
+                      />
+                      <Icon 
+                        type='delete' 
+                        onClick={() => handleDeleteClick(account._id)}
+                        className='deleteAccountIcon'
+                        />
+                    </Fragment>
+                  ) : null}
+              >
                 <span className='leftDrawerMenuTitle'>{account.name}</span>
                 <span className='leftDrawerMenuAmount'>
                   {toCurrency(account.balance)}
