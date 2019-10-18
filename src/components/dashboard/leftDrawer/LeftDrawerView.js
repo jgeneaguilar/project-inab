@@ -8,6 +8,8 @@ import {
   getTrackingAccounts
 } from '../../../utils/currencyUtils';
 import './styles.scss';
+import ConfirmPopover from '../../../commons/ConfirmPopover';
+
 
 const LeftDrawerView = ({ 
   accounts, handleClick, handleEditClick, handleDeleteClick 
@@ -66,11 +68,16 @@ const LeftDrawerView = ({
                         // May transfer to scss, if able
                         style={{ margin: '0 4px' }}
                       />
-                      <Icon 
-                        type='delete' 
-                        onClick={() => handleDeleteClick(account._id)}
-                        className='deleteAccountIcon'
-                        />
+                      <ConfirmPopover
+                        title='Delete this account?'
+                        asyncFunc={() => handleDeleteClick(account._id)}
+                        okType='danger'
+                      >
+                        <Icon 
+                          type='delete' 
+                          className='deleteAccountIcon'
+                          />
+                      </ConfirmPopover>
                     </Fragment>
                   ) : null}
               >
@@ -99,7 +106,32 @@ const LeftDrawerView = ({
             }
           >
             {getTrackingAccounts(accounts).map(account => (
-              <Item key={account._id}>
+              <Item 
+                key={account._id}
+                itemIcon={(MenuItemProps) => MenuItemProps.active 
+                  ? (
+                    <Fragment>
+                      <Icon 
+                        type='edit' 
+                        onClick={() => handleEditClick(account._id)}
+                        className='editAccountIcon'
+                        // Used inline styling to override just this icon
+                        // May transfer to scss, if able
+                        style={{ margin: '0 4px' }}
+                      />
+                      <ConfirmPopover
+                        title='Delete this account?'
+                        asyncFunc={() => handleDeleteClick(account._id)}
+                        okType='danger'
+                      >
+                        <Icon 
+                          type='delete' 
+                          className='deleteAccountIcon'
+                          />
+                      </ConfirmPopover>
+                    </Fragment>
+                  ) : null}
+              >
                 <span className='leftDrawerMenuTitle'>{account.name}</span>
                 <span className='leftDrawerMenuAmount'>
                   {toCurrency(account.balance)}
