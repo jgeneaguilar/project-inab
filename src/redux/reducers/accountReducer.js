@@ -7,6 +7,10 @@ export default function accountReducer(state = initialState.accounts, action) {
       return action.currentBudget.accounts;
     case types.ADD_ACCOUNT_SUCCESS:
       return [ ...state, action.account ];
+    case types.UPDATE_ACCOUNT_SUCCESS:
+      return state.map(acct => 
+          acct._id === action.account._id ? action.account : acct
+        );
     default:
       return state;
   }

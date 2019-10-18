@@ -47,6 +47,13 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue 
       });
   }
 
+  // temporary function for edit, until PATCH has been added
+  // don't forget to add 'updateAccount' action creator
+  function handleEditSubmit() {
+    console.log('Hello from Edit Submit function');
+    console.log(accountData);
+  }
+
   const formDialogProps = {
     visible: true,
     title: 'Add New Account',
@@ -59,6 +66,7 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue 
   if (currentValue) {
     formDialogProps.title = 'Edit Account';
     formDialogProps.okText = 'Save';
+    formDialogProps.onOk = handleEditSubmit;
   }
 
   return (
@@ -71,6 +79,7 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue 
         style={{ width: '100%' }}
         onChange={handleSelect}
         value={accountData.accountType}
+        disabled={Boolean(currentValue)}
       >
         <OptGroup label='Budget'>
           {BudgetAccounts.map(account => (
