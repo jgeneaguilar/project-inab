@@ -57,7 +57,7 @@ const LeftDrawerView = ({
             {getBudgetAccounts(accounts).map(account => (
               <Item 
                 key={account._id}
-                itemIcon={(MenuItemProps) => MenuItemProps.active 
+                itemIcon={(MenuItemProps) => MenuItemProps.active
                   ? (
                     <Fragment>
                       <Icon 
@@ -66,7 +66,7 @@ const LeftDrawerView = ({
                         className='editAccountIcon'
                         // Used inline styling to override just this icon
                         // May transfer to scss, if able
-                        style={{ margin: '0 4px' }}
+                        style={{ marginLeft: '4px', position: 'absolute', left: '8px', top: '13.5px' }}
                       />
                       <ConfirmPopover
                         title='Delete this account?'
@@ -76,7 +76,8 @@ const LeftDrawerView = ({
                         <Icon 
                           type='delete' 
                           className='deleteAccountIcon'
-                          />
+                          style={{ position: 'absolute', left: '30px', top: '13.5px' }}
+                        />
                       </ConfirmPopover>
                     </Fragment>
                   ) : null}
@@ -117,7 +118,7 @@ const LeftDrawerView = ({
                         className='editAccountIcon'
                         // Used inline styling to override just this icon
                         // May transfer to scss, if able
-                        style={{ margin: '0 4px' }}
+                        style={{ marginLeft: '4px', position: 'absolute', left: '8px', top: '13.5px' }}
                       />
                       <ConfirmPopover
                         title='Delete this account?'
@@ -127,7 +128,8 @@ const LeftDrawerView = ({
                         <Icon 
                           type='delete' 
                           className='deleteAccountIcon'
-                          />
+                          style={{ position: 'absolute', left: '30px', top: '13.5px' }}
+                        />
                       </ConfirmPopover>
                     </Fragment>
                   ) : null}
