@@ -11,7 +11,8 @@ export const createAccount = (budgetId, { name, accountType, balance }) => {
   return api.post(`budgets/${budgetId}/accounts`, param).then(res => res.data);
 }
 
-export const saveAccount = (budgetId, accountId, accountData) => {
+export const saveAccount = (budgetId, accountData) => {
+  const { _id: accountId } = accountData;
   const params = {
     name: accountData.name,
     balance: accountData.balance

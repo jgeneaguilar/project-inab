@@ -26,9 +26,9 @@ export function addAccount(budgetId, accountData) {
   };
 } 
 
-export function updateAccount(budgetId, accountId, accountData) {
+export function updateAccount(budgetId, accountData) {
   return function(dispatch) {
-    return accountApi.saveAccount(budgetId, accountId, accountData)
+    return accountApi.saveAccount(budgetId, accountData)
       .then(account => dispatch(updateAccountSuccess(account)))
       .catch(error => console.log(error));
   };

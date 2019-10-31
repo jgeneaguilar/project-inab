@@ -6,17 +6,17 @@ import { Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { BudgetAccounts, TrackingAccounts } from './formConstants';
 import { hideModal } from '../../redux/actions/modalActions';
-import { addAccount } from '../../redux/actions/accountActions';
+import { addAccount, updateAccount } from '../../redux/actions/accountActions';
 
 
-const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue }) => {
+const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, updateAccount, currentValue }) => {
   const { Option, OptGroup } = Select;
 
   let initialValue = currentValue || 
     // accountType's default value is undefined so that the placeholder will
     // show. It won't show if the value is null or ''.
     // https://github.com/ant-design/ant-design/issues/16417
-    { name: '', accountType: undefined, balance: '' };
+    { _id: '', name: '', accountType: undefined, balance: '' };
 
   const [accountData, setAccountData] = useState(initialValue);
 
@@ -37,21 +37,20 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue 
   }
 
   function handleSubmit() {
+    let onSubmit;
+    if (accountData._id) {
+      onSubmit = updateAccount;
+    } else {
+      onSubmit = addAccount;
+    }
     setConfirmLoading(true);
-    addAccount(currentBudget._id, accountData)
+    onSubmit(currentBudget._id, accountData)
       .then(() => {
         setConfirmLoading(false);
         hideModal();
       }).catch(() => {
         setConfirmLoading(false); 
       });
-  }
-
-  // temporary function for edit, until PATCH has been added
-  // don't forget to add 'updateAccount' action creator
-  function handleEditSubmit() {
-    console.log('Hello from Edit Submit function');
-    console.log(accountData);
   }
 
   const formDialogProps = {
@@ -66,7 +65,6 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, currentValue 
   if (currentValue) {
     formDialogProps.title = 'Edit Account';
     formDialogProps.okText = 'Save';
-    formDialogProps.onOk = handleEditSubmit;
   }
 
   return (
@@ -123,5 +121,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps, 
-  { hideModal, addAccount }
+  { hideModal, addAccount, updateAccount }
 )(UpdateAccountForm);
