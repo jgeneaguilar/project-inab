@@ -15,9 +15,9 @@ const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount
 
   function handleEditClick(id) {
     const acctData = accounts.find(acct => acct._id === id);
-    const { name, type: accountType, balance } = acctData;
+    const { _id, name, type: accountType, balance } = acctData;
     showModal(MODAL_TYPES.UPDATE_ACCOUNT, {
-      currentValue: { name, accountType, balance }
+      currentValue: { _id, name, accountType, balance }
     });
   }
 
