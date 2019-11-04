@@ -4,31 +4,33 @@ import { Layout } from 'antd';
 import './styles.scss';
 import AppBarContainer from './appbar/AppBarContainer';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
-import BudgetHeaderView from './budgetHeader/BudgetHeaderView';
-import BudgetToolbarContainer from './budgetToolbar/BudgetToolbarContainer';
-import BudgetTableContainer from './budgetTable/BudgetTableContainer';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
+import BudgetView from './budget/BudgetView';
+import SessionExpired from '../SessionExpired';
+import AccountsView from './accounts/AccountsView';
 
-const DashboardView = () => {
-
+const DashboardView = ({ computedMatch }) => {
   const { Content } = Layout;
 
   return (
     <Layout className='dashboardContainer'>
-      <AppBarContainer /> 
+      <AppBarContainer />
       <Content className='dashboardContent'>
         <LeftDrawerContainer />
         <Layout className='dashboardBudgetContainer'>
-          <header className='dashboardBudgetHeader'>
-            <BudgetHeaderView />
-            <BudgetToolbarContainer />
-          </header>
-          <Content className='dashboardBudgetContent'>
-            <BudgetTableContainer />
-          </Content>
+          <Switch>
+            <Route path='/dashboard/accounts'>
+              <AccountsView />
+            </Route>
+            <Route>
+              <BudgetView />
+            </Route>
+          </Switch>
         </Layout>
       </Content>
     </Layout>
   );
 }
 
-export default DashboardView;
+export default withRouter(DashboardView);

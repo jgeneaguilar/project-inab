@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormPopover from '../../../commons/FormPopover';
+import FormPopover from '../../../../commons/FormPopover';
 import { PageHeader, Input, Button } from 'antd';
 import './styles.scss';
 
@@ -10,8 +10,8 @@ const BudgetToolbarView = ({ asyncFunc }) => {
 
   return (
     <PageHeader className='budgetToolbarContainer'>
-      <Search 
-        placeholder='Filter Categories' 
+      <Search
+        placeholder='Filter Categories'
         size='small'
         className='budgetToolbarInputFilter'
       />
@@ -19,7 +19,7 @@ const BudgetToolbarView = ({ asyncFunc }) => {
         placeholder='Enter Master Category'
         asyncFunc={asyncFunc}
       >
-        <Button 
+        <Button
           type='primary'
           size='small'
           ghost

@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BudgetTableView from './BudgetTableView';
-import FormPopover from '../../../commons/FormPopover';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
-import { addCategory } from '../../../redux/actions/categoryActions';
-import { updateMasterCategory } from '../../../redux/actions/masterCategoryActions';
-import { saveCategoryBudget } from '../../../redux/actions/categoryBudgetActions';
-import { toDecimal } from '../../../utils/currencyUtils';
+import { addCategory } from '../../../../redux/actions/categoryActions';
+import { updateMasterCategory } from '../../../../redux/actions/masterCategoryActions';
+import { saveCategoryBudget } from '../../../../redux/actions/categoryBudgetActions';
+import { toDecimal } from '../../../../utils/currencyUtils';
+import FormPopover from '../../../../commons/FormPopover';
 
 
-const BudgetTableContainer = ({ 
+const BudgetTableContainer = ({
   currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget, currentTimespan
 }) => {
 
@@ -41,24 +41,24 @@ const BudgetTableContainer = ({
             const masterCategoryId = record.key;
             return addCategory(currentBudget._id, masterCategoryId, inputValue);
           }
-          
+
           return (
             <span className='masterCategoryNameCell'>
               <div className='masterCategoryName'>
-                <FormPopover 
-                  asyncFunc={onEditSave} 
+                <FormPopover
+                  asyncFunc={onEditSave}
                   initialValue={mCat.name}
                   placeholder='Enter Master Category'
                 >
-                 {text}
+                  {text}
                 </FormPopover>
               </div>
-              <FormPopover 
-                asyncFunc={onSubmitAddCat} 
+              <FormPopover
+                asyncFunc={onSubmitAddCat}
                 placeholder='Enter Category Name'
               >
-                <Icon 
-                  type='plus-circle' 
+                <Icon
+                  type='plus-circle'
                   size='small'
                   title='Add a category'
                   className='addCategoryIconButton'
@@ -113,10 +113,10 @@ const BudgetTableContainer = ({
     }
   ));
 
-    
-    function getBudgeted(array, id) {
-      return array[id] ? array[id]['budgeted'] : '0';
-    }
+
+  function getBudgeted(array, id) {
+    return array[id] ? array[id]['budgeted'] : '0';
+  }
 
 
   function handleSave(row) {
@@ -139,9 +139,9 @@ const BudgetTableContainer = ({
       }),
     };
   });
-  
+
   return (
-    <BudgetTableView 
+    <BudgetTableView
       columns={newColumns}
       data={data}
     />
@@ -157,7 +157,7 @@ BudgetTableContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { 
+  return {
     currentBudget: state.currentBudget,
     masterCategories: state.masterCategories,
     categories: state.categories,
@@ -168,6 +168,6 @@ function mapStateToProps(state) {
 
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { addCategory, updateMasterCategory, saveCategoryBudget }
 )(BudgetTableContainer);

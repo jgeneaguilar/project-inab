@@ -26,19 +26,18 @@ function App({ isLoggedIn, checkUserLogin }) {
 
   return (
     <Fragment>
-      { 
+      {
         // TODO: Implement Loading Screen
-        isLoggedIn === null 
-          ? <Empty /> 
+        isLoggedIn === null
+          ? <Empty />
           : (
             <Switch>
               <AuthenticatedRoute path='/' exact />
-              <AuthenticatedRoute 
-                exact 
-                path='/dashboard' 
-                component={DashboardContainer} 
+              <AuthenticatedRoute
+                path='/dashboard'
+                component={DashboardContainer}
               />
-              <Route path='/login' render={() => redirect}  />
+              <Route path='/login' render={() => redirect} />
               <Route path='/sessionExpired' component={SessionExpired} />
               <Route component={NotFound} />
             </Switch>

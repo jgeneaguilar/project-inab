@@ -3,21 +3,24 @@ import DashboardView from './DashboardView';
 import ModalRoot from '../modals';
 import { connect } from 'react-redux';
 import { loadBudgets } from '../../redux/actions/budgetsActions';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import SessionExpired from '../SessionExpired';
+import BudgetView from './budget/BudgetView';
 
 
-const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets }) => {
-  
+const DashboardContainer = ({ currentBudget, currentTimespan, loadBudgets, ...props }) => {
+
   useEffect(() => {
     loadBudgets();
   }, [loadBudgets]);
 
-
   return (
     currentTimespan && currentBudget ? (
-    <Fragment>
-      <DashboardView />
-      <ModalRoot />
-    </Fragment> ) : null
+      <Fragment>
+        <DashboardView {...props} />
+
+        <ModalRoot />
+      </Fragment >) : null
   )
 }
 

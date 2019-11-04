@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BudgetToolbarView from './BudgetToolbarView';
 import { connect } from 'react-redux';
-import { 
-  addMasterCategory 
-} from '../../../redux/actions/masterCategoryActions';
+import {
+  addMasterCategory
+} from '../../../../redux/actions/masterCategoryActions';
 
 
 const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {
@@ -14,7 +14,7 @@ const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {
   }
 
   return (
-    <BudgetToolbarView 
+    <BudgetToolbarView
       asyncFunc={onSubmit}
     />
   );
@@ -30,6 +30,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { addMasterCategory }
 )(BudgetToolbarContainer);
