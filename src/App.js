@@ -28,13 +28,13 @@ function App({ isLoggedIn, checkUserLogin }) {
     <Fragment>
       { 
         // TODO: Implement Loading Screen
-        isLoggedIn === null 
+        !isLoggedIn
           ? <Empty /> 
           : (
             <Switch>
-              <AuthenticatedRoute path='/' exact />
+              <AuthenticatedRoute isLoggedIn path='/' exact />
               <AuthenticatedRoute 
-                exact 
+                isLoggedIn
                 path='/dashboard' 
                 component={DashboardContainer} 
               />

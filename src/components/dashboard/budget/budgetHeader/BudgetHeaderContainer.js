@@ -2,9 +2,9 @@ import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BudgetHeaderView from './BudgetHeaderView';
 import { connect } from 'react-redux';
-import { currentMonth } from '../../../utils/timeUtils';
-import { loadTimespanElements } from '../../../redux/actions/timespanActions';
-import { formatTimespan } from '../../../utils/timeUtils';
+import { currentMonth } from '../../../../utils/timeUtils';
+import { loadTimespanElements } from '../../../../redux/actions/timespanActions';
+import { formatTimespan } from '../../../../utils/timeUtils';
 
 export const type = {
   increment: 'INCREMENT',
@@ -39,6 +39,7 @@ const BudgetHeaderContainer = ({ currentBudget, accounts, loadTimespanElements }
   }, [loadTimespanElements, currentBudget, state]);
   
 
+  console.log('BudgetHeaderContainer', state);
   return (
     <BudgetHeaderView 
       month={state.month}

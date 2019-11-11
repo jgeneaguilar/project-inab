@@ -4,7 +4,7 @@ import BudgetToolbarView from './BudgetToolbarView';
 import { connect } from 'react-redux';
 import { 
   addMasterCategory 
-} from '../../../redux/actions/masterCategoryActions';
+} from '../../../../redux/actions/masterCategoryActions';
 
 
 const BudgetToolbarContainer = ({ currentBudget, addMasterCategory }) => {

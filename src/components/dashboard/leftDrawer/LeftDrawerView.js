@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import { 
   toCurrency, 
   getTotalBalance, 
@@ -26,16 +27,20 @@ const LeftDrawerView = ({
         defaultOpenKeys={['budgetAccounts']}
       >
         <Item key='budget'>
+        <Link to="/dashboard">
           <Icon type='reconciliation' />
           <span>Budget</span>
+          </Link>
         </Item>
         <Item key='report'>
           <Icon type='fund' />
           <span>Reports</span>
         </Item>
         <Item key='accounts'>
-          <Icon type='bank' />
-          <span>All Accounts</span>
+          <Link to="/dashboard/accounts">
+            <Icon type='bank' />
+            <span>All Accounts</span>
+          </Link>
         </Item>
 
         <Divider type='horizontal' className='leftDrawerDivider' />

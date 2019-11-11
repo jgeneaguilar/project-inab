@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { PageHeader, Icon, Divider } from 'antd';
 import './styles.scss';
 import { type } from './BudgetHeaderContainer';
-import { formatMonthDisplay } from '../../../utils/timeUtils';
+import { formatMonthDisplay } from '../../../../utils/timeUtils';
 import { 
   getTotalBalance, 
   getBudgetAccounts,
-} from '../../../utils/currencyUtils';
+} from '../../../../utils/currencyUtils';
 
 
 const BudgetHeaderView = ({ month, dispatch, accounts }) => {
+  console.log('month', month);
   return (
     <PageHeader className='budgetHeaderContainer'>
       <div className='budgetHeaderMonth'>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormPopover from '../../../commons/FormPopover';
+import FormPopover from '../../../../commons/FormPopover';
 import { PageHeader, Input, Button } from 'antd';
 import './styles.scss';
 

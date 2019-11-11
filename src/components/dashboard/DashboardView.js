@@ -1,34 +1,38 @@
-import React from 'react';
 // import PropTypes from 'prop-types';
 import { Layout } from 'antd';
-import './styles.scss';
+import React from 'react';
+import { Route, Switch , useRouteMatch} from 'react-router-dom';
+import { withRouter } from "react-router";
+
 import AppBarContainer from './appbar/AppBarContainer';
+import BudgetView from './budget/BudgetView';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
-import BudgetHeaderContainer from './budgetHeader/BudgetHeaderContainer';
-import BudgetToolbarContainer from './budgetToolbar/BudgetToolbarContainer';
-import BudgetTableContainer from './budgetTable/BudgetTableContainer';
+import TransactionView from './transaction/TransactionView';
+import './styles.scss';
 
 const DashboardView = () => {
 
   const { Content } = Layout;
 
+  let { path } = useRouteMatch();
   return (
     <Layout className='dashboardContainer'>
       <AppBarContainer /> 
       <Content className='dashboardContent'>
         <LeftDrawerContainer />
         <Layout className='dashboardBudgetContainer'>
-          <header className='dashboardBudgetHeader'>
-            <BudgetHeaderContainer />
-            <BudgetToolbarContainer />
-          </header>
-          <Content className='dashboardBudgetContent'>
-            <BudgetTableContainer />
-          </Content>
+        <Switch>
+            <Route path={`${path}/accounts`}>
+              <TransactionView />
+            </Route>
+            <Route>
+              <BudgetView />
+            </Route> 
+          </Switch>
         </Layout>
       </Content>
     </Layout>
   );
 }
 
-export default DashboardView;
+export default withRouter(DashboardView);

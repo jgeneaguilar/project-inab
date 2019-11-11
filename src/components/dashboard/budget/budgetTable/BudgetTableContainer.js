@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BudgetTableView from './BudgetTableView';
-import FormPopover from '../../../commons/FormPopover';
+import FormPopover from '../../../../commons/FormPopover';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
-import { addCategory } from '../../../redux/actions/categoryActions';
-import { updateMasterCategory } from '../../../redux/actions/masterCategoryActions';
-import { saveCategoryBudget } from '../../../redux/actions/categoryBudgetActions';
-import { toDecimal } from '../../../utils/currencyUtils';
+import { addCategory } from '../../../../redux/actions/categoryActions';
+import { updateMasterCategory } from '../../../../redux/actions/masterCategoryActions';
+import { saveCategoryBudget } from '../../../../redux/actions/categoryBudgetActions';
+import { toDecimal } from '../../../../utils/currencyUtils';
 
 
 const BudgetTableContainer = ({ 

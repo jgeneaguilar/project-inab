@@ -25,11 +25,13 @@ export function userLogin(loginCredentials) {
 }
 
 export function checkUserLogin() {
+  const data = getUserCredentials();
+  setToken(data.token)
+
   return function(dispatch) {
-    const data = getUserCredentials();
     if (data._id && data.token) {
-      setToken(data.token)
       dispatch(userLoginSuccess(data));
+
     }
   };
 } 
