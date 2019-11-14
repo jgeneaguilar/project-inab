@@ -28,21 +28,21 @@ function App({ isLoggedIn, checkUserLogin }) {
     <Fragment>
       { 
         // TODO: Implement Loading Screen
-        !isLoggedIn
-          ? <Empty /> 
-          : (
+        // !isLoggedIn
+        //   ? <Empty /> 
+        //   : (
             <Switch>
-              <AuthenticatedRoute isLoggedIn path='/' exact />
+              <Route path='/login' render={() => redirect}  />
+              <AuthenticatedRoute isLoggedIn={isLoggedIn} path='/' exact />
               <AuthenticatedRoute 
-                isLoggedIn
+                isLoggedIn={isLoggedIn}
                 path='/dashboard' 
                 component={DashboardContainer} 
               />
-              <Route path='/login' render={() => redirect}  />
               <Route path='/sessionExpired' component={SessionExpired} />
               <Route component={NotFound} />
             </Switch>
-          )
+          // )
       }
     </Fragment>
   );
