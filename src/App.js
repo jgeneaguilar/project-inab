@@ -6,7 +6,7 @@ import DashboardContainer from './components/dashboard/DashboardContainer';
 import SessionExpired from './components/SessionExpired';
 import NotFound from './components/NotFound';
 import './App.css';
-import { Empty } from 'antd';
+// import { Empty } from 'antd';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkUserLogin } from './redux/actions/userActions';
