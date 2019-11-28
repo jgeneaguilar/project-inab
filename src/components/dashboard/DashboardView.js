@@ -1,20 +1,20 @@
-// import PropTypes from 'prop-types';
-import { Layout } from 'antd';
 import React from 'react';
+import { Layout } from 'antd';
 import { Route, Switch , useRouteMatch} from 'react-router-dom';
-import { withRouter } from "react-router";
-
+import { withRouter } from 'react-router';
 import AppBarContainer from './appbar/AppBarContainer';
 import BudgetView from './budget/BudgetView';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
 import TransactionView from './transaction/TransactionView';
 import './styles.scss';
 
+
 const DashboardView = () => {
 
   const { Content } = Layout;
 
   let { path } = useRouteMatch();
+
   return (
     <Layout className='dashboardContainer'>
       <AppBarContainer /> 
