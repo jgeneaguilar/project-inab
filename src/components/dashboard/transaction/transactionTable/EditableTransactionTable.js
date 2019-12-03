@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Input, InputNumber, Form, Table, Popconfirm } from 'antd';
+import { Input, InputNumber, Form, Table, Icon } from 'antd';
+import './styles.scss';
 
 
 export const EditableContext = React.createContext();
@@ -8,9 +9,9 @@ class EditableCell extends Component {
   
   getInput =() => {
     if (this.props.inputType === 'number') {
-      return <InputNumber />;
+      return <InputNumber size='small' />;
     }
-    return <Input />;
+    return <Input size='small' />;
   }
 
   renderCell = ({ getFieldDecorator }) => {
@@ -60,10 +61,7 @@ class EditableCell extends Component {
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = { 
-    //   // data, 
-    //   editingKey: '' 
-    // };
+
     this.columns = [
       {
         title: 'DATE',
@@ -110,25 +108,29 @@ class EditableTable extends React.Component {
             <span>
               <EditableContext.Consumer>
                 {form => (
-                  <button
+                  <Icon
+                    type='check'
+                    className='transactionTableSave'
+                    title='Save'
                     onClick={() => this.props.save(form, record.key)}
-                    style={{ marginRight: 8 }}
-                  >
-                    Save
-                  </button>
+                  />
                 )}
               </EditableContext.Consumer>
-              <Popconfirm title="Sure to cancel?" onConfirm={() => this.props.cancel(record.key)}>
-                <button>Cancel</button>
-              </Popconfirm>
+                <Icon 
+                  type='close' 
+                  className='transactionTableCancel'
+                  title='Cancel'
+                  onClick={this.props.cancel}
+                />
             </span>
           ) : (
-            <button 
+            <Icon 
+              type='edit'
+              className='transactionTableEdit'
+              title='Edit'
               disabled={this.props.editingKey !== ''} 
               onClick={() => this.props.edit(record.key)}
-            >
-              Edit
-            </button>
+            />
           );
         },
       },
@@ -163,11 +165,11 @@ class EditableTable extends React.Component {
       <EditableContext.Provider value={this.props.form}>
         <Table
           components={components}
-          bordered
           dataSource={this.props.data}
           columns={columns}
-          rowClassName="editable-row"
+          rowClassName="editableTransactionTable"
           pagination={false}
+          size='small'
         />
       </EditableContext.Provider>
     );
