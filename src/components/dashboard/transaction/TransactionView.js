@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import TransactionTableContainer from './transactionTable/TransactionTableContainer';
+import AddTransactionBtn from './transactionToolbar/AddTransactionBtn';
 
 
 const TransactionView = () => {
@@ -10,15 +11,7 @@ const TransactionView = () => {
   return (
     <Fragment>
       <header className='dashboardTransactionHeader'>
-        <Button
-          type='primary'
-          size='small'
-          ghost
-          icon='plus-circle'
-          className='transactionToolbarAddBtn'
-        >
-          Add Transaction
-        </Button>
+        <AddTransactionBtn />
       </header>
       <Content className='dashboardTransactionContent'>
         <TransactionTableContainer />
