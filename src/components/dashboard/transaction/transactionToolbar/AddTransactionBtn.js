@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Button } from 'antd';
 import { connect } from 'react-redux';
 import { showModal } from '../../../../redux/actions/modalActions';
-import { MODAL_TYPES } from '../../../modals';
+import { addTransaction } from '../../../../redux/actions/transactionActions';
+import { NEW_ROW } from '../transactionTable/TransactionTableContainer';
 
 
-const AddTransactionBtn = ({ showModal }) => {
+const AddTransactionBtn = ({addTransaction}) => {
 
   function handleClick() {
-    showModal(MODAL_TYPES.UPDATE_TRANSACTION, {});
+    const today = moment().format('MM/DD/YYYY');
+    addTransaction({
+      id: NEW_ROW,
+      key: NEW_ROW, 
+      date: today,
+      });
   }
 
   return (
@@ -28,6 +35,7 @@ const AddTransactionBtn = ({ showModal }) => {
 
 AddTransactionBtn.propTypes = {
   showModal: PropTypes.func.isRequired,
+  addTransaction: PropTypes.func.isRequired,
 };
 
-export default connect(null, { showModal })(AddTransactionBtn);
+export default connect(null, { showModal, addTransaction })(AddTransactionBtn);

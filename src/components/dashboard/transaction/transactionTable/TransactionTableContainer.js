@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import TransactionTableView from './TransactionTableView';
 // import PropTypes from 'prop-types';
 import { EditableFormTable } from './EditableTransactionTable';
+import { connect } from 'react-redux';
 
 
 const initialData = [
@@ -34,10 +35,23 @@ const initialData = [
   },
 ];
 
-const TransactionTableContainer = () => {
+export const NEW_ROW = 'NEW';
 
-  const [data, setData] = useState(initialData);
+const TransactionTableContainer = ({transactions}) => {
+
+  console.log(Object.values(transactions));
+  const [data, setData] = useState(Object.values(transactions));
   const [editingKey, setEditingKey] = useState('');
+
+  useEffect(() => {
+    if (transactions) {
+      setData(Object.values(transactions));
+
+      if (transactions[NEW_ROW]) {
+        edit(NEW_ROW);
+      }
+    }
+  }, [transactions])
 
   function isEditing(record) {
     return record.key === editingKey;
@@ -53,6 +67,14 @@ const TransactionTableContainer = () => {
         return;
       }
       const newData = [...data];
+
+      // TODO: Save transaction to API, Update if ID exists
+
+      const isNewRow = form.id === NEW_ROW;
+      if (isNewRow) {
+        // Delete ID property if it's tagged as NEW_ROW
+        delete(form.id);
+      }
       const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
         const item = newData[index];
@@ -94,4 +116,12 @@ const TransactionTableContainer = () => {
 
 // };
 
-export default TransactionTableContainer;
+function mapStateToProps(state) {
+  return {
+    transactions: state.transactions,
+  };
+}
+
+export default connect(
+  mapStateToProps
+)(TransactionTableContainer);

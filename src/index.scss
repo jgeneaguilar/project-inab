@@ -18,3 +18,13 @@ body {
     }
   }
 }
+
+input, button, select, optgroup, textarea {
+  margin: 0.5em;
+}
+
+.compact {
+  input, button, select, optgroup, textarea {
+    margin: 0.1em;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, InputNumber, Form, Table, Icon } from 'antd';
+import { Button, Input, InputNumber, Form, Table, Icon } from 'antd';
 import './styles.scss';
 
 
@@ -94,6 +94,7 @@ class EditableTable extends React.Component {
         editable: true,
       },
       {
+        colSpan: 1,
         title: 'OUTFLOW',
         dataIndex: 'outflow',
         key: 'outflow',
@@ -101,28 +102,33 @@ class EditableTable extends React.Component {
       },
       {
         title: '',
+        colSpan: 2,
         dataIndex: 'operation',
         render: (text, record) => {
           const editable = this.props.isEditing(record);
           return editable ? (
-            <span>
+            <div className="compact">
               <EditableContext.Consumer>
                 {form => (
-                  <Icon
-                    type='check'
-                    className='transactionTableSave'
+                  <Button
+                    type="primary" 
+                    size="small" 
+                    icon='check'
                     title='Save'
+                    disabled={!this.isFormValid(form)}
                     onClick={() => this.props.save(form, record.key)}
                   />
                 )}
               </EditableContext.Consumer>
-                <Icon 
-                  type='close' 
-                  className='transactionTableCancel'
-                  title='Cancel'
-                  onClick={this.props.cancel}
-                />
-            </span>
+
+              <Button
+                    type="default" 
+                    size="small" 
+                    icon='close'
+                    title='Cancel'
+                    onClick={this.props.cancel}
+                  />
+            </div>
           ) : (
             <Icon 
               type='edit'
@@ -135,6 +141,12 @@ class EditableTable extends React.Component {
         },
       },
     ];
+  }
+
+  isFormValid = (form) => {
+    const data = form.getFieldsValue();
+    // TODO: Add required fields validation..
+    return !!data.date.trim() && (data.inflow > 0 || data.outflow > 0);
   }
 
 
