@@ -1,6 +1,16 @@
-import { Button, DatePicker, Form, Icon, Input, InputNumber, Select, Table } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Icon,
+  Input,
+  InputNumber,
+  Select,
+  Table
+} from "antd";
 import React, { PureComponent } from "react";
 import "./styles.scss";
+import { currentMonth } from "../../../../utils/timeUtils";
 
 export const EditableContext = React.createContext();
 
@@ -67,13 +77,16 @@ class EditableTable extends React.PureComponent {
         title: "DATE",
         dataIndex: "date",
         key: "date",
+        width: 150,
         render: (text, record) => {
           const editable = this.props.isEditing(record);
           return editable ? (
             <EditableContext.Consumer>
               {form => (
                 <Form.Item>
-                  {form.getFieldDecorator("date")(
+                  {form.getFieldDecorator("date", {
+                    initialValue: currentMonth
+                  })(
                     <DatePicker size={"medium"} format={dateFormat} />
                   )}
                 </Form.Item>
@@ -84,11 +97,11 @@ class EditableTable extends React.PureComponent {
           );
         }
       },
-
       {
         title: "ACCOUNT",
         dataIndex: "account",
         key: "account",
+        width: 200,
         render: (category, record) => {
           const editable = this.props.isEditing(record);
           // TODO: Make this a reusable component
@@ -96,16 +109,17 @@ class EditableTable extends React.PureComponent {
             <EditableContext.Consumer>
               {form => (
                 <Form.Item hasFeedback>
-                  {form.getFieldDecorator('account', {
+                  {form.getFieldDecorator("account", {
                     rules: [
-                      { required: true, message: 'Please select account!' }
+                      { required: true, message: "Please select account!" }
                     ]
                   })(
                     <Select
-                      style={{ width: "100%", minWidth: 300 }}
-                      placeholder='Select Account'
-                      size='default'
-                      labelInValue>
+                      style={{ width: "100%" }}
+                      placeholder="Select Account"
+                      size="default"
+                      labelInValue
+                    >
                       {this.props.accounts.map(item => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
@@ -130,15 +144,15 @@ class EditableTable extends React.PureComponent {
             <EditableContext.Consumer>
               {form => (
                 <Form.Item hasFeedback>
-                  {form.getFieldDecorator('payee', {
+                  {form.getFieldDecorator("payee", {
                     rules: [
-                      { required: true, message: 'Please select your payee!' }
+                      { required: true, message: "Please select your payee!" }
                     ]
                   })(
                     <Select
-                      style={{ width: "100%", minWidth: 300 }}
-                      placeholder='Select Payee'
-                      size='default'
+                      style={{ width: "100%" }}
+                      placeholder="Select Payee"
+                      size="default"
                       showSearch
                       labelInValue
                       onBlur={value => {
@@ -149,14 +163,15 @@ class EditableTable extends React.PureComponent {
                       onSearch={value => {
                         if (value) {
                           form.setFieldsValue({
-                            payee: { key: '', label: value }
+                            payee: { key: "", label: value }
                           });
                         }
                       }}
                       notFoundContent={
                         <span>Payee will be automatically added.</span>
                       }
-                      ref={input => (this.payeeSelect = input)}>
+                      ref={input => (this.payeeSelect = input)}
+                    >
                       {this.props.payees.map(item => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
@@ -181,16 +196,17 @@ class EditableTable extends React.PureComponent {
             <EditableContext.Consumer>
               {form => (
                 <Form.Item hasFeedback>
-                  {form.getFieldDecorator('category', {
+                  {form.getFieldDecorator("category", {
                     rules: [
-                      { required: true, message: 'Please select category!' }
+                      { required: true, message: "Please select category!" }
                     ]
                   })(
                     <Select
-                      style={{ width: "100%", minWidth: 300 }}
-                      placeholder='Select Category'
-                      size='default'
-                      labelInValue>
+                      style={{ width: "100%" }}
+                      placeholder="Select Category"
+                      size="default"
+                      labelInValue
+                    >
                       {this.props.categories.map(item => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
@@ -208,6 +224,7 @@ class EditableTable extends React.PureComponent {
         title: "INFLOW",
         dataIndex: "inflow",
         key: "inflow",
+        width: 100,
         editable: true
       },
       {
@@ -215,11 +232,13 @@ class EditableTable extends React.PureComponent {
         title: "OUTFLOW",
         dataIndex: "outflow",
         key: "outflow",
+        width: 100,
         editable: true
       },
       {
         title: "",
         colSpan: 2,
+        width: 150,
         dataIndex: "operation",
         render: (text, record) => {
           const editable = this.props.isEditing(record);
@@ -263,7 +282,9 @@ class EditableTable extends React.PureComponent {
   isFormValid = form => {
     const data = form.getFieldsValue();
     // TODO: Add required fields validation..
-    return !!data.date && !!data.account && (data.inflow > 0 || data.outflow > 0);
+    return (
+      !!data.date && !!data.account && (data.inflow > 0 || data.outflow > 0)
+    );
   };
 
   render() {

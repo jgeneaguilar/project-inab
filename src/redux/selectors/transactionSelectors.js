@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { getTransactions, getAccounts, getCategories, getPayees } from './commonSelectors';
-import { formatDefaultDate } from '../../utils/timeUtils';
-import moment from 'moment';
+import { formatDate, sortByDateDesc } from '../../utils/timeUtils';
+
+const defaultFormat = 'MM/DD/YYYY';
 
 export const getAllTransactions = createSelector(
   getTransactions,
@@ -17,7 +18,7 @@ export const getAllTransactions = createSelector(
           ...item,
           key: item._id,
           id: item._id,
-          date: formatDefaultDate(item.date),
+          date: formatDate(item.date, defaultFormat),
           account: accounts.find(account => account._id === item.account_id),
           payee: payees[item.payee_id],
           inflow: item.amount > 0 && item.amount,
@@ -25,7 +26,7 @@ export const getAllTransactions = createSelector(
           category: categories.find(cat => cat._id === item.category_id),
         };
       })
-      .sort((t1, t2) => moment(t1.date) > moment(t2.date));
+      .sort((t1, t2) => sortByDateDesc(t1.date, t2.date, defaultFormat));
     return data;
   }
 )

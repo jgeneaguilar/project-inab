@@ -5,3 +5,29 @@
 .ant-form-item {
   margin-bottom: 0;
 }
+
+table {
+  td {
+    height: 38px;
+
+    .ant-form-item-control {
+      line-height: 21px;
+    }
+
+    .ant-select,
+    .ant-select-selection,
+    .ant-calendar-picker,
+    .ant-calendar-picker input {
+      height: 24px;
+
+      .ant-select-selection__rendered {
+        line-height: 24px;
+      }
+
+      .ant-select-search__field {
+        margin: 0;
+      }
+
+    }
+  }
+}
