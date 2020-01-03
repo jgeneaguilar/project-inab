@@ -3,7 +3,7 @@ import { EditableFormTable } from './EditableTransactionTable';
 import { connect } from 'react-redux';
 import { createTransaction } from '../../../../redux/actions/transactionActions';
 import { getAllTransactions } from '../../../../redux/selectors/transactionSelectors';
-import { getPayees, getAccounts } from '../../../../redux/selectors/commonSelectors';
+import { getPayeeList, getAccounts } from '../../../../redux/selectors/commonSelectors';
 import moment from 'moment';
 
 moment.suppressDeprecationWarnings = true;
@@ -99,7 +99,7 @@ function mapStateToProps(state) {
     transactions: getAllTransactions(state),
     categories: state.categories,
     accounts: getAccounts(state),
-    payees: getPayees(state),
+    payees: getPayeeList(state),
   };
 }
 

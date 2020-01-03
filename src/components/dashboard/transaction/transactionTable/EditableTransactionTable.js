@@ -105,20 +105,7 @@ class EditableTable extends React.PureComponent {
                       style={{ width: "100%", minWidth: 300 }}
                       placeholder='Select Account'
                       size='default'
-                      labelInValue
-                      onBlur={value => {
-                        form.setFieldsValue({
-                          account: value
-                        });
-                      }}
-                      onSearch={value => {
-                        if (value) {
-                          form.setFieldsValue({
-                            payee: { key: null, label: value }
-                          });
-                        }
-                      }}
-                      ref={input => (this.accountSelect = input)}>
+                      labelInValue>
                       {this.props.accounts.map(item => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
@@ -162,7 +149,7 @@ class EditableTable extends React.PureComponent {
                       onSearch={value => {
                         if (value) {
                           form.setFieldsValue({
-                            payee: { key: null, label: value }
+                            payee: { key: '', label: value }
                           });
                         }
                       }}
@@ -203,20 +190,7 @@ class EditableTable extends React.PureComponent {
                       style={{ width: "100%", minWidth: 300 }}
                       placeholder='Select Category'
                       size='default'
-                      labelInValue
-                      onBlur={value => {
-                        form.setFieldsValue({
-                          category: value
-                        });
-                      }}
-                      onSearch={value => {
-                        if (value) {
-                          form.setFieldsValue({
-                            payee: { key: null, label: value }
-                          });
-                        }
-                      }}
-                      ref={input => (this.categorySelect = input)}>
+                      labelInValue>
                       {this.props.categories.map(item => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
@@ -288,7 +262,6 @@ class EditableTable extends React.PureComponent {
 
   isFormValid = form => {
     const data = form.getFieldsValue();
-    console.log("data", data);
     // TODO: Add required fields validation..
     return !!data.date && !!data.account && (data.inflow > 0 || data.outflow > 0);
   };
