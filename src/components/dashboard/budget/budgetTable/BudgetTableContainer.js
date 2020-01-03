@@ -7,20 +7,26 @@ import { connect } from 'react-redux';
 import { addCategory } from '../../../../redux/actions/categoryActions';
 import { updateMasterCategory } from '../../../../redux/actions/masterCategoryActions';
 import { saveCategoryBudget } from '../../../../redux/actions/categoryBudgetActions';
-import { toDecimal } from '../../../../utils/currencyUtils';
+import { getTotalBudgeted, getAmount } from '../../../../utils/currencyUtils';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget, currentTimespan
+  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget, currentTimespan,
+  transactions
 }) => {
 
+/** render: (text, record) => {}
+ * text = display text of cell
+ * record = row data ({id, column: row value})
+ * 
+*/
   const columns = [
     {
       title: 'CATEGORY',
       dataIndex: 'category',
       key: 'category',
       render: (text, record) => {
-
+        
         function getCatNameById(array) {
           return array.find(cat => cat._id === record.key);
         }
@@ -82,7 +88,7 @@ const BudgetTableContainer = ({
       title: 'ACTIVITY',
       dataIndex: 'activity',
       key: 'activity',
-      className: 'columnMoney'
+      className: 'columnMoney',
     },
     {
       title: 'AVAILABLE',
@@ -101,7 +107,7 @@ const BudgetTableContainer = ({
       key: masterCategory._id,
       type: 'master',
       category: masterCategory.name,
-      budgeted: toDecimal(getTotalBudgeted(masterCategory, categories, categoryBudgets)),
+      budgeted: getTotalBudgeted(masterCategory, categories, categoryBudgets),
       activity: 'Php0.00',
       available: 'Php0.00',
       children: categories
@@ -110,28 +116,32 @@ const BudgetTableContainer = ({
           key: category._id,
           type: 'category',
           category: category.name,
-          budgeted: toDecimal(getBudgeted(categoryBudgets, category._id)),
-          activity: 'Php0.00',
+          budgeted: getAmount(categoryBudgets, category._id),
+          activity: getAmount(transactions, category._id),
           available: 'Php0.00',
         }))
     };
   }
 
   // TODO: Refactor
-  function getTotalBudgeted(masterCategory, categories, categoryBudgets) {
-    return categories
-      // filter by master category id
-      .filter(c => c.master_category_id === masterCategory._id)
-      // new array of budgeted amount
-      .map(c => categoryBudgets[c._id] ? 
-          categoryBudgets[c._id]['budgeted'] : 0
-      // sum of budgeted amount
-      ).reduce((a, b) => a + b, 0);
-  }
+  // function getTotalBudgeted(masterCategory, categories, categoryBudgets) {
+  //   return categories
+  //     // filter by master category id
+  //     .filter(c => c.master_category_id === masterCategory._id)
+  //     // new array of budgeted amount
+  //     .map(c => categoryBudgets[c._id] ? 
+  //         categoryBudgets[c._id]['budgeted'] : 0
+  //     // sum of budgeted amount
+  //     ).reduce((a, b) => a + b, 0);
+  // }
   
-  function getBudgeted(obj, id) {
-    return obj[id] ? obj[id]['budgeted'] : '0';
-  }
+  // function getAmount(obj, id) {
+  //   return obj[id] ? obj[id]['budgeted'] : '0';
+  // }
+
+  // function getTransAmt(obj, id) {
+  //   return obj[id] ? obj[id]['amount'] : '0';
+  // }
 
 
   function handleSave(row) {
@@ -179,8 +189,9 @@ function mapStateToProps(state) {
     currentBudget: state.currentBudget,
     masterCategories: state.masterCategories,
     categories: state.categories,
-    categoryBudgets: state.categoryBudgets,
     currentTimespan: state.currentTimespan,
+    categoryBudgets: state.categoryBudgets,
+    transactions: state.transactions,
   };
 }
 
