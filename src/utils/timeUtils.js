@@ -9,3 +9,7 @@ export function formatTimespan(moment) {
 export function formatMonthDisplay(moment) {
   return moment.format('MMM YYYY');
 }
+
+export function formatDefaultDate(text) {
+  return moment(text).format('MM/DD/YYYY');
+}

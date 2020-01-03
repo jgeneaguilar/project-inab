@@ -1,9 +1,9 @@
-import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import DashboardView from './DashboardView';
-import ModalRoot from '../modals';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loadBudgets } from '../../redux/actions/budgetsActions';
+import ModalRoot from '../modals';
+import DashboardView from './DashboardView';
 
 
 const DashboardContainer = ({ currentBudget, loadBudgets }) => {

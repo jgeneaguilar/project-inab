@@ -8,6 +8,7 @@ import categories from './categoryReducer';
 import currentTimespan from './timespanReducer';
 import categoryBudgets from './categoryBudgetReducer';
 import transactions from './transactionReducer';
+import payees from './payeeReducer';
 import modal from './modalReducer';
 
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   currentTimespan,
   categoryBudgets,
   transactions,
+  payees,
   modal
 });
 

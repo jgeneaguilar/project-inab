@@ -2,15 +2,15 @@ import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 import { mapArrayToDictionaryId } from '../../utils/commonUtils';
 
-export default function transactionReducer(
-  state = initialState.transactions,
+export default function payeeReducer(
+  state = initialState.payees,
   action
 ) {
   switch(action.type) {
-    case types.CREATE_TRANSACTION_SUCCESS:
-      return {...state, [action.transaction._id]: action.transaction};
-    case types.LOAD_TRANSACTIONS_SUCCESS:
+    case types.LOAD_PAYEES_SUCCESS:
       return mapArrayToDictionaryId(action.data);
+      case types.CREATE_PAYEE_SUCCESS:
+        return {...state, [action.payee._id]: action.payee};
     default:
       return state;
   }

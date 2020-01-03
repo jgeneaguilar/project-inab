@@ -1,11 +1,11 @@
-import React from 'react';
 import { Layout } from 'antd';
-import { Route, Switch , useRouteMatch} from 'react-router-dom';
+import React from 'react';
 import { withRouter } from 'react-router';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import AppBarContainer from './appbar/AppBarContainer';
 import BudgetView from './budget/BudgetView';
 import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
-import TransactionView from './transaction/TransactionView';
+import TransactionContainer from './transaction/TransactionContainer';
 import './styles.scss';
 
 
@@ -23,7 +23,7 @@ const DashboardView = () => {
         <Layout className='dashboardBudgetContainer'>
         <Switch>
             <Route path={`${path}/accounts`}>
-              <TransactionView />
+              <TransactionContainer />
             </Route>
             <Route>
               <BudgetView />

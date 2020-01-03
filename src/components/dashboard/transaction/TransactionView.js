@@ -4,17 +4,17 @@ import TransactionTableContainer from './transactionTable/TransactionTableContai
 import AddTransactionBtn from './transactionToolbar/AddTransactionBtn';
 
 
-const TransactionView = () => {
+const TransactionView = ({onAddTransaction, newTransaction}) => {
 
   const { Content } = Layout;
 
   return (
     <Fragment>
       <header className='dashboardTransactionHeader'>
-        <AddTransactionBtn />
+        <AddTransactionBtn onClick={onAddTransaction}/>
       </header>
       <Content className='dashboardTransactionContent'>
-        <TransactionTableContainer />
+        <TransactionTableContainer newTransaction={newTransaction}/>
       </Content>
     </Fragment>
   );
