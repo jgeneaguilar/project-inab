@@ -10,6 +10,10 @@ export function formatMonthDisplay(moment) {
   return moment.format('MMM YYYY');
 }
 
-export function formatDefaultDate(text) {
-  return moment(text).format('MM/DD/YYYY');
+export function formatDate(text, format) {
+  return moment(text).format(format);
+}
+
+export function sortByDateDesc(ldate, rdate, format) {
+  return moment(rdate, format) - moment(ldate, format);
 }
