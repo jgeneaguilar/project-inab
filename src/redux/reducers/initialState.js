@@ -8,7 +8,7 @@ export default {
   currentTimespan: '',
   categoryBudgets: {},
   transactions: {},
-  // payees: [],
+  payees: {},
   modal: {
     modalType: null,
     modalProps: {},

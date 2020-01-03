@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 import { groupByCategoryId } from '../../utils/stateNormalizer';
-
+import { mapArrayToDictionaryId } from '../../utils/commonUtils';
 
 export default function transactionReducer(
   state = initialState.transactions,
@@ -11,8 +11,10 @@ export default function transactionReducer(
     case types.SET_CURRENT_TIMESPAN:
       const { transactions } = action.timespanElements;
       return groupByCategoryId(transactions);
-    case types.ADD_TRANSACTION:
-      return {...state, [action.transaction.id]: action.transaction};
+    case types.CREATE_TRANSACTION_SUCCESS:
+      return {...state, [action.transaction._id]: action.transaction};
+    case types.LOAD_TRANSACTIONS_SUCCESS:
+      return mapArrayToDictionaryId(action.data);
     default:
       return state;
   }
