@@ -132,7 +132,7 @@ class EditableTable extends React.PureComponent {
               )}
             </EditableContext.Consumer>
           ) : (
-            <span>{category.name}</span>
+            <span>{category && category.name}</span>
           );
         }
       },
