@@ -10,6 +10,10 @@ export function formatMonthDisplay(moment) {
   return moment.format('MMM YYYY');
 }
 
+export function parseDate(text, format) {
+  return moment(text, format);
+}
+
 export function formatDate(text, format) {
   return moment(text).format(format);
 }

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { EditableFormTable } from './EditableTransactionTable';
 import { connect } from 'react-redux';
-import { createTransaction } from '../../../../redux/actions/transactionActions';
+import { createUpdateTransaction, removeTransaction } from '../../../../redux/actions/transactionActions';
 import { getAllTransactions } from '../../../../redux/selectors/transactionSelectors';
 import { getPayeeList, getAccounts } from '../../../../redux/selectors/commonSelectors';
 import moment from 'moment';
 
 moment.suppressDeprecationWarnings = true;
 
-const TransactionTableContainer = ({currentBudget, transactions, newTransaction, categories, payees, createTransaction, accounts}) => {
+const TransactionTableContainer = ({currentBudget, transactions, newTransaction, categories, payees, createUpdateTransaction, removeTransaction, accounts}) => {
 
   const [newEntity, setNewEntity] = useState(newTransaction);
   const [data, setData] = useState(transactions);
@@ -45,29 +45,33 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
         return;
       }
 
-      if (newEntity && key === newEntity.key) {
+      const amount = (row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1) * 100;
+      const transaction = {
+        id: key,
+        date: moment(row.date).format('MM/DD/YYYY'),
+        accountId: row.account.key,
+        categoryId: row.category.key,
+        payeeId: row.payee && row.payee.key,
+        payee: row.payee && row.payee.label,
+        amount
+      };
 
-        const amount = row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1;
-        
-        const newTransaction = {
-          date: moment(row.date).format('MM/DD/YYYY'),
-          accountId: row.account.key,
-          categoryId: row.category.key,
-          payeeId: row.payee && row.payee.key,
-          payee: row.payee && row.payee.label,
-          amount
-        };
-  
-        createTransaction(currentBudget._id, newTransaction);
-        cancel();
-      } else {
-        // TODO: Update Transaction
+      if (newEntity && key === newEntity.key) {
+        transaction.id = null;
       }
+
+      createUpdateTransaction(currentBudget._id, transaction);
+      cancel();
     });
   }
 
   function edit(key) {
     setEditingKey(key);
+  }
+
+  function remove(record) {
+    const {account, payee, category, key, id, ...transaction} = record;
+    removeTransaction(currentBudget._id, transaction);
   }
 
   return (
@@ -85,6 +89,7 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
       cancel={cancel}
       save={save}
       edit={edit}
+      remove={remove}
     />
   );
 }
@@ -105,5 +110,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {createTransaction},
+  {createUpdateTransaction, removeTransaction},
 )(TransactionTableContainer);

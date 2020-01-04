@@ -10,7 +10,7 @@ import {
 } from "antd";
 import React, { PureComponent } from "react";
 import "./styles.scss";
-import { currentMonth } from "../../../../utils/timeUtils";
+import { currentMonth, parseDate } from "../../../../utils/timeUtils";
 
 export const EditableContext = React.createContext();
 
@@ -85,10 +85,10 @@ class EditableTable extends React.PureComponent {
               {form => (
                 <Form.Item>
                   {form.getFieldDecorator("date", {
-                    initialValue: currentMonth
-                  })(
-                    <DatePicker size={"medium"} format={dateFormat} />
-                  )}
+                    initialValue: text
+                      ? parseDate(text, dateFormat)
+                      : currentMonth
+                  })(<DatePicker size={"medium"} format={dateFormat} />)}
                 </Form.Item>
               )}
             </EditableContext.Consumer>
@@ -108,11 +108,14 @@ class EditableTable extends React.PureComponent {
           return editable ? (
             <EditableContext.Consumer>
               {form => (
-                <Form.Item hasFeedback>
+                <Form.Item>
                   {form.getFieldDecorator("account", {
                     rules: [
                       { required: true, message: "Please select account!" }
-                    ]
+                    ],
+                    initialValue: category
+                      ? { key: category._id, label: category.name }
+                      : undefined
                   })(
                     <Select
                       style={{ width: "100%" }}
@@ -143,11 +146,14 @@ class EditableTable extends React.PureComponent {
           return editable ? (
             <EditableContext.Consumer>
               {form => (
-                <Form.Item hasFeedback>
+                <Form.Item>
                   {form.getFieldDecorator("payee", {
                     rules: [
                       { required: true, message: "Please select your payee!" }
-                    ]
+                    ],
+                    initialValue: payee
+                      ? { key: payee._id, label: payee.name }
+                      : undefined
                   })(
                     <Select
                       style={{ width: "100%" }}
@@ -195,11 +201,14 @@ class EditableTable extends React.PureComponent {
           return editable ? (
             <EditableContext.Consumer>
               {form => (
-                <Form.Item hasFeedback>
+                <Form.Item>
                   {form.getFieldDecorator("category", {
                     rules: [
                       { required: true, message: "Please select category!" }
-                    ]
+                    ],
+                    initialValue: category
+                      ? { key: category._id, label: category.name }
+                      : undefined
                   })(
                     <Select
                       style={{ width: "100%" }}
@@ -266,13 +275,22 @@ class EditableTable extends React.PureComponent {
               />
             </div>
           ) : (
-            <Icon
-              type="edit"
-              className="transactionTableEdit"
-              title="Edit"
-              disabled={this.props.editingKey !== ""}
-              onClick={() => this.props.edit(record.key)}
-            />
+            <div>
+              <Icon
+                type="edit"
+                className="transactionTableEdit"
+                title="Edit"
+                disabled={this.props.editingKey !== ""}
+                onClick={() => this.props.edit(record.key)}
+              />
+              <Icon
+                type="delete"
+                className="transactionTableEdit"
+                title="Delete"
+                disabled={this.props.editingKey !== ""}
+                onClick={() => this.props.remove(record)}
+              />
+            </div>
           );
         }
       }

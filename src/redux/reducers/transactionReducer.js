@@ -8,9 +8,14 @@ export default function transactionReducer(
 ) {
   switch(action.type) {
     case types.CREATE_TRANSACTION_SUCCESS:
+    case types.DELETE_TRANSACTION_FAILURE:
       return {...state, [action.transaction._id]: action.transaction};
     case types.LOAD_TRANSACTIONS_SUCCESS:
       return mapArrayToDictionaryId(action.data);
+    case types.DELETE_TRANSACTION_SUCCESS:
+      const key = action.transaction._id;
+      const {[key]: value, ...updatedState} = state;
+      return updatedState;
     default:
       return state;
   }

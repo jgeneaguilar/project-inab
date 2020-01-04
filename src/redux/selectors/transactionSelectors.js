@@ -21,8 +21,8 @@ export const getAllTransactions = createSelector(
           date: formatDate(item.date, defaultFormat),
           account: accounts.find(account => account._id === item.account_id),
           payee: payees[item.payee_id],
-          inflow: item.amount > 0 && item.amount,
-          outflow: item.amount < 0 && Math.abs(item.amount),
+          inflow: item.amount > 0 ? item.amount / 100 : null,
+          outflow: item.amount < 0 ? Math.abs(item.amount) / 100 : null,
           category: categories.find(cat => cat._id === item.category_id),
         };
       })
