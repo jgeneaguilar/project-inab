@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-import { groupByCategoryId } from '../../utils/stateNormalizer';
+import { groupById } from '../../utils/commonUtils';
+
 
 
 export default function categoryBudgetReducer(
@@ -10,7 +11,7 @@ export default function categoryBudgetReducer(
   switch(action.type) {
     case types.SET_CURRENT_TIMESPAN:
       const { category_budgets } = action.timespanElements;
-      return groupByCategoryId(category_budgets);
+      return groupById(category_budgets);
     case types.SAVE_CATEGORY_BUDGET_SUCCESS:
       // adds and save
       const { category_id } = action.categoryBudget;

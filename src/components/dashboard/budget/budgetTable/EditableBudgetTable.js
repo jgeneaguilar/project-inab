@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Input, Form } from 'antd';
 
 const EditableContext = React.createContext();
@@ -11,7 +11,7 @@ export const EditableRow = ({ form, index, ...props }) => (
 
 export const EditableFormRow = Form.create()(EditableRow);
 
-export class EditableCell extends Component {
+export class EditableCell extends PureComponent {
   state = {
     editing: false
   };
