@@ -21,3 +21,7 @@ export function formatDate(text, format) {
 export function sortByDateDesc(ldate, rdate, format) {
   return moment(rdate, format) - moment(ldate, format);
 }
+
+export function timeFromNow(text) {
+  return moment(text).fromNow();
+}

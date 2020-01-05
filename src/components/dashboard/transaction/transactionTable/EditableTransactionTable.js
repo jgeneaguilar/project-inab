@@ -102,7 +102,7 @@ class EditableTable extends React.PureComponent {
         dataIndex: "account",
         key: "account",
         width: 200,
-        render: (category, record) => {
+        render: (account, record) => {
           const editable = this.props.isEditing(record);
           // TODO: Make this a reusable component
           return editable ? (
@@ -113,8 +113,8 @@ class EditableTable extends React.PureComponent {
                     rules: [
                       { required: true, message: "Please select account!" }
                     ],
-                    initialValue: category
-                      ? { key: category._id, label: category.name }
+                    initialValue: account
+                      ? { key: account._id, label: account.name }
                       : undefined
                   })(
                     <Select
@@ -132,12 +132,12 @@ class EditableTable extends React.PureComponent {
               )}
             </EditableContext.Consumer>
           ) : (
-            <span>{category && category.name}</span>
+            <span>{account && account.name}</span>
           );
         }
       },
       {
-        title: "PAYEE/PAYOR",
+        title: "PAYEE",
         dataIndex: "payee",
         key: "payee.name",
         render: (payee, record) => {
@@ -225,7 +225,7 @@ class EditableTable extends React.PureComponent {
               )}
             </EditableContext.Consumer>
           ) : (
-            <span>{category.name}</span>
+            <span>{category && category.name}</span>
           );
         }
       },
@@ -234,6 +234,7 @@ class EditableTable extends React.PureComponent {
         dataIndex: "inflow",
         key: "inflow",
         width: 100,
+        align: "right",
         editable: true
       },
       {
@@ -242,12 +243,14 @@ class EditableTable extends React.PureComponent {
         dataIndex: "outflow",
         key: "outflow",
         width: 100,
+        align: "right",
         editable: true
       },
       {
         title: "",
         colSpan: 2,
         width: 150,
+        align: "right",
         dataIndex: "operation",
         render: (text, record) => {
           const editable = this.props.isEditing(record);
@@ -275,7 +278,7 @@ class EditableTable extends React.PureComponent {
               />
             </div>
           ) : (
-            <div>
+            <div className="actionMenu">
               <Icon
                 type="edit"
                 className="transactionTableEdit"
