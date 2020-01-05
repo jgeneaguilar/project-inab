@@ -22,6 +22,9 @@ const AppBarView = ({ currentBudget, showModal }) => {
       case BUDGET_MENU.NEW:
         showModal(MODAL_TYPES.CREATE_BUDGET);
         break;
+      case BUDGET_MENU.OPEN:
+        showModal(MODAL_TYPES.OPEN_BUDGET);
+        break;
       default:
         break;
     }

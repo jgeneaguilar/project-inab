@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
 const FormDialog = ({ 
-  visible, title, children, okText, onCancel, onOk, confirmLoading 
+  visible, title, width, children, okText, okButtonProps, onCancel, onOk, confirmLoading 
 }) => {
   return (
     <Modal
       visible={visible}
+      width={width}
       title={title}
       okText={okText}
+      okButtonProps={okButtonProps}
       onCancel={onCancel}
       onOk={onOk}
       confirmLoading={confirmLoading}

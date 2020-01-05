@@ -3,11 +3,13 @@ import UpdateAccountForm from './UpdateAccountForm';
 import { connect } from 'react-redux';
 import CreateBudgetForm from './CreateBudgetForm';
 import UpdateTransactionForm from './UpdateTransactionForm';
+import OpenBudgetForm from './OpenBudgetForm';
 
 
 export const MODAL_COMPONENTS = {
   UPDATE_ACCOUNT: UpdateAccountForm,
   CREATE_BUDGET: CreateBudgetForm,
+  OPEN_BUDGET: OpenBudgetForm,
   UPDATE_TRANSACTION: UpdateTransactionForm
 };
 
@@ -15,6 +17,7 @@ export const MODAL_COMPONENTS = {
 export const MODAL_TYPES = {
   UPDATE_ACCOUNT: 'UPDATE_ACCOUNT',
   CREATE_BUDGET: 'CREATE_BUDGET',
+  OPEN_BUDGET: 'OPEN_BUDGET',
   UPDATE_TRANSACTION: 'UPDATE_TRANSACTION'
 };
 
