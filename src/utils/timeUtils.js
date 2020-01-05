@@ -25,3 +25,7 @@ export function sortByDateDesc(ldate, rdate, format) {
 export function timeFromNow(text) {
   return moment(text).fromNow();
 }
+
+export function toTimespan(date) {
+  return formatDate(date, "MMYYYY");
+}

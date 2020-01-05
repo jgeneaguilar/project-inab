@@ -230,18 +230,18 @@ class EditableTable extends React.PureComponent {
         }
       },
       {
-        title: "INFLOW",
-        dataIndex: "inflow",
-        key: "inflow",
+        colSpan: 1,
+        title: "OUTFLOW",
+        dataIndex: "outflow",
+        key: "outflow",
         width: 100,
         align: "right",
         editable: true
       },
       {
-        colSpan: 1,
-        title: "OUTFLOW",
-        dataIndex: "outflow",
-        key: "outflow",
+        title: "INFLOW",
+        dataIndex: "inflow",
+        key: "inflow",
         width: 100,
         align: "right",
         editable: true

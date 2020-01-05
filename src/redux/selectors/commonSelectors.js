@@ -1,6 +1,8 @@
 
 export const getTransactions = state => state.transactions;
 
+export const getTransactionsList = state => Object.values(state.transactions);
+
 export const getAccounts = state => state.accounts;
 
 export const getCategories = state => state.categories;

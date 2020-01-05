@@ -1,19 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import BudgetTableView from './BudgetTableView';
-import FormPopover from '../../../../commons/FormPopover';
 import { Icon } from 'antd';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
+import FormPopover from '../../../../commons/FormPopover';
 import { addCategory } from '../../../../redux/actions/categoryActions';
-import { updateMasterCategory } from '../../../../redux/actions/masterCategoryActions';
 import { saveCategoryBudget } from '../../../../redux/actions/categoryBudgetActions';
-import { getTotalBudgeted, getAmount } from '../../../../utils/currencyUtils';
+import { updateMasterCategory } from '../../../../redux/actions/masterCategoryActions';
+import { getCategoriesByMasterCategory } from '../../../../redux/selectors/categorySelectors';
+import BudgetTableView from './BudgetTableView';
 
 
 const BudgetTableContainer = ({ 
-  currentBudget, masterCategories, categories, addCategory, updateMasterCategory, categoryBudgets, saveCategoryBudget, currentTimespan,
-  transactions
-}) => {
+  currentBudget, masterCategories, addCategory, updateMasterCategory, saveCategoryBudget, currentTimespan}) => {
 
 /** render: (text, record) => {}
  * text = display text of cell
@@ -27,12 +25,11 @@ const BudgetTableContainer = ({
       key: 'category',
       render: (text, record) => {
         
-        function getCatNameById(array) {
-          return array.find(cat => cat._id === record.key);
-        }
+        // function getCatNameById(array) {
+        //   return array.find(cat => cat._id === record.key);
+        // }
 
-        const mCat = getCatNameById(masterCategories);
-        // const cat = getCatNameById(categories);
+        const mCat = record;
 
         if (record.type === 'master') {
 
@@ -98,10 +95,10 @@ const BudgetTableContainer = ({
     }
   ];
 
-  const data = masterCategories
-    .map(item => mapCategories(item, categories, categoryBudgets));
+  const data = masterCategories;
 
-
+/**  
+ * 
   function mapCategories(masterCategory, categories, categoryBudgets) {
     return {
       key: masterCategory._id,
@@ -110,7 +107,7 @@ const BudgetTableContainer = ({
       budgeted: getTotalBudgeted(masterCategory, categories, categoryBudgets),
       activity: 'Php0.00',
       available: 'Php0.00',
-      children: categories
+      children: categories[masterCategory._id]
         .filter(category => category.master_category_id === masterCategory._id)
         .map(category => ({
           key: category._id,
@@ -123,31 +120,31 @@ const BudgetTableContainer = ({
     };
   }
 
-  // TODO: Refactor
-  // function getTotalBudgeted(masterCategory, categories, categoryBudgets) {
-  //   return categories
-  //     // filter by master category id
-  //     .filter(c => c.master_category_id === masterCategory._id)
-  //     // new array of budgeted amount
-  //     .map(c => categoryBudgets[c._id] ? 
-  //         categoryBudgets[c._id]['budgeted'] : 0
-  //     // sum of budgeted amount
-  //     ).reduce((a, b) => a + b, 0);
-  // }
+  //TODO: Refactor
+  function getTotalBudgeted(masterCategory, categories, categoryBudgets) {
+    return categories
+      // filter by master category id
+      .filter(c => c.master_category_id === masterCategory._id)
+      // new array of budgeted amount
+      .map(c => categoryBudgets[c._id] ? 
+          categoryBudgets[c._id]['budgeted'] : 0
+      // sum of budgeted amount
+      ).reduce((a, b) => a + b, 0);
+  }
   
-  // function getAmount(obj, id) {
-  //   return obj[id] ? obj[id]['budgeted'] : '0';
-  // }
+  function getAmount(obj, id) {
+    return obj[id] ? obj[id]['budgeted'] : '0';
+  }
 
-  // function getTransAmt(obj, id) {
-  //   return obj[id] ? obj[id]['amount'] : '0';
-  // }
-
+  function getTransAmt(obj, id) {
+    return obj[id] ? obj[id]['amount'] : '0';
+  }
+  */
 
   function handleSave(row) {
     // TODO: use <InputNumber /> in EditableBudgetTable instead
     const str = row.budgeted.replace(',', '');
-    const num = parseInt(str);
+    const num = parseFloat(str);
     const budgeted = num * 100;
     saveCategoryBudget(currentBudget._id, currentTimespan, row.key, budgeted);
   }
@@ -179,7 +176,6 @@ const BudgetTableContainer = ({
 BudgetTableContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
   masterCategories: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired,
   addCategory: PropTypes.func.isRequired,
   updateMasterCategory: PropTypes.func.isRequired
 };
@@ -187,11 +183,8 @@ BudgetTableContainer.propTypes = {
 function mapStateToProps(state) {
   return { 
     currentBudget: state.currentBudget,
-    masterCategories: state.masterCategories,
-    categories: state.categories,
+    masterCategories: getCategoriesByMasterCategory(state),
     currentTimespan: state.currentTimespan,
-    categoryBudgets: state.categoryBudgets,
-    transactions: state.transactions,
   };
 }
 
