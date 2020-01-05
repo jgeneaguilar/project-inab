@@ -37,14 +37,14 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, updateAccount
   }
 
   function handleSubmit() {
-    let onSubmit;
-    if (accountData._id) {
-      onSubmit = updateAccount;
-    } else {
-      onSubmit = addAccount;
-    }
+    const onSubmit = accountData._id ? updateAccount : addAccount;
+    const data = {
+      ...accountData,
+      balance: accountData.balance * 100
+    };
+
     setConfirmLoading(true);
-    onSubmit(currentBudget._id, accountData)
+    onSubmit(currentBudget._id, data)
       .then(() => {
         setConfirmLoading(false);
         hideModal();
