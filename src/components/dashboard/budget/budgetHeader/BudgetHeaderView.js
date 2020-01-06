@@ -1,17 +1,13 @@
-import React from 'react';
+import { Divider, Icon, PageHeader } from 'antd';
 import PropTypes from 'prop-types';
-import { PageHeader, Icon, Divider } from 'antd';
-import './styles.scss';
-import { type } from './BudgetHeaderContainer';
+import React from 'react';
+import { toCurrency } from '../../../../utils/currencyUtils';
 import { formatMonthDisplay } from '../../../../utils/timeUtils';
-import { 
-  getTotalBalance, 
-  getBudgetAccounts,
-} from '../../../../utils/currencyUtils';
+import { type } from './BudgetHeaderContainer';
+import './styles.scss';
 
 
-const BudgetHeaderView = ({ month, dispatch, accounts }) => {
-  console.log('month', month);
+const BudgetHeaderView = ({ month, dispatch, accounts, totalBudget }) => {
   return (
     <PageHeader className='budgetHeaderContainer'>
       <div className='budgetHeaderMonth'>
@@ -28,7 +24,7 @@ const BudgetHeaderView = ({ month, dispatch, accounts }) => {
       <Divider type='vertical' className='budgetHeaderDivider' />
       <div className='budgetHeaderStats'>
         <div className='budgetHeaderTBB'>
-          <h3>{getTotalBalance(getBudgetAccounts(accounts))}</h3>
+          <h3> {totalBudget && toCurrency(totalBudget)}</h3>
           <h5>To be Budgeted</h5>
         </div>
         <div className='budgetHeaderTotals'>

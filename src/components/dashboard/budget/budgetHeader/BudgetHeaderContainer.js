@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { currentMonth } from '../../../../utils/timeUtils';
 import { loadTimespanElements } from '../../../../redux/actions/timespanActions';
 import { formatTimespan } from '../../../../utils/timeUtils';
+import { getTotalBudget } from '../../../../redux/selectors/budgetSelectors';
 
 export const type = {
   increment: 'INCREMENT',
@@ -26,7 +27,7 @@ function monthReducer(state, action) {
 }
 
 
-const BudgetHeaderContainer = ({ currentBudget, accounts, loadTimespanElements }) => {
+const BudgetHeaderContainer = ({ currentBudget, accounts, totalBudget, loadTimespanElements }) => {
 
   const initialState = { month: currentMonth };
 
@@ -45,6 +46,7 @@ const BudgetHeaderContainer = ({ currentBudget, accounts, loadTimespanElements }
       month={state.month}
       dispatch={dispatch}
       accounts={accounts}
+      totalBudget={totalBudget}
     />
   );
 }
@@ -58,7 +60,8 @@ BudgetHeaderContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
-    accounts: state.accounts
+    accounts: state.accounts,
+    totalBudget: getTotalBudget(state)
   };
 }
 

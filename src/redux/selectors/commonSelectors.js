@@ -14,3 +14,7 @@ export const getPayeeList = state => Object.values(state.payees);
 export const getMasterCategories = state => state.masterCategories;
 
 export const getCategoryBudgets = state => state.categoryBudgets;
+
+export const getCategoryBudgetList = state => Object.values(state.categoryBudgets);
+
+export const getCurrentTimespan = state => state.currentTimespan;
