@@ -1,31 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { EditableFormTable } from './EditableTransactionTable';
-import { connect } from 'react-redux';
-import { createUpdateTransaction, removeTransaction } from '../../../../redux/actions/transactionActions';
-import { getAllTransactions } from '../../../../redux/selectors/transactionSelectors';
-import { getPayeeList, getAccounts } from '../../../../redux/selectors/commonSelectors';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import { EditableFormTable } from "./EditableTransactionTable";
+import { connect } from "react-redux";
+import {
+  createTransaction,
+  removeTransaction,
+  updateTransaction
+} from "../../../../redux/actions/transactionActions";
+import { getAllTransactions } from "../../../../redux/selectors/transactionSelectors";
+import {
+  getPayeeList,
+  getAccounts
+} from "../../../../redux/selectors/commonSelectors";
+import moment from "moment";
 
 moment.suppressDeprecationWarnings = true;
 
-const TransactionTableContainer = ({currentBudget, transactions, newTransaction, categories, payees, createUpdateTransaction, removeTransaction, accounts}) => {
-
+const TransactionTableContainer = ({
+  currentBudget,
+  transactions,
+  newTransaction,
+  categories,
+  payees,
+  createTransaction,
+  updateTransaction,
+  removeTransaction,
+  accounts
+}) => {
   const [newEntity, setNewEntity] = useState(newTransaction);
   const [data, setData] = useState(transactions);
-  const [editingKey, setEditingKey] = useState('');
+  const [editingKey, setEditingKey] = useState("");
 
   useEffect(() => {
-    setData([newEntity, ...transactions]
-      .filter(item => item !== null));
-  }, [transactions, newEntity])
+    setData([newEntity, ...transactions].filter(item => item !== null));
+  }, [transactions, newEntity]);
 
   useEffect(() => {
     setNewEntity(newTransaction);
     if (newTransaction) {
-      edit(newTransaction.key)
+      edit(newTransaction.key);
     }
-   }, [newTransaction])
-
+  }, [newTransaction]);
 
   function isEditing(record) {
     return record.key === editingKey;
@@ -36,7 +50,7 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
       setNewEntity(null);
     }
 
-   setEditingKey('');
+    setEditingKey("");
   }
 
   function save(form, key) {
@@ -45,10 +59,11 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
         return;
       }
 
-      const amount = (row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1) * 100;
+      const amount =
+        (row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1) * 100;
       const transaction = {
         id: key,
-        date: moment(row.date).format('MM/DD/YYYY'),
+        date: moment(row.date).format("MM/DD/YYYY"),
         accountId: row.account.key,
         categoryId: row.category.key,
         payeeId: row.payee && row.payee.key,
@@ -58,9 +73,11 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
 
       if (newEntity && key === newEntity.key) {
         transaction.id = null;
+        createTransaction(currentBudget._id, transaction);
+      } else {
+        updateTransaction(currentBudget._id, transaction);
       }
 
-      createUpdateTransaction(currentBudget._id, transaction);
       cancel();
     });
   }
@@ -70,16 +87,16 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
   }
 
   function remove(record) {
-    const {account, payee, category, key, id, ...transaction} = record;
+    const { account, payee, category, key, id, ...transaction } = record;
     removeTransaction(currentBudget._id, transaction);
   }
 
   return (
-    // <TransactionTableView 
+    // <TransactionTableView
     //   columns={columns}
     //   data={data}
     // />
-    <EditableFormTable 
+    <EditableFormTable
       data={data}
       payees={payees}
       accounts={accounts}
@@ -92,7 +109,7 @@ const TransactionTableContainer = ({currentBudget, transactions, newTransaction,
       remove={remove}
     />
   );
-}
+};
 
 // TransactionTableContainer.propTypes = {
 
@@ -104,11 +121,12 @@ function mapStateToProps(state) {
     transactions: getAllTransactions(state),
     categories: state.categories,
     accounts: getAccounts(state),
-    payees: getPayeeList(state),
+    payees: getPayeeList(state)
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {createUpdateTransaction, removeTransaction},
-)(TransactionTableContainer);
+export default connect(mapStateToProps, {
+  createTransaction,
+  updateTransaction,
+  removeTransaction
+})(TransactionTableContainer);

@@ -233,6 +233,7 @@ class EditableTable extends React.PureComponent {
         colSpan: 1,
         title: "OUTFLOW",
         dataIndex: "outflow",
+        className: "rightAlign",
         key: "outflow",
         width: 100,
         align: "right",
@@ -241,6 +242,7 @@ class EditableTable extends React.PureComponent {
       {
         title: "INFLOW",
         dataIndex: "inflow",
+        className: "rightAlign",
         key: "inflow",
         width: 100,
         align: "right",

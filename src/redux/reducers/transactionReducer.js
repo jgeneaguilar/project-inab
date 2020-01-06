@@ -11,6 +11,7 @@ export default function transactionReducer(
       const { transactions } = action.timespanElements;
       return mapTransactions({...state}, transactions);
     case types.CREATE_TRANSACTION_SUCCESS:
+    case types.UPDATE_TRANSACTION_SUCCESS:
     case types.DELETE_TRANSACTION_FAILURE:
       return {
         ...state,
