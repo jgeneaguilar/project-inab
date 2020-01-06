@@ -11,6 +11,6 @@ export const getTotalBudget = createSelector(
     const totalBudget = currentBudgets.reduce((total, item) => total = total + item.budgeted, 0);
     const totalBalance = accounts.reduce((total, item) => total = total + item.balance, 0);
 
-    return (totalBalance - totalBudget) / 100;
+    return totalBalance - totalBudget;
   }
 )
