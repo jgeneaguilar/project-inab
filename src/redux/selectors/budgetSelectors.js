@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { getCurrentTimespan, getAccounts, getCategoryBudgetList } from './commonSelectors';
+import { getCurrentTimespan, getBudgetAccounts, getCategoryBudgetList } from './commonSelectors';
 
 export const getTotalBudget = createSelector(
   getCurrentTimespan,
-  getAccounts,
+  getBudgetAccounts,
   getCategoryBudgetList,
   (currentTimespan, accounts, categoryBudgets) => {
 
