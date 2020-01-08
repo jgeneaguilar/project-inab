@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as accountApi from '../../api/accountsAPI';
+import { createTransactionSuccess } from './transactionActions';
 
 // Action Creators
 export function addAccountSuccess(account) {
@@ -18,8 +19,10 @@ export function deleteAccountSuccess(accountId) {
 export function addAccount(budgetId, accountData) {
   return function(dispatch) {
     return accountApi.createAccount(budgetId, accountData)
-      .then(account => {
+      .then(data => {
+        const {account, transaction} = data;
         dispatch(addAccountSuccess(account));
+        dispatch(createTransactionSuccess(transaction));
       }).catch(error => {
         console.log(error);
       });
@@ -29,7 +32,11 @@ export function addAccount(budgetId, accountData) {
 export function updateAccount(budgetId, accountData) {
   return function(dispatch) {
     return accountApi.saveAccount(budgetId, accountData)
-      .then(account => dispatch(updateAccountSuccess(account)))
+      .then(data => {
+        const {account, transaction} = data;
+        dispatch(updateAccountSuccess(account))
+        dispatch(createTransactionSuccess(transaction));
+      })
       .catch(error => console.log(error));
   };
 }

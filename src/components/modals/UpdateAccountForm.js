@@ -38,9 +38,11 @@ const UpdateAccountForm = ({ hideModal, currentBudget, addAccount, updateAccount
 
   function handleSubmit() {
     const onSubmit = accountData._id ? updateAccount : addAccount;
+    const currentBalance = currentValue ? currentValue.balance : 0;
+    console.log('currentBalance', currentBalance);
     const data = {
       ...accountData,
-      balance: accountData.balance * 100
+      balance: (accountData.balance * 100 - currentBalance) 
     };
 
     setConfirmLoading(true);

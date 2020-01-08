@@ -7,6 +7,8 @@ export default function transactionReducer(
   action
 ) {
   switch (action.type) {
+    case types.SET_CURRENT_BUDGET:
+      return initialState.transactions;
     case types.SET_CURRENT_TIMESPAN:
       const { transactions } = action.timespanElements;
       return mapTransactions({...state}, transactions);

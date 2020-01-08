@@ -9,6 +9,8 @@ export default function categoryBudgetReducer(
   action
 ) {
   switch(action.type) {
+    case types.SET_CURRENT_BUDGET:
+      return initialState.categoryBudgets;
     case types.SET_CURRENT_TIMESPAN:
       const { category_budgets } = action.timespanElements;
       return groupById(category_budgets);

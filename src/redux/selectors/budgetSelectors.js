@@ -1,16 +1,18 @@
 import { createSelector } from 'reselect';
-import { getCurrentTimespan, getBudgetAccounts, getCategoryBudgetList } from './commonSelectors';
-
+import { getCategoryBudgetList, getCurrentTimespan, getTransactionsList } from './commonSelectors';
 export const getTotalBudget = createSelector(
   getCurrentTimespan,
-  getBudgetAccounts,
   getCategoryBudgetList,
-  (currentTimespan, accounts, categoryBudgets) => {
+  getTransactionsList,
+  (currentTimespan, categoryBudgets, transactions) => {
 
-    const currentBudgets = categoryBudgets.filter(item => item.timespan === currentTimespan);
+    const inflow_transactions = transactions.filter(item => item.amount > 0);
+
+    const currentBudgets = categoryBudgets
+      .filter(item => item.timespan === currentTimespan)
     const totalBudget = currentBudgets.reduce((total, item) => total = total + item.budgeted, 0);
-    const totalBalance = accounts.reduce((total, item) => total = total + item.balance, 0);
-
+    const totalBalance = inflow_transactions.reduce((total, item) => total = total + item.amount, 0);
+    
     return totalBalance - totalBudget;
   }
 )

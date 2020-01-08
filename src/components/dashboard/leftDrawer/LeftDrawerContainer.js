@@ -5,6 +5,7 @@ import LeftDrawerView from './LeftDrawerView';
 import { showModal } from '../../../redux/actions/modalActions';
 import { MODAL_TYPES } from '../../modals';
 import { deleteAccount } from '../../../redux/actions/accountActions';
+import { getAccountBalances } from '../../../redux/selectors/accountSelectors';
 
 const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount }) => {
 
@@ -44,8 +45,8 @@ LeftDrawerContainer.propTypes = {
 
 function mapStateToProps(state) {
   return { 
-    accounts: state.accounts,
     currentBudget: state.currentBudget,
+    accounts: getAccountBalances(state)
   };
 }
 
