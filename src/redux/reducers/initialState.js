@@ -3,8 +3,8 @@ export default {
   budgets: [],
   currentBudget: null, // type obj
   accounts: [],
-  masterCategories: [],
-  categories: [],
+  masterCategories: {},
+  categories: {},
   currentTimespan: '',
   categoryBudgets: {},
   transactions: {},

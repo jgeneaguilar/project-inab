@@ -11,6 +11,10 @@ export function updateMasterCategorySuccess(masterCategory) {
   return { type: types.UPDATE_MASTER_CATEGORY_SUCCESS, masterCategory };
 }
 
+export function deleteMasterCategorySuccess(masterCategoryId) {
+  return { type: types.DELETE_MASTER_CATEGORY_SUCCESS, masterCategoryId };
+}
+
 // Thunk
 export function addMasterCategory(budgetId, masterCategoryName) {
   return function(dispatch) {
@@ -37,3 +41,15 @@ export function updateMasterCategory(
   };
 }
 
+export function deleteMasterCategory(budgetId, masterCategoryId) {
+  return function(dispatch) {
+    return masterCategoryApi
+      .deleteMasterCategory(budgetId, masterCategoryId)
+      .then(data => {
+        dispatch(deleteMasterCategorySuccess(masterCategoryId));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+}

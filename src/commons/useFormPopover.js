@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 
-const useFormPopover = (asyncFunc, initialValue) => {
+const useFormPopover = (asyncFunc, deleteFunc, initialValue) => {
 
   const [inputValue, setInputValue] = useState('');
 
@@ -25,11 +25,19 @@ const useFormPopover = (asyncFunc, initialValue) => {
   // for the Cancel Button
   function onCancel() {
     handleClickChange(false);
+  } 
+  
+  // for the Delete Button
+  function onDelete(event) {
+    event.preventDefault();
+    if (!deleteFunc) { return; }
+    deleteFunc().then(() => onCancel());
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    asyncFunc(inputValue).then(() => onCancel());
+    asyncFunc(inputValue).then();
+    onCancel();
   }
 
   return {
@@ -38,7 +46,8 @@ const useFormPopover = (asyncFunc, initialValue) => {
     handleChange,
     handleClickChange,
     handleSubmit,
-    onCancel
+    onCancel,
+    onDelete
   };
 }
 

@@ -9,7 +9,8 @@ import {
 import { getAllTransactions } from "../../../../redux/selectors/transactionSelectors";
 import {
   getPayeeList,
-  getAccounts
+  getAccounts,
+  getCategories
 } from "../../../../redux/selectors/commonSelectors";
 import moment from "moment";
 
@@ -119,7 +120,7 @@ function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
     transactions: getAllTransactions(state),
-    categories: state.categories,
+    categories: getCategories(state),
     accounts: getAccounts(state),
     payees: getPayeeList(state)
   };

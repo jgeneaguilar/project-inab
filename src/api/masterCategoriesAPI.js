@@ -21,3 +21,8 @@ export const saveMasterCategory = (
     .patch(`budgets/${budgetId}/master_categories/${masterCategoryId}`, param)
     .then(res => res.data);
 }
+
+export const deleteMasterCategory = (budgetId, masterCategoryId) => {
+  return api.delete(`budgets/${budgetId}/master_categories/${masterCategoryId}`)
+    .then(res => res.data);
+}

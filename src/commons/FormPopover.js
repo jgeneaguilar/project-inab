@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Button, Popover } from 'antd';
+import { Input, Button, Popover, Row, Col } from 'antd';
 import useFormPopover from './useFormPopover';
 import './styles.scss';
 
 
 // A Popover with an input field and a cancel and submit button
 
-const FormPopover = ({ children, placeholder, asyncFunc, initialValue }) => {
+const FormPopover = ({ children, placeholder, showDelete, asyncFunc, deleteFunc, initialValue }) => {
 
   const { 
-    inputValue, clicked, handleChange, handleClickChange, handleSubmit, onCancel 
-  } = useFormPopover(asyncFunc, initialValue);
+    inputValue, clicked, handleChange, handleClickChange, handleSubmit, onCancel, onDelete
+  } = useFormPopover(asyncFunc, deleteFunc, initialValue);
 
   const title = (
     <Input 
@@ -24,20 +24,35 @@ const FormPopover = ({ children, placeholder, asyncFunc, initialValue }) => {
   );
 
   const content = (
-    <div className='formPopoverActions'>
-      <Button
-        onClick={onCancel}
-        className='formPopoverCancel'
-      >
-        Cancel
-      </Button>
-      <Button 
-        type='primary' 
-        onClick={handleSubmit}
-        className='formPopoverOK'
-      >
-        OK
-      </Button>
+    <div className="formPopoverActions">
+      <Row>
+        <Col span={6}>
+          {showDelete && (
+            <Button
+              ghost
+              type="danger"
+              onClick={onDelete}
+              className="formPopoverCancel"
+              size="small"
+            >
+              Delete
+            </Button>
+          )}
+        </Col>
+        <Col span={18}>
+          <Button onClick={onCancel} className="formPopoverCancel" size="small">
+            Cancel
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            onClick={handleSubmit}
+            className="formPopoverOK"
+          >
+            OK
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 
@@ -60,6 +75,8 @@ FormPopover.propTypes = {
   children: PropTypes.node.isRequired,
   placeholder: PropTypes.string.isRequired,
   asyncFunc: PropTypes.func.isRequired,
+  deleteFunc: PropTypes.func,
+  showDelete: PropTypes.bool,
   initialValue: PropTypes.string
 };
 

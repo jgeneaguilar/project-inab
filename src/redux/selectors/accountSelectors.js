@@ -11,7 +11,7 @@ export const getAccountBalances = createSelector(
       return item.amount;
     });
 
-    Object.keys(acc_transactions).map(function(key, index) {
+    Object.keys(acc_transactions).forEach(function(key, index) {
       acc_transactions[key] = acc_transactions[key].reduce((total, item) => total + item);
     });
 

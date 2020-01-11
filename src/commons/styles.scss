@@ -1,12 +1,10 @@
 .formPopover {
   .ant-popover-title {
     padding: 8px 12px;
+    min-width: 300px;
   }
   .ant-popover-inner-content {
     padding: 8px 12px;
     text-align: right;
-    .formPopoverOK.ant-btn-primary {
-      margin-left: 8px;
-    }
   }
 }
