@@ -7,6 +7,8 @@ export default function budgetReducer(state = initialState.budgets, action) {
       return [ ...state,  action.budget ];
     case types.LOAD_BUDGETS_SUCCESS:
       return [ ...state, ...action.budgets ];
+    case types.DELETE_BUDGET_SUCCESS:
+      return state.filter(budget => budget._id !== action.budgetId);
     default:
       return state;
   }

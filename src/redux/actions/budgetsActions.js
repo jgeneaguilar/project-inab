@@ -11,12 +11,16 @@ export function createBudgetSuccess(budget) {
   return { type: types.CREATE_BUDGET, budget};
 }
 
+export function deleteBudgetSuccess(budgetId) {
+  return { type: types.DELETE_BUDGET_SUCCESS, budgetId};
+}
+
 // Thunk
 export function createBudget(budget) {
   return function(dispatch) {
     return budgetApi.createBudget(budget)
       .then(data => {
-        dispatch(createBudgetSuccess(data._id));
+        dispatch(createBudgetSuccess(data));
         dispatch(loadBudget(data._id));
       });
   };
@@ -36,4 +40,13 @@ export function loadBudgets() {
         console.log(error);
       });
   };
+}
+
+export function deleteBudget(budgetId) {
+  return function(dispatch) {
+    return budgetApi.deleteBudget(budgetId)
+      .then(data => {
+        dispatch(deleteBudgetSuccess(budgetId));
+      });
+  }
 }

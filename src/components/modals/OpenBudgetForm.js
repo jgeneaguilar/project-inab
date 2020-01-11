@@ -5,8 +5,9 @@ import FormDialog from "../../commons/FormDialog";
 import { loadBudget } from "../../redux/actions/currentBudgetActions";
 import { hideModal } from "../../redux/actions/modalActions";
 import { timeFromNow } from "../../utils/timeUtils";
+import { deleteBudget } from "../../redux/actions/budgetsActions";
 
-const OpenBudgetForm = ({ budgets, loadBudget, hideModal }) => {
+const OpenBudgetForm = ({ budgets, loadBudget, hideModal, deleteBudget }) => {
   const formDialogProps = {
     visible: true,
     title: "Open Budget",
@@ -21,6 +22,11 @@ const OpenBudgetForm = ({ budgets, loadBudget, hideModal }) => {
     hideModal();
   }
 
+  const handleBudgetDelete = (budgetId) => event => {
+    event.stopPropagation();
+    deleteBudget(budgetId);
+  } 
+
   return (
     <FormDialog {...formDialogProps}>
       <List
@@ -32,7 +38,7 @@ const OpenBudgetForm = ({ budgets, loadBudget, hideModal }) => {
               hoverable
               className="card"
               cover={<Icon className="icon" type="dollar-circle" theme="filled" />}
-              actions={[<Icon type="delete" key="delete" />]}
+              actions={[<Icon type="delete" key="delete" onClick={handleBudgetDelete(item._id)}/>]}
               onClick={() => handleBudgetSelect(item._id)}
             >
               <div className="title">{item.name}</div>
@@ -51,4 +57,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { hideModal, loadBudget })(OpenBudgetForm);
+export default connect(mapStateToProps, { hideModal, loadBudget, deleteBudget})(OpenBudgetForm);

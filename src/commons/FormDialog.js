@@ -28,7 +28,7 @@ FormDialog.propTypes = {
   children: PropTypes.node.isRequired,
   okText: PropTypes.string,
   onCancel: PropTypes.func.isRequired,
-  onOk: PropTypes.func.isRequired,
+  onOk: PropTypes.func,
   confirmLoading: PropTypes.bool,
 };
 
