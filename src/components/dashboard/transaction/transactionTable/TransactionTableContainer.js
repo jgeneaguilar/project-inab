@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { EditableFormTable } from "./EditableTransactionTable";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { EditableFormTable } from './EditableTransactionTable';
+import { connect } from 'react-redux';
 import {
   createTransaction,
   removeTransaction,
-  updateTransaction
-} from "../../../../redux/actions/transactionActions";
-import { getAllTransactions } from "../../../../redux/selectors/transactionSelectors";
+  updateTransaction,
+} from '../../../../redux/actions/transactionActions';
+import { getAllTransactions } from '../../../../redux/selectors/transactionSelectors';
 import {
   getPayeeList,
   getAccounts,
-  getCategories
-} from "../../../../redux/selectors/commonSelectors";
-import moment from "moment";
+  getCategories,
+} from '../../../../redux/selectors/commonSelectors';
+import moment from 'moment';
 
 moment.suppressDeprecationWarnings = true;
 
@@ -25,14 +25,14 @@ const TransactionTableContainer = ({
   createTransaction,
   updateTransaction,
   removeTransaction,
-  accounts
+  accounts,
 }) => {
   const [newEntity, setNewEntity] = useState(newTransaction);
   const [data, setData] = useState(transactions);
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
 
   useEffect(() => {
-    setData([newEntity, ...transactions].filter(item => item !== null));
+    setData([newEntity, ...transactions].filter((item) => item !== null));
   }, [transactions, newEntity]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const TransactionTableContainer = ({
       setNewEntity(null);
     }
 
-    setEditingKey("");
+    setEditingKey('');
   }
 
   function save(form, key) {
@@ -60,16 +60,15 @@ const TransactionTableContainer = ({
         return;
       }
 
-      const amount =
-        (row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1) * 100;
+      const amount = (row.inflow > 0 ? row.inflow : Math.abs(row.outflow) * -1) * 100;
       const transaction = {
         id: key,
-        date: moment(row.date).format("MM/DD/YYYY"),
+        date: moment(row.date).format('MM/DD/YYYY'),
         accountId: row.account.key,
         categoryId: row.category.key,
         payeeId: row.payee && row.payee.key,
         payee: row.payee && row.payee.label,
-        amount
+        amount,
       };
 
       if (newEntity && key === newEntity.key) {
@@ -122,12 +121,12 @@ function mapStateToProps(state) {
     transactions: getAllTransactions(state),
     categories: getCategories(state),
     accounts: getAccounts(state),
-    payees: getPayeeList(state)
+    payees: getPayeeList(state),
   };
 }
 
 export default connect(mapStateToProps, {
   createTransaction,
   updateTransaction,
-  removeTransaction
+  removeTransaction,
 })(TransactionTableContainer);

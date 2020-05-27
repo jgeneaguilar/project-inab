@@ -6,7 +6,7 @@ export default function modal(state = initialState.modal, action) {
     case types.SHOW_MODAL:
       return {
         modalType: action.modalType,
-        modalProps: action.modalProps
+        modalProps: action.modalProps,
       };
     case types.HIDE_MODAL:
       return initialState.modal;

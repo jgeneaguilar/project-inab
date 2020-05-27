@@ -7,18 +7,17 @@ import './styles.scss';
 const BUDGET_MENU = {
   NEW: 'NEW_BUDGET',
   OPEN: 'OPEN_BUDGET',
-  RESET: 'RESET_BUDGET'
+  RESET: 'RESET_BUDGET',
 };
 
 const AppBarView = ({ currentBudget, showModal }) => {
-
   const [budgetPopoverVisible, setBudgetPopoverVisible] = useState(false);
 
   const { Header } = Layout;
 
-  const handleBudgetClick = ({key}) => {
+  const handleBudgetClick = ({ key }) => {
     setBudgetPopoverVisible(false);
-    switch(key) {
+    switch (key) {
       case BUDGET_MENU.NEW:
         showModal(MODAL_TYPES.CREATE_BUDGET);
         break;
@@ -31,7 +30,7 @@ const AppBarView = ({ currentBudget, showModal }) => {
   };
 
   const budgetPopoverContent = (
-    <Menu className='compact link' onClick={handleBudgetClick} align='center'>
+    <Menu className="compact link" onClick={handleBudgetClick} align="center">
       <Menu.Item key={BUDGET_MENU.NEW}>New Budget</Menu.Item>
       <Menu.Item key={BUDGET_MENU.OPEN}>Open Budget</Menu.Item>
       <Menu.Divider />
@@ -39,15 +38,17 @@ const AppBarView = ({ currentBudget, showModal }) => {
     </Menu>
   );
 
-  const handleVisibleChange = visible => {
+  const handleVisibleChange = (visible) => {
     setBudgetPopoverVisible(visible);
   };
 
   const renderBudget = currentBudget ? (
-    <Dropdown trigger={['click']} 
-      overlay={budgetPopoverContent} 
-      visible={budgetPopoverVisible} 
-      onVisibleChange={handleVisibleChange}>
+    <Dropdown
+      trigger={['click']}
+      overlay={budgetPopoverContent}
+      visible={budgetPopoverVisible}
+      onVisibleChange={handleVisibleChange}
+    >
       <Button>
         {/** using the first budget as the default */}
         {currentBudget.name || 'My Budget'}
@@ -55,25 +56,24 @@ const AppBarView = ({ currentBudget, showModal }) => {
     </Dropdown>
   ) : null;
 
-
   return (
-    <Header className='appBarContainer'>
+    <Header className="appBarContainer">
       {/* <PageHeader className='dashboardHeader'> */}
-      <Row layout='flex' justify="space-between">
+      <Row layout="flex" justify="space-between">
         <Col span={12}>
-          <Icon className='menuIcon' type='menu' />
+          <Icon className="menuIcon" type="menu" />
           {renderBudget}
         </Col>
-        <Col align='right' span={12}>
-          <Avatar icon='user' />
+        <Col align="right" span={12}>
+          <Avatar icon="user" />
         </Col>
       </Row>
     </Header>
   );
-}
+};
 
 AppBarView.propTypes = {
-  currentBudget: PropTypes.object.isRequired
+  currentBudget: PropTypes.object.isRequired,
 };
 
 export default AppBarView;

@@ -11,38 +11,32 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkUserLogin } from './redux/actions/userActions';
 
-
 function App({ isLoggedIn, checkUserLogin }) {
-
   useEffect(() => {
     checkUserLogin();
   }, [checkUserLogin]);
 
-  const redirect = isLoggedIn ? (
-    <Redirect to='/dashboard' />
-  ) : (
-      <LoginPage />
-    )
+  const redirect = isLoggedIn ? <Redirect to="/dashboard" /> : <LoginPage />;
 
   return (
     <Fragment>
-      { 
+      {
         // TODO: Implement Loading Screen
         // !isLoggedIn
-        //   ? <Empty /> 
+        //   ? <Empty />
         //   : (
-            <Switch>
-              <Route path='/login' render={() => redirect}  />
-              <AuthenticatedRoute isLoggedIn={isLoggedIn} path='/' exact />
-              <AuthenticatedRoute 
-                isLoggedIn={isLoggedIn}
-                path='/dashboard' 
-                component={DashboardContainer} 
-              />
-              <Route path='/sessionExpired' component={SessionExpired} />
-              <Route component={NotFound} />
-            </Switch>
-          // )
+        <Switch>
+          <Route path="/login" render={() => redirect} />
+          <AuthenticatedRoute isLoggedIn={isLoggedIn} path="/" exact />
+          <AuthenticatedRoute
+            isLoggedIn={isLoggedIn}
+            path="/dashboard"
+            component={DashboardContainer}
+          />
+          <Route path="/sessionExpired" component={SessionExpired} />
+          <Route component={NotFound} />
+        </Switch>
+        // )
       }
     </Fragment>
   );
@@ -50,7 +44,7 @@ function App({ isLoggedIn, checkUserLogin }) {
 
 function mapStateToProps(state) {
   return {
-    isLoggedIn: state.user.isLoggedIn
+    isLoggedIn: state.user.isLoggedIn,
   };
 }
 

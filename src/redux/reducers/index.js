@@ -11,7 +11,6 @@ import transactions from './transactionReducer';
 import payees from './payeeReducer';
 import modal from './modalReducer';
 
-
 const rootReducer = combineReducers({
   user,
   budgets,
@@ -23,7 +22,7 @@ const rootReducer = combineReducers({
   categoryBudgets,
   transactions,
   payees,
-  modal
+  modal,
 });
 
 export default rootReducer;

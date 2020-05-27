@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import FormDialog from '../../commons/FormDialog';
 import { Input } from 'antd';
 import { connect } from 'react-redux';
 import { hideModal } from '../../redux/actions/modalActions';
 import { createBudget } from '../../redux/actions/budgetsActions';
 
-
 const CreateBudgetForm = ({ hideModal, createBudget }) => {
-
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const [budgetData, setBudgetData] = useState({ name: '' });
@@ -18,17 +16,18 @@ const CreateBudgetForm = ({ hideModal, createBudget }) => {
       .then(() => {
         setConfirmLoading(false);
         hideModal();
-      }).catch(() => {
-        setConfirmLoading(false); 
+      })
+      .catch(() => {
+        setConfirmLoading(false);
       });
-  }
+  };
 
-  const handleChange = ({ target: { name, value }}) => {
+  const handleChange = ({ target: { name, value } }) => {
     setBudgetData({
       ...budgetData,
-      [name]: value
+      [name]: value,
     });
-  }
+  };
 
   const formDialogProps = {
     visible: true,
@@ -36,22 +35,14 @@ const CreateBudgetForm = ({ hideModal, createBudget }) => {
     okText: 'Save',
     onCancel: hideModal,
     onOk: handleSubmit,
-    confirmLoading: confirmLoading
+    confirmLoading: confirmLoading,
   };
 
   return (
-    <FormDialog
-      {...formDialogProps}>
-      <Input 
-        placeholder='Budget Name'
-        name='name'
-        onChange={handleChange}
-      />
+    <FormDialog {...formDialogProps}>
+      <Input placeholder="Budget Name" name="name" onChange={handleChange} />
     </FormDialog>
   );
-}
+};
 
-export default connect(
-  null,
-  { hideModal, createBudget }
-)(CreateBudgetForm);
+export default connect(null, { hideModal, createBudget })(CreateBudgetForm);

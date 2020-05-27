@@ -3,23 +3,19 @@ import { Layout } from 'antd';
 import TransactionTableContainer from './transactionTable/TransactionTableContainer';
 import AddTransactionBtn from './transactionToolbar/AddTransactionBtn';
 
-
-const TransactionView = ({onAddTransaction, newTransaction}) => {
-
+const TransactionView = ({ onAddTransaction, newTransaction }) => {
   const { Content } = Layout;
 
   return (
     <Fragment>
-      <header className='dashboardTransactionHeader'>
-        <AddTransactionBtn onClick={onAddTransaction}/>
+      <header className="dashboardTransactionHeader">
+        <AddTransactionBtn onClick={onAddTransaction} />
       </header>
-      <Content className='dashboardTransactionContent'>
-        <TransactionTableContainer newTransaction={newTransaction}/>
+      <Content className="dashboardTransactionContent">
+        <TransactionTableContainer newTransaction={newTransaction} />
       </Content>
     </Fragment>
   );
-}
-
-
+};
 
 export default TransactionView;

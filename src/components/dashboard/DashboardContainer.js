@@ -5,22 +5,18 @@ import { loadBudgets } from '../../redux/actions/budgetsActions';
 import ModalRoot from '../modals';
 import DashboardView from './DashboardView';
 
-
 const DashboardContainer = ({ currentBudget, loadBudgets }) => {
-  
   useEffect(() => {
     loadBudgets();
   }, [loadBudgets]);
 
-
-  return (
-    currentBudget ? (
+  return currentBudget ? (
     <Fragment>
       <DashboardView />
       <ModalRoot />
-    </Fragment> ) : null
-  )
-}
+    </Fragment>
+  ) : null;
+};
 
 DashboardContainer.propTypes = {
   currentBudget: PropTypes.object,
@@ -32,6 +28,5 @@ function mapStateToProps(state) {
     currentBudget: state.currentBudget,
   };
 }
-
 
 export default connect(mapStateToProps, { loadBudgets })(DashboardContainer);

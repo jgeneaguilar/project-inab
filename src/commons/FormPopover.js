@@ -4,17 +4,28 @@ import { Input, Button, Popover, Row, Col } from 'antd';
 import useFormPopover from './useFormPopover';
 import './styles.scss';
 
-
 // A Popover with an input field and a cancel and submit button
 
-const FormPopover = ({ children, placeholder, showDelete, asyncFunc, deleteFunc, initialValue }) => {
-
-  const { 
-    inputValue, clicked, handleChange, handleClickChange, handleSubmit, onCancel, onDelete
+const FormPopover = ({
+  children,
+  placeholder,
+  showDelete,
+  asyncFunc,
+  deleteFunc,
+  initialValue,
+}) => {
+  const {
+    inputValue,
+    clicked,
+    handleChange,
+    handleClickChange,
+    handleSubmit,
+    onCancel,
+    onDelete,
   } = useFormPopover(asyncFunc, deleteFunc, initialValue);
 
   const title = (
-    <Input 
+    <Input
       ref={(input) => input && input.focus()}
       placeholder={placeholder}
       value={inputValue}
@@ -60,16 +71,16 @@ const FormPopover = ({ children, placeholder, showDelete, asyncFunc, deleteFunc,
     <Popover
       title={title}
       content={content}
-      placement='bottom'
-      trigger='click'
+      placement="bottom"
+      trigger="click"
       visible={clicked}
       onVisibleChange={handleClickChange}
-      overlayClassName='formPopover'
+      overlayClassName="formPopover"
     >
       {children}
     </Popover>
   );
-}
+};
 
 FormPopover.propTypes = {
   children: PropTypes.node.isRequired,
@@ -77,7 +88,7 @@ FormPopover.propTypes = {
   asyncFunc: PropTypes.func.isRequired,
   deleteFunc: PropTypes.func,
   showDelete: PropTypes.bool,
-  initialValue: PropTypes.string
+  initialValue: PropTypes.string,
 };
 
 export default FormPopover;

@@ -1,22 +1,13 @@
-import {
-  Button,
-  DatePicker,
-  Form,
-  Icon,
-  Input,
-  InputNumber,
-  Select,
-  Table
-} from "antd";
-import React, { PureComponent } from "react";
-import "./styles.scss";
-import { currentMonth, parseDate } from "../../../../utils/timeUtils";
+import { Button, DatePicker, Form, Icon, Input, InputNumber, Select, Table } from 'antd';
+import React, { PureComponent } from 'react';
+import './styles.scss';
+import { currentMonth, parseDate } from '../../../../utils/timeUtils';
 
 export const EditableContext = React.createContext();
 
 class EditableCell extends PureComponent {
   getInput = () => {
-    if (this.props.inputType === "number") {
+    if (this.props.inputType === 'number') {
       return <InputNumber size="small" />;
     }
     return <Input size="small" />;
@@ -45,7 +36,7 @@ class EditableCell extends PureComponent {
               //     message: `An input is needed for ${title}`,
               //   },
               // ],
-              initialValue: record[dataIndex]
+              initialValue: record[dataIndex],
             })(this.getInput())}
           </Form.Item>
         ) : (
@@ -56,9 +47,7 @@ class EditableCell extends PureComponent {
   };
 
   render() {
-    return (
-      <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>
-    );
+    return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
   }
 }
 
@@ -66,7 +55,7 @@ class EditableTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const dateFormat = "MM/DD/YYYY";
+    const dateFormat = 'MM/DD/YYYY';
 
     const { Option } = Select;
 
@@ -74,59 +63,55 @@ class EditableTable extends React.PureComponent {
 
     this.columns = [
       {
-        title: "DATE",
-        dataIndex: "date",
-        key: "date",
+        title: 'DATE',
+        dataIndex: 'date',
+        key: 'date',
         width: 150,
         render: (text, record) => {
           const editable = this.props.isEditing(record);
           return editable ? (
             <EditableContext.Consumer>
-              {form => (
+              {(form) => (
                 <Form.Item>
-                  {form.getFieldDecorator("date", {
-                    initialValue: text
-                      ? parseDate(text, dateFormat)
-                      : currentMonth
-                  })(<DatePicker size={"medium"} format={dateFormat} />)}
+                  {form.getFieldDecorator('date', {
+                    initialValue: text ? parseDate(text, dateFormat) : currentMonth,
+                  })(<DatePicker size={'medium'} format={dateFormat} />)}
                 </Form.Item>
               )}
             </EditableContext.Consumer>
           ) : (
             <span>{text}</span>
           );
-        }
+        },
       },
       {
-        title: "ACCOUNT",
-        dataIndex: "account",
-        key: "account",
+        title: 'ACCOUNT',
+        dataIndex: 'account',
+        key: 'account',
         width: 200,
         render: (account, record) => {
           const editable = this.props.isEditing(record);
           // TODO: Make this a reusable component
           return editable ? (
             <EditableContext.Consumer>
-              {form => (
+              {(form) => (
                 <Form.Item>
-                  {form.getFieldDecorator("account", {
-                    rules: [
-                      { required: true, message: "Please select account!" }
-                    ],
+                  {form.getFieldDecorator('account', {
+                    rules: [{ required: true, message: 'Please select account!' }],
                     initialValue: account
                       ? { key: account._id, label: account.name }
-                      : undefined
+                      : undefined,
                   })(
                     <Select
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       placeholder="Select Account"
                       size="default"
                       labelInValue
                     >
-                      {this.props.accounts.map(item => (
+                      {this.props.accounts.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>
+                    </Select>,
                   )}
                 </Form.Item>
               )}
@@ -134,54 +119,50 @@ class EditableTable extends React.PureComponent {
           ) : (
             <span>{account && account.name}</span>
           );
-        }
+        },
       },
       {
-        title: "PAYEE",
-        dataIndex: "payee",
-        key: "payee.name",
+        title: 'PAYEE',
+        dataIndex: 'payee',
+        key: 'payee.name',
         render: (payee, record) => {
           const editable = this.props.isEditing(record);
           // TODO: Make this a reusable component
           return editable ? (
             <EditableContext.Consumer>
-              {form => (
+              {(form) => (
                 <Form.Item>
-                  {form.getFieldDecorator("payee", {
-                    rules: [
-                      { required: true, message: "Please select your payee!" }
-                    ],
+                  {form.getFieldDecorator('payee', {
+                    rules: [{ required: true, message: 'Please select your payee!' }],
                     initialValue: payee
                       ? { key: payee._id, label: payee.name }
-                      : undefined
+                      : undefined,
                   })(
                     <Select
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       placeholder="Select Payee"
                       size="default"
                       showSearch
                       labelInValue
-                      onBlur={value => {
+                      onBlur={(value) => {
                         form.setFieldsValue({
-                          payee: value
+                          payee: value,
                         });
                       }}
-                      onSearch={value => {
+                      onSearch={(value) => {
                         if (value) {
                           form.setFieldsValue({
-                            payee: { key: "", label: value }
+                            payee: { key: '', label: value },
                           });
                         }
                       }}
-                      notFoundContent={
-                        <span>Payee will be automatically added.</span>
-                      }
-                      ref={input => (this.payeeSelect = input)}
+                      notFoundContent={<span>Payee will be automatically added.</span>}
+                      ref={(input) => (this.payeeSelect = input)}
                     >
-                      {this.props.payees.map(item => (
+                      {this.props.payees.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>
+                    </Select>,
                   )}
                 </Form.Item>
               )}
@@ -189,37 +170,35 @@ class EditableTable extends React.PureComponent {
           ) : (
             <span>{payee && payee.name}</span>
           );
-        }
+        },
       },
       {
-        title: "CATEGORY",
-        dataIndex: "category",
-        key: "category",
+        title: 'CATEGORY',
+        dataIndex: 'category',
+        key: 'category',
         render: (category, record) => {
           const editable = this.props.isEditing(record);
           // TODO: Make this a reusable component
           return editable ? (
             <EditableContext.Consumer>
-              {form => (
+              {(form) => (
                 <Form.Item>
-                  {form.getFieldDecorator("category", {
-                    rules: [
-                      { required: true, message: "Please select category!" }
-                    ],
+                  {form.getFieldDecorator('category', {
+                    rules: [{ required: true, message: 'Please select category!' }],
                     initialValue: category
                       ? { key: category._id, label: category.name }
-                      : undefined
+                      : undefined,
                   })(
                     <Select
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       placeholder="Select Category"
                       size="default"
                       labelInValue
                     >
-                      {this.props.categories.map(item => (
+                      {this.props.categories.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>
+                    </Select>,
                   )}
                 </Form.Item>
               )}
@@ -227,39 +206,39 @@ class EditableTable extends React.PureComponent {
           ) : (
             <span>{category && category.name}</span>
           );
-        }
+        },
       },
       {
         colSpan: 1,
-        title: "OUTFLOW",
-        dataIndex: "outflow",
-        className: "rightAlign",
-        key: "outflow",
+        title: 'OUTFLOW',
+        dataIndex: 'outflow',
+        className: 'rightAlign',
+        key: 'outflow',
         width: 100,
-        align: "right",
-        editable: true
+        align: 'right',
+        editable: true,
       },
       {
-        title: "INFLOW",
-        dataIndex: "inflow",
-        className: "rightAlign",
-        key: "inflow",
+        title: 'INFLOW',
+        dataIndex: 'inflow',
+        className: 'rightAlign',
+        key: 'inflow',
         width: 100,
-        align: "right",
-        editable: true
+        align: 'right',
+        editable: true,
       },
       {
-        title: "",
+        title: '',
         colSpan: 2,
         width: 150,
-        align: "right",
-        dataIndex: "operation",
+        align: 'right',
+        dataIndex: 'operation',
         render: (text, record) => {
           const editable = this.props.isEditing(record);
           return editable ? (
             <div className="compact">
               <EditableContext.Consumer>
-                {form => (
+                {(form) => (
                   <Button
                     type="primary"
                     size="small"
@@ -285,51 +264,49 @@ class EditableTable extends React.PureComponent {
                 type="edit"
                 className="transactionTableEdit"
                 title="Edit"
-                disabled={this.props.editingKey !== ""}
+                disabled={this.props.editingKey !== ''}
                 onClick={() => this.props.edit(record.key)}
               />
               <Icon
                 type="delete"
                 className="transactionTableEdit"
                 title="Delete"
-                disabled={this.props.editingKey !== ""}
+                disabled={this.props.editingKey !== ''}
                 onClick={() => this.props.remove(record)}
               />
             </div>
           );
-        }
-      }
+        },
+      },
     ];
   }
 
-  isFormValid = form => {
+  isFormValid = (form) => {
     const data = form.getFieldsValue();
     // TODO: Add required fields validation..
-    return (
-      !!data.date && !!data.account && (data.inflow > 0 || data.outflow > 0)
-    );
+    return !!data.date && !!data.account && (data.inflow > 0 || data.outflow > 0);
   };
 
   render() {
     const components = {
       body: {
-        cell: EditableCell
-      }
+        cell: EditableCell,
+      },
     };
 
-    const columns = this.columns.map(col => {
+    const columns = this.columns.map((col) => {
       if (!col.editable) {
         return col;
       }
       return {
         ...col,
-        onCell: record => ({
+        onCell: (record) => ({
           record,
-          inputType: col.dataIndex === "age" ? "number" : "text",
+          inputType: col.dataIndex === 'age' ? 'number' : 'text',
           dataIndex: col.dataIndex,
           title: col.title,
-          editing: this.props.isEditing(record)
-        })
+          editing: this.props.isEditing(record),
+        }),
       };
     });
 

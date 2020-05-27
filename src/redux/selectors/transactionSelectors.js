@@ -1,13 +1,13 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 import {
   getTransactions,
   getAccounts,
   getCategories,
-  getPayees
-} from "./commonSelectors";
-import { formatDate, sortByDateDesc } from "../../utils/timeUtils";
+  getPayees,
+} from './commonSelectors';
+import { formatDate, sortByDateDesc } from '../../utils/timeUtils';
 
-const defaultFormat = "MM/DD/YYYY";
+const defaultFormat = 'MM/DD/YYYY';
 
 export const getAllTransactions = createSelector(
   getTransactions,
@@ -17,22 +17,25 @@ export const getAllTransactions = createSelector(
   (transactions, accounts, categories, payees) => {
     // TODO: Categories and Payees could be objects instead of arrays
     let data = Object.values(transactions)
-      .map(item => {
+      .map((item) => {
         return {
           ...item,
           key: item._id,
           id: item._id,
           date: formatDate(item.date, defaultFormat),
-          account: accounts.find(account => account._id === item.account_id),
+          account: accounts.find((account) => account._id === item.account_id),
           payee: payees[item.payee_id],
           inflow: item.amount > 0 ? item.amount / 100 : null,
           outflow: item.amount < 0 ? Math.abs(item.amount) / 100 : null,
-          category: categories.find(cat => cat._id === item.category_id)
+          category: categories.find((cat) => cat._id === item.category_id),
         };
       })
       .sort((t1, t2) => sortByDateDesc(t1.date, t2.date, defaultFormat));
     return data;
-  }
+  },
 );
 
-export const getTransactionsByCurrentTimespan = (state) => Object.values(state.transactions).filter(item => item.timespan = state.currentTimespan)
+export const getTransactionsByCurrentTimespan = (state) =>
+  Object.values(state.transactions).filter(
+    (item) => (item.timespan = state.currentTimespan),
+  );

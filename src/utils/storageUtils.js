@@ -1,12 +1,12 @@
 const KEY = {
-    USER_ID: 'i__uid',
-    AUTH_TOKEN: 'i__at'
+  USER_ID: 'i__uid',
+  AUTH_TOKEN: 'i__at',
 };
 
 export function getUserCredentials() {
   return {
     _id: localStorage.getItem(KEY.USER_ID),
-    token: localStorage.getItem(KEY.AUTH_TOKEN)
+    token: localStorage.getItem(KEY.AUTH_TOKEN),
   };
 }
 

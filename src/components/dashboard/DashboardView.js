@@ -8,31 +8,29 @@ import LeftDrawerContainer from './leftDrawer/LeftDrawerContainer';
 import TransactionContainer from './transaction/TransactionContainer';
 import './styles.scss';
 
-
 const DashboardView = () => {
-
   const { Content } = Layout;
 
   let { path } = useRouteMatch();
 
   return (
-    <Layout className='dashboardContainer'>
-      <AppBarContainer /> 
-      <Content className='dashboardContent'>
+    <Layout className="dashboardContainer">
+      <AppBarContainer />
+      <Content className="dashboardContent">
         <LeftDrawerContainer />
-        <Layout className='dashboardBudgetContainer'>
-        <Switch>
+        <Layout className="dashboardBudgetContainer">
+          <Switch>
             <Route path={`${path}/accounts`}>
               <TransactionContainer />
             </Route>
             <Route>
               <BudgetView />
-            </Route> 
+            </Route>
           </Switch>
         </Layout>
       </Content>
     </Layout>
   );
-}
+};
 
 export default withRouter(DashboardView);

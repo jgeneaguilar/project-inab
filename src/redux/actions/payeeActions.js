@@ -6,10 +6,9 @@ export function loadPayeesSuccess(data) {
 }
 
 export function loadPayees(budgetId) {
-  return function(dispatch) {
-    return payeesAPI.getPayees(budgetId)
-    .then(data => {
-      dispatch(loadPayeesSuccess(data))
-    })
-  }
+  return function (dispatch) {
+    return payeesAPI.getPayees(budgetId).then((data) => {
+      dispatch(loadPayeesSuccess(data));
+    });
+  };
 }

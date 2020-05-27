@@ -1,6 +1,5 @@
 import api from './baseAPI';
 
-
 let call;
 
 function getOnlyOnce(config) {
@@ -18,8 +17,8 @@ export const getTimespanElements = (budgetId, timespan) => {
   let config = {
     method: 'get',
     url: `/budgets/${budgetId}/timespan`,
-    params: { timespan }
+    params: { timespan },
   };
 
-  return getOnlyOnce(config).then(res => res.data);
-}
+  return getOnlyOnce(config).then((res) => res.data);
+};

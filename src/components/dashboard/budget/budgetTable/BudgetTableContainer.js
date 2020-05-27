@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import FormPopover from '../../../../commons/FormPopover';
-import { addCategory, updateCategory, deleteCategory } from '../../../../redux/actions/categoryActions';
+import {
+  addCategory,
+  updateCategory,
+  deleteCategory,
+} from '../../../../redux/actions/categoryActions';
 import { saveCategoryBudget } from '../../../../redux/actions/categoryBudgetActions';
-import { updateMasterCategory, deleteMasterCategory } from '../../../../redux/actions/masterCategoryActions';
+import {
+  updateMasterCategory,
+  deleteMasterCategory,
+} from '../../../../redux/actions/masterCategoryActions';
 import { getCategoriesByMasterCategory } from '../../../../redux/selectors/categorySelectors';
 import BudgetTableView from './BudgetTableView';
-
 
 const BudgetTableContainer = ({
   currentBudget,
@@ -19,7 +25,7 @@ const BudgetTableContainer = ({
   saveCategoryBudget,
   deleteMasterCategory,
   deleteCategory,
-  currentTimespan
+  currentTimespan,
 }) => {
   /** render: (text, record) => {}
    * text = display text of cell
@@ -27,7 +33,7 @@ const BudgetTableContainer = ({
    *
    */
 
-  const renderAddCategoryPopover = onSubmitAddCat => {
+  const renderAddCategoryPopover = (onSubmitAddCat) => {
     return (
       <FormPopover asyncFunc={onSubmitAddCat} placeholder="Enter Category Name">
         <Icon
@@ -47,7 +53,8 @@ const BudgetTableContainer = ({
         deleteFunc={onDelete}
         initialValue={text}
         showDelete={true}
-        placeholder="Edit Name">
+        placeholder="Edit Name"
+      >
         {text}
       </FormPopover>
     );
@@ -58,7 +65,7 @@ const BudgetTableContainer = ({
       <span className="masterCategoryNameCell">
         <div className="masterCategoryName">
           {renderEditNamePopover(text, record, onEditSave, onDelete)} &nbsp;
-          {record.type === "master" && renderAddCategoryPopover(onSubmitAddCat)}
+          {record.type === 'master' && renderAddCategoryPopover(onSubmitAddCat)}
         </div>
       </span>
     );
@@ -66,13 +73,12 @@ const BudgetTableContainer = ({
 
   const columns = [
     {
-      title: "CATEGORY",
-      dataIndex: "category",
-      key: "category",
+      title: 'CATEGORY',
+      dataIndex: 'category',
+      key: 'category',
       render: (text, record) => {
         function onEditSave(inputValue) {
-          const action =
-            record.type === "master" ? updateMasterCategory : updateCategory;
+          const action = record.type === 'master' ? updateMasterCategory : updateCategory;
           return action(currentBudget._id, record.key, inputValue);
         }
 
@@ -82,56 +88,55 @@ const BudgetTableContainer = ({
         }
 
         function onDelete() {
-          const action =
-            record.type === "master" ? deleteMasterCategory : deleteCategory;
+          const action = record.type === 'master' ? deleteMasterCategory : deleteCategory;
           return action(currentBudget._id, record.key);
         }
 
         return renderCategoryCell(text, record, onEditSave, onSubmitAddCat, onDelete);
-      }
+      },
     },
     {
-      title: "BUDGETED",
-      dataIndex: "budgeted",
-      key: "budgeted",
-      className: "columnMoney",
-      editable: true
+      title: 'BUDGETED',
+      dataIndex: 'budgeted',
+      key: 'budgeted',
+      className: 'columnMoney',
+      editable: true,
     },
     {
-      title: "ACTIVITY",
-      dataIndex: "activity",
-      key: "activity",
-      className: "columnMoney"
+      title: 'ACTIVITY',
+      dataIndex: 'activity',
+      key: 'activity',
+      className: 'columnMoney',
     },
     {
-      title: "AVAILABLE",
-      dataIndex: "available",
-      key: "available",
-      className: "columnMoney"
-    }
+      title: 'AVAILABLE',
+      dataIndex: 'available',
+      key: 'available',
+      className: 'columnMoney',
+    },
   ];
 
   function handleSave(row) {
     // TODO: use <InputNumber /> in EditableBudgetTable instead
-    const str = row.budgeted.replace(",", "");
+    const str = row.budgeted.replace(',', '');
     const num = parseFloat(str);
     const budgeted = num * 100;
     saveCategoryBudget(currentBudget._id, currentTimespan, row.key, budgeted);
   }
 
-  const newColumns = columns.map(col => {
+  const newColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: record => ({
+      onCell: (record) => ({
         record,
-        editable: col.editable && record.type === "category",
+        editable: col.editable && record.type === 'category',
         dataIndex: col.dataIndex,
         title: col.title,
-        handleSave: handleSave
-      })
+        handleSave: handleSave,
+      }),
     };
   });
 
@@ -142,19 +147,22 @@ BudgetTableContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
   masterCategories: PropTypes.array.isRequired,
   addCategory: PropTypes.func.isRequired,
-  updateMasterCategory: PropTypes.func.isRequired
+  updateMasterCategory: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  return { 
+  return {
     currentBudget: state.currentBudget,
     masterCategories: getCategoriesByMasterCategory(state),
     currentTimespan: state.currentTimespan,
   };
 }
 
-
-export default connect(
-  mapStateToProps, 
-  { addCategory, updateMasterCategory, saveCategoryBudget, updateCategory, deleteCategory, deleteMasterCategory }
-)(BudgetTableContainer);
+export default connect(mapStateToProps, {
+  addCategory,
+  updateMasterCategory,
+  saveCategoryBudget,
+  updateCategory,
+  deleteCategory,
+  deleteMasterCategory,
+})(BudgetTableContainer);

@@ -4,7 +4,7 @@ import { createTransactionSuccess } from './transactionActions';
 
 // Action Creators
 export function addAccountSuccess(account) {
-  return { type: types.ADD_ACCOUNT_SUCCESS, account};
+  return { type: types.ADD_ACCOUNT_SUCCESS, account };
 }
 
 export function updateAccountSuccess(account) {
@@ -17,34 +17,38 @@ export function deleteAccountSuccess(accountId) {
 
 // Thunk
 export function addAccount(budgetId, accountData) {
-  return function(dispatch) {
-    return accountApi.createAccount(budgetId, accountData)
-      .then(data => {
-        const {account, transaction} = data;
+  return function (dispatch) {
+    return accountApi
+      .createAccount(budgetId, accountData)
+      .then((data) => {
+        const { account, transaction } = data;
         dispatch(addAccountSuccess(account));
         dispatch(createTransactionSuccess(transaction));
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   };
-} 
+}
 
 export function updateAccount(budgetId, accountData) {
-  return function(dispatch) {
-    return accountApi.saveAccount(budgetId, accountData)
-      .then(data => {
-        const {account, transaction} = data;
-        dispatch(updateAccountSuccess(account))
+  return function (dispatch) {
+    return accountApi
+      .saveAccount(budgetId, accountData)
+      .then((data) => {
+        const { account, transaction } = data;
+        dispatch(updateAccountSuccess(account));
         dispatch(createTransactionSuccess(transaction));
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 }
 
 export function deleteAccount(budgetId, accountId) {
-  return function(dispatch) {
-    return accountApi.deleteAccount(budgetId, accountId)
+  return function (dispatch) {
+    return accountApi
+      .deleteAccount(budgetId, accountId)
       .then(() => dispatch(deleteAccountSuccess(accountId)))
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 }

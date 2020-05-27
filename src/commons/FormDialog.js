@@ -2,8 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
-const FormDialog = ({ 
-  visible, title, width, children, okText, okButtonProps, onCancel, onOk, confirmLoading 
+const FormDialog = ({
+  visible,
+  title,
+  width,
+  children,
+  okText,
+  okButtonProps,
+  onCancel,
+  onOk,
+  confirmLoading,
 }) => {
   return (
     <Modal
@@ -20,7 +28,7 @@ const FormDialog = ({
       {children}
     </Modal>
   );
-}
+};
 
 FormDialog.propTypes = {
   visible: PropTypes.bool.isRequired,
@@ -33,5 +41,3 @@ FormDialog.propTypes = {
 };
 
 export default FormDialog;
-
-

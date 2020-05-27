@@ -8,17 +8,16 @@ import { deleteAccount } from '../../../redux/actions/accountActions';
 import { getAccountBalances } from '../../../redux/selectors/accountSelectors';
 
 const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount }) => {
-
   // Create a single handleClick function??
   function handleClick() {
-    showModal(MODAL_TYPES.UPDATE_ACCOUNT, {})
+    showModal(MODAL_TYPES.UPDATE_ACCOUNT, {});
   }
 
   function handleEditClick(id) {
-    const acctData = accounts.find(acct => acct._id === id);
+    const acctData = accounts.find((acct) => acct._id === id);
     const { _id, name, type: accountType, balance } = acctData;
     showModal(MODAL_TYPES.UPDATE_ACCOUNT, {
-      currentValue: { _id, name, accountType, balance }
+      currentValue: { _id, name, accountType, balance },
     });
   }
 
@@ -27,14 +26,14 @@ const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount
   }
 
   return (
-    <LeftDrawerView 
+    <LeftDrawerView
       handleClick={handleClick}
       handleEditClick={handleEditClick}
       handleDeleteClick={handleDeleteClick}
       accounts={accounts}
     />
   );
-}
+};
 
 LeftDrawerContainer.propTypes = {
   showModal: PropTypes.func.isRequired,
@@ -44,11 +43,12 @@ LeftDrawerContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { 
+  return {
     currentBudget: state.currentBudget,
-    accounts: getAccountBalances(state)
+    accounts: getAccountBalances(state),
   };
 }
 
-export default connect(mapStateToProps, { showModal, deleteAccount })(LeftDrawerContainer);
-
+export default connect(mapStateToProps, { showModal, deleteAccount })(
+  LeftDrawerContainer,
+);

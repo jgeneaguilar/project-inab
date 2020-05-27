@@ -13,7 +13,7 @@ export const EditableFormRow = Form.create()(EditableRow);
 
 export class EditableCell extends PureComponent {
   state = {
-    editing: false
+    editing: false,
   };
 
   toggleEdit = () => {
@@ -24,9 +24,9 @@ export class EditableCell extends PureComponent {
         this.input.select();
       }
     });
-  }
+  };
 
-  save = event => {
+  save = (event) => {
     const { record, handleSave } = this.props;
     this.form.validateFields((error, values) => {
       if (error && error[event.currentTarget.id]) {
@@ -35,9 +35,9 @@ export class EditableCell extends PureComponent {
       this.toggleEdit();
       handleSave({ ...record, ...values });
     });
-  }
+  };
 
-  renderCell = form => {
+  renderCell = (form) => {
     this.form = form;
     const { children, dataIndex, record } = this.props;
     const { editing } = this.state;
@@ -52,28 +52,32 @@ export class EditableCell extends PureComponent {
           // ],
           initialValue: record[dataIndex],
         })(
-          <Input 
-            ref={node => (this.input = node)}
-            className='budgetedInput'
-            size='small'
+          <Input
+            ref={(node) => (this.input = node)}
+            className="budgetedInput"
+            size="small"
             onPressEnter={this.save}
             onBlur={this.save}
-          />
+          />,
         )}
       </Form.Item>
     ) : (
-      <div
-        className='editableCellValueWrap'
-        onClick={this.toggleEdit}
-      >
+      <div className="editableCellValueWrap" onClick={this.toggleEdit}>
         {children}
       </div>
     );
-  }
+  };
 
   render() {
     const {
-      editable, dataIndex, title, record, index, handleSave, children, ...restProps
+      editable,
+      dataIndex,
+      title,
+      record,
+      index,
+      handleSave,
+      children,
+      ...restProps
     } = this.props;
     return (
       <td {...restProps}>
@@ -85,5 +89,4 @@ export class EditableCell extends PureComponent {
       </td>
     );
   }
-};
-
+}

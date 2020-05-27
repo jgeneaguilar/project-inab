@@ -27,5 +27,5 @@ export function timeFromNow(text) {
 }
 
 export function toTimespan(date) {
-  return formatDate(date, "MMYYYY");
+  return formatDate(date, 'MMYYYY');
 }

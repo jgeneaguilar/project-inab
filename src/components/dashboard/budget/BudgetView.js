@@ -1,5 +1,4 @@
-  
-import React from 'react'
+import React from 'react';
 import { Layout } from 'antd';
 import BudgetToolbarContainer from './budgetToolbar/BudgetToolbarContainer';
 import BudgetTableContainer from './budgetTable/BudgetTableContainer';
@@ -10,15 +9,15 @@ const { Content } = Layout;
 const BudgetView = () => {
   return (
     <>
-      <header className='dashboardBudgetHeader'>
+      <header className="dashboardBudgetHeader">
         <BudgetHeaderContainer />
         <BudgetToolbarContainer />
       </header>
-      <Content className='dashboardBudgetContent'>
+      <Content className="dashboardBudgetContent">
         <BudgetTableContainer />
       </Content>
     </>
-  )
+  );
 };
 
 export default BudgetView;

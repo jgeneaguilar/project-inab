@@ -4,9 +4,7 @@ import FormDialog from '../../commons/FormDialog';
 import { connect } from 'react-redux';
 import { hideModal } from '../../redux/actions/modalActions';
 
-
 const UpdateTransactionForm = ({ hideModal }) => {
-
   const formDialogProps = {
     visible: true,
     title: 'Add a Transaction',
@@ -16,12 +14,8 @@ const UpdateTransactionForm = ({ hideModal }) => {
     // confirmLoading: confirmLoading
   };
 
-  return (
-    <FormDialog {...formDialogProps}>
-      This part will contain the forms
-    </FormDialog>
-  );
-}
+  return <FormDialog {...formDialogProps}>This part will contain the forms</FormDialog>;
+};
 
 UpdateTransactionForm.propTypes = {
   hideModal: PropTypes.func.isRequired,

@@ -10,11 +10,11 @@ import { getTotalBudget } from '../../../../redux/selectors/budgetSelectors';
 export const type = {
   increment: 'INCREMENT',
   decrement: 'DECREMENT',
-  reset: 'RESET'
+  reset: 'RESET',
 };
 
 function monthReducer(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case type.increment:
       return { month: state.month.add(1, 'month') };
     case type.decrement:
@@ -26,30 +26,32 @@ function monthReducer(state, action) {
   }
 }
 
-
-const BudgetHeaderContainer = ({ currentBudget, accounts, totalBudget, loadTimespanElements }) => {
-
+const BudgetHeaderContainer = ({
+  currentBudget,
+  accounts,
+  totalBudget,
+  loadTimespanElements,
+}) => {
   const initialState = { month: currentMonth };
 
   const [state, dispatch] = useReducer(monthReducer, initialState);
 
   useEffect(() => {
     if (Object.keys(currentBudget).length > 0) {
-      loadTimespanElements(currentBudget._id, formatTimespan(state.month))
+      loadTimespanElements(currentBudget._id, formatTimespan(state.month));
     }
   }, [loadTimespanElements, currentBudget, state]);
-  
 
   console.log('BudgetHeaderContainer', state);
   return (
-    <BudgetHeaderView 
+    <BudgetHeaderView
       month={state.month}
       dispatch={dispatch}
       accounts={accounts}
       totalBudget={totalBudget}
     />
   );
-}
+};
 
 BudgetHeaderContainer.propTypes = {
   currentBudget: PropTypes.object.isRequired,
@@ -61,7 +63,7 @@ function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
     accounts: state.accounts,
-    totalBudget: getTotalBudget(state)
+    totalBudget: getTotalBudget(state),
   };
 }
 

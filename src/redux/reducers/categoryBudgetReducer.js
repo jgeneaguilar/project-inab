@@ -2,13 +2,11 @@ import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 import { groupById } from '../../utils/commonUtils';
 
-
-
 export default function categoryBudgetReducer(
-  state = initialState.categoryBudgets, 
-  action
+  state = initialState.categoryBudgets,
+  action,
 ) {
-  switch(action.type) {
+  switch (action.type) {
     case types.SET_CURRENT_BUDGET:
       return initialState.categoryBudgets;
     case types.SET_CURRENT_TIMESPAN:

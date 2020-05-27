@@ -1,17 +1,14 @@
-import { toTimespan } from "../../utils/timeUtils";
-import * as types from "../actions/actionTypes";
-import initialState from "./initialState";
+import { toTimespan } from '../../utils/timeUtils';
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
-export default function transactionReducer(
-  state = initialState.transactions,
-  action
-) {
+export default function transactionReducer(state = initialState.transactions, action) {
   switch (action.type) {
     case types.SET_CURRENT_BUDGET:
       return initialState.transactions;
     case types.SET_CURRENT_TIMESPAN:
       const { transactions } = action.timespanElements;
-      return mapTransactions({...state}, transactions);
+      return mapTransactions({ ...state }, transactions);
     case types.CREATE_TRANSACTION_SUCCESS:
     case types.UPDATE_TRANSACTION_SUCCESS:
     case types.DELETE_TRANSACTION_FAILURE:
@@ -19,8 +16,8 @@ export default function transactionReducer(
         ...state,
         [action.transaction._id]: {
           ...action.transaction,
-          timespan: toTimespan(action.transaction.date)
-        }
+          timespan: toTimespan(action.transaction.date),
+        },
       };
     case types.LOAD_TRANSACTIONS_SUCCESS:
       return mapTransactions(null, action.data);

@@ -8,10 +8,10 @@ function saveCategoryBudgetSuccess(categoryBudget) {
 
 // Thunk
 export function saveCategoryBudget(budgetId, timespan, categoryId, budgetedAmt) {
-  return function(dispatch) {
-    return categoryBudgetsAPI.createCategoryBudget(
-      budgetId, timespan, categoryId, budgetedAmt
-    ).then(categoryBudget => dispatch(saveCategoryBudgetSuccess(categoryBudget)))
-    .catch(error => console.log(error));
+  return function (dispatch) {
+    return categoryBudgetsAPI
+      .createCategoryBudget(budgetId, timespan, categoryId, budgetedAmt)
+      .then((categoryBudget) => dispatch(saveCategoryBudgetSuccess(categoryBudget)))
+      .catch((error) => console.log(error));
   };
 }

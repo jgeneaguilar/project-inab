@@ -24,7 +24,7 @@ export function groupById(objArr, id = 'category_id') {
   return objArr.reduce((acc, obj) => {
     let key = obj[id];
     if (!acc[key]) {
-    	acc[key] = {};
+      acc[key] = {};
     }
     acc[key] = obj;
     return acc;

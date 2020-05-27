@@ -12,6 +12,5 @@ export default {
   modal: {
     modalType: null,
     modalProps: {},
-  }
+  },
 };
-
