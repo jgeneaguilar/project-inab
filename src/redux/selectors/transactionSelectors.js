@@ -32,10 +32,10 @@ export const getAllTransactions = createSelector(
       })
       .sort((t1, t2) => sortByDateDesc(t1.date, t2.date, defaultFormat));
     return data;
-  },
+  }
 );
 
 export const getTransactionsByCurrentTimespan = (state) =>
   Object.values(state.transactions).filter(
-    (item) => (item.timespan = state.currentTimespan),
+    (item) => (item.timespan = state.currentTimespan)
   );

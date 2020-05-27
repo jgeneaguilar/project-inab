@@ -111,7 +111,7 @@ class EditableTable extends React.PureComponent {
                       {this.props.accounts.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>,
+                    </Select>
                   )}
                 </Form.Item>
               )}
@@ -162,7 +162,7 @@ class EditableTable extends React.PureComponent {
                       {this.props.payees.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>,
+                    </Select>
                   )}
                 </Form.Item>
               )}
@@ -198,7 +198,7 @@ class EditableTable extends React.PureComponent {
                       {this.props.categories.map((item) => (
                         <Option key={item._id}>{item.name}</Option>
                       ))}
-                    </Select>,
+                    </Select>
                   )}
                 </Form.Item>
               )}

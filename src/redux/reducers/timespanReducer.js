@@ -3,7 +3,7 @@ import initialState from './initialState';
 
 export default function currentTimespanReducer(
   state = initialState.currentTimespan,
-  action,
+  action
 ) {
   switch (action.type) {
     case types.SET_CURRENT_TIMESPAN:

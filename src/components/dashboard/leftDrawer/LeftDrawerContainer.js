@@ -50,5 +50,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { showModal, deleteAccount })(
-  LeftDrawerContainer,
+  LeftDrawerContainer
 );

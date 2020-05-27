@@ -4,7 +4,7 @@ import { groupById } from '../../utils/commonUtils';
 
 export default function categoryBudgetReducer(
   state = initialState.categoryBudgets,
-  action,
+  action
 ) {
   switch (action.type) {
     case types.SET_CURRENT_BUDGET:

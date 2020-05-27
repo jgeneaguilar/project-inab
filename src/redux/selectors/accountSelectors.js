@@ -20,5 +20,5 @@ export const getAccountBalances = createSelector(
         balance: acc_transactions[acc._id] || 0,
       };
     });
-  },
+  }
 );

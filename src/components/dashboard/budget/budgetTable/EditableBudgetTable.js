@@ -58,7 +58,7 @@ export class EditableCell extends PureComponent {
             size="small"
             onPressEnter={this.save}
             onBlur={this.save}
-          />,
+          />
         )}
       </Form.Item>
     ) : (

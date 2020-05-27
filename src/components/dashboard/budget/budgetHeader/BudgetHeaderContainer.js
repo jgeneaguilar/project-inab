@@ -42,7 +42,6 @@ const BudgetHeaderContainer = ({
     }
   }, [loadTimespanElements, currentBudget, state]);
 
-  console.log('BudgetHeaderContainer', state);
   return (
     <BudgetHeaderView
       month={state.month}

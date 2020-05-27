@@ -23,5 +23,5 @@ export const getCurrentTimespan = (state) => state.currentTimespan;
 export const getBudgetAccounts = (state) =>
   state.accounts.filter(
     (acc) =>
-      acc.type !== AccountTypes.ASSET_OTHER && acc.type !== AccountTypes.LIABILITY_OTHER,
+      acc.type !== AccountTypes.ASSET_OTHER && acc.type !== AccountTypes.LIABILITY_OTHER
   );

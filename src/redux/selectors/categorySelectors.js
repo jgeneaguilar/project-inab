@@ -55,5 +55,5 @@ export const getCategoriesByMasterCategory = createSelector(
         children: _cat || [],
       };
     });
-  },
+  }
 );

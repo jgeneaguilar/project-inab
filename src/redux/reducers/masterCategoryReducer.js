@@ -4,7 +4,7 @@ import { mapArrayToDictionaryId } from '../../utils/commonUtils';
 
 export default function masterCategoryReducer(
   state = initialState.masterCategories,
-  action,
+  action
 ) {
   switch (action.type) {
     case types.SET_CURRENT_BUDGET:

@@ -12,17 +12,17 @@ export const getTotalBudget = createSelector(
     const inflow_transactions = transactions.filter((item) => item.amount > 0);
 
     const currentBudgets = categoryBudgets.filter(
-      (item) => item.timespan === currentTimespan,
+      (item) => item.timespan === currentTimespan
     );
     const totalBudget = currentBudgets.reduce(
       (total, item) => (total = total + item.budgeted),
-      0,
+      0
     );
     const totalBalance = inflow_transactions.reduce(
       (total, item) => (total = total + item.amount),
-      0,
+      0
     );
 
     return totalBalance - totalBudget;
-  },
+  }
 );
