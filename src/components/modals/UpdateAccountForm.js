@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FormDialog from '../../commons/FormDialog';
-import './modals.styles.scss';
 import { Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { BudgetAccounts, TrackingAccounts } from './formConstants';
 import { hideModal } from '../../redux/actions/modalActions';
 import { addAccount, updateAccount } from '../../redux/actions/accountActions';
+import './modals.styles.scss';
 
 const UpdateAccountForm = ({
   hideModal,
@@ -18,7 +18,11 @@ const UpdateAccountForm = ({
   const { Option, OptGroup } = Select;
 
   let initialValue = currentValue || {
-    // https://github.com/ant-design/ant-design/issues/16417 // show. It won't show if the value is null or ''. // accountType's default value is undefined so that the placeholder will
+    /**
+     * https://github.com/ant-design/ant-design/issues/16417
+     * accountType's default value is undefined so that the placeholder will show.
+     * It won't show if the value is null or ''
+     */
     _id: '',
     name: '',
     accountType: undefined,
@@ -80,7 +84,7 @@ const UpdateAccountForm = ({
   return (
     <FormDialog {...formDialogProps}>
       <Select
-        className="accountFormSelectType"
+        className="formModalSelectType"
         placeholder="Select an Account type"
         style={{ width: '100%' }}
         onChange={handleSelect}
@@ -103,14 +107,14 @@ const UpdateAccountForm = ({
         </OptGroup>
       </Select>
       <Input
-        className="accountFormInputNickname"
+        className="formModalInputType"
         placeholder="Account Nickname"
         name="name"
         onChange={handleChange}
         value={accountData.name}
       />
       <Input
-        className="accountFormInputBalance"
+        className="formModalInputType"
         placeholder="Current Account Balance"
         name="balance"
         onChange={handleChange}
@@ -124,6 +128,7 @@ UpdateAccountForm.propTypes = {
   hideModal: PropTypes.func.isRequired,
   currentBudget: PropTypes.object.isRequired,
   addAccount: PropTypes.func.isRequired,
+  updateAccount: PropTypes.func.isRequired,
   currentValue: PropTypes.object,
 };
 
