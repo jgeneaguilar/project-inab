@@ -33,7 +33,6 @@ const BudgetHeaderContainer = ({
   loadTimespanElements,
 }) => {
 
-  console.log('BudgetHeaderContainer', budgetCalculation);
   const initialState = { month: currentMonth };
 
   const [state, dispatch] = useReducer(monthReducer, initialState);

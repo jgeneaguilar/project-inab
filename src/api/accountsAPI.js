@@ -1,10 +1,11 @@
 import api from './baseAPI';
 
-export const createAccount = (budgetId, { name, accountType, balance }) => {
+export const createAccount = (budgetId, { name, accountType, balance, date }) => {
   const param = {
     name: name,
     account_type: accountType,
-    balance: balance,
+    balance,
+    date,
   };
 
   return api.post(`budgets/${budgetId}/accounts`, param).then((res) => res.data);

@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as accountApi from '../../api/accountsAPI';
 import { createTransactionSuccess } from './transactionActions';
+import { loadToBeBudgeted } from './budgetCalculationActions';
 
 // Action Creators
 export function addAccountSuccess(account) {
@@ -24,6 +25,7 @@ export function addAccount(budgetId, accountData) {
         const { account, transaction } = data;
         dispatch(addAccountSuccess(account));
         dispatch(createTransactionSuccess(transaction));
+        dispatch(loadToBeBudgeted(budgetId));
       })
       .catch((error) => {
         console.log(error);
@@ -39,6 +41,7 @@ export function updateAccount(budgetId, accountData) {
         const { account, transaction } = data;
         dispatch(updateAccountSuccess(account));
         dispatch(createTransactionSuccess(transaction));
+        dispatch(loadToBeBudgeted(budgetId));
       })
       .catch((error) => console.log(error));
   };

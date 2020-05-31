@@ -37,5 +37,5 @@ export const getAllTransactions = createSelector(
 
 export const getTransactionsByCurrentTimespan = (state) =>
   Object.values(state.transactions).filter(
-    (item) => (item.timespan = state.currentTimespan)
+    (item) => (item.timespan === state.currentTimespan)
   );

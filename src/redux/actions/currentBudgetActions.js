@@ -12,12 +12,14 @@ export function setCurrentBudget(currentBudget) {
 // Thunk
 export function loadBudget(budgetId) {
   return function (dispatch) {
-    dispatch(loadPayees(budgetId));
-    dispatch(loadTransactions(budgetId));
-    dispatch(loadToBeBudgeted(budgetId));
     budgetApi
       .getBudget(budgetId)
-      .then((budget) => dispatch(setCurrentBudget(budget)))
+      .then((budget) => {
+        dispatch(setCurrentBudget(budget));
+        dispatch(loadPayees(budgetId));
+        dispatch(loadTransactions(budgetId));
+        dispatch(loadToBeBudgeted(budgetId));
+      })
       .catch((error) => console.log(error));
   };
 }

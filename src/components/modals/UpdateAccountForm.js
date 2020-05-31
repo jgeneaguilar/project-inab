@@ -54,6 +54,7 @@ const UpdateAccountForm = ({
     const data = {
       ...accountData,
       balance: accountData.balance * 100 - currentBalance,
+      date: new Date()
     };
 
     setConfirmLoading(true);

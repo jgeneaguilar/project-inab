@@ -10,7 +10,6 @@ export function updateBudgetCalculationsSuccess(data) {
 export function loadToBeBudgeted(budgetId) {
   return function (dispatch) {
     return budgetApi.getBudgetCalculations(budgetId).then((data) => {
-      console.log('data', data);
       if (data && data.budget_calculations) {
         dispatch(loadBudgetCalculationsSuccess(data.budget_calculations));
       }
