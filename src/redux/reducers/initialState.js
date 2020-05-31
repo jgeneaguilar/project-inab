@@ -9,6 +9,7 @@ export default {
   categoryBudgets: {},
   transactions: {},
   payees: {},
+  budgetCalculations: {},
   modal: {
     modalType: null,
     modalProps: {},

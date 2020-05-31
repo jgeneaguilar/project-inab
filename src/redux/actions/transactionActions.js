@@ -1,5 +1,6 @@
 import * as types from '../actions/actionTypes';
 import * as transactionsApi from '../../api/transactionsAPI';
+import { updateBudgetCalculationsSuccess } from './budgetCalculationActions';
 
 // Action Creators
 
@@ -41,10 +42,21 @@ export function loadTransactions(budgetId, accountId) {
 export function createTransaction(budgetId, transaction) {
   return function (dispatch) {
     return transactionsApi.createUpdateTransaction(budgetId, transaction).then((data) => {
-      if (!transaction.payee_id) {
-        dispatch(createPayeeSuccess(data.payee_id, transaction.payee, budgetId));
+      if (!data) { return; }
+
+      const _transaction = data.transaction;
+      if (_transaction) {
+        if (!transaction.payee_id) {
+          dispatch(createPayeeSuccess(_transaction.payee_id, transaction.payee, budgetId));
+        }
+        dispatch(createTransactionSuccess(_transaction));
       }
-      dispatch(createTransactionSuccess(data));
+      
+      const budgetCalculations = data.budget_calculations;
+      if (budgetCalculations && budgetCalculations.length > 0) {
+        dispatch(updateBudgetCalculationsSuccess(budgetCalculations));
+      }
+      
     });
   };
 }

@@ -3,7 +3,7 @@ import moment from 'moment';
 export const currentMonth = moment();
 
 export function formatTimespan(moment) {
-  return moment.format('MMYYYY');
+  return moment.format('YYYYMM');
 }
 
 export function formatMonthDisplay(moment) {
@@ -27,5 +27,5 @@ export function timeFromNow(text) {
 }
 
 export function toTimespan(date) {
-  return formatDate(date, 'MMYYYY');
+  return formatDate(date, 'YYYYMM');
 }

@@ -7,6 +7,15 @@ export function mapArrayToDictionaryId(data, key = '_id') {
   return dataList;
 }
 
+export function insertArrayToDictionaryId(state, data, key = '_id') {
+  const dataList = [...data].reduce((dataObj, item) => {
+    dataObj[item[key]] = item;
+    return dataObj;
+  }, {...state});
+
+  return dataList;
+}
+
 export function groupArrayToId(data, key = '_id', mapFunction) {
   return [...data].reduce((dataObj, item) => {
     const _key = item[key];

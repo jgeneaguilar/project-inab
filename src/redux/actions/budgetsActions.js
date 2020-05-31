@@ -15,6 +15,7 @@ export function deleteBudgetSuccess(budgetId) {
   return { type: types.DELETE_BUDGET_SUCCESS, budgetId };
 }
 
+
 // Thunk
 export function createBudget(budget) {
   return function (dispatch) {
@@ -50,3 +51,4 @@ export function deleteBudget(budgetId) {
     });
   };
 }
+

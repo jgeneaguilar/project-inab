@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as categoryBudgetsAPI from '../../api/categoryBudgetsAPI';
+import { updateBudgetCalculationsSuccess } from './budgetCalculationActions';
 
 // Action Creators
 function saveCategoryBudgetSuccess(categoryBudget) {
@@ -11,7 +12,15 @@ export function saveCategoryBudget(budgetId, timespan, categoryId, budgetedAmt) 
   return function (dispatch) {
     return categoryBudgetsAPI
       .createCategoryBudget(budgetId, timespan, categoryId, budgetedAmt)
-      .then((categoryBudget) => dispatch(saveCategoryBudgetSuccess(categoryBudget)))
+      .then((data) => {
+        if (!data) { return; }
+        if (data.category_budget) {
+          dispatch(saveCategoryBudgetSuccess(data.category_budget));
+        }
+        if (data.budget_calculations) {
+          dispatch(updateBudgetCalculationsSuccess(data.budget_calculations));
+        }
+      })
       .catch((error) => console.log(error));
   };
 }

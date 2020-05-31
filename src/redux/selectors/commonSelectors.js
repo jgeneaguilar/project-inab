@@ -20,6 +20,8 @@ export const getCategoryBudgetList = (state) => Object.values(state.categoryBudg
 
 export const getCurrentTimespan = (state) => state.currentTimespan;
 
+export const getBudgetCalculations = (state) => state.budgetCalculations;
+
 export const getBudgetAccounts = (state) =>
   state.accounts.filter(
     (acc) =>
