@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import CreateBudgetForm from './CreateBudgetForm';
 import UpdateTransactionForm from './UpdateTransactionForm';
 import OpenBudgetForm from './OpenBudgetForm';
+import TransferFundsForm from './TransferFundsForm';
 
 export const MODAL_COMPONENTS = {
   UPDATE_ACCOUNT: UpdateAccountForm,
   CREATE_BUDGET: CreateBudgetForm,
   OPEN_BUDGET: OpenBudgetForm,
   UPDATE_TRANSACTION: UpdateTransactionForm,
+  TRANSFER_FUNDS: TransferFundsForm,
 };
 
 // to be used by the showModal() action creator
@@ -18,6 +20,7 @@ export const MODAL_TYPES = {
   CREATE_BUDGET: 'CREATE_BUDGET',
   OPEN_BUDGET: 'OPEN_BUDGET',
   UPDATE_TRANSACTION: 'UPDATE_TRANSACTION',
+  TRANSFER_FUNDS: 'TRANSFER_FUNDS',
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

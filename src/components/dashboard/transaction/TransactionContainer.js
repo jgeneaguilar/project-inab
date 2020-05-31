@@ -4,8 +4,10 @@ import TransactionView from './TransactionView';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { loadTransactions } from '../../../redux/actions/transactionActions';
+import { showModal } from '../../../redux/actions/modalActions';
+import { MODAL_TYPES } from '../../modals';
 
-const TransactionContainer = ({ currentBudget, payees, loadTransactions }) => {
+const TransactionContainer = ({ currentBudget, loadTransactions, showModal }) => {
   const [newTransaction, setNewTransaction] = useState(null);
 
   useEffect(() => {
@@ -20,11 +22,16 @@ const TransactionContainer = ({ currentBudget, payees, loadTransactions }) => {
     });
   };
 
+  const onTransfer = () => {
+    showModal(MODAL_TYPES.TRANSFER_FUNDS);
+  };
+
   return currentBudget ? (
     <Fragment>
       <TransactionView
         onAddTransaction={onAddTransaction}
         newTransaction={newTransaction}
+        onTransfer={onTransfer}
       />
     </Fragment>
   ) : null;
@@ -33,13 +40,15 @@ const TransactionContainer = ({ currentBudget, payees, loadTransactions }) => {
 TransactionContainer.propTypes = {
   currentBudget: PropTypes.object,
   loadTransactions: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
-    payees: state.payees,
   };
 }
 
-export default connect(mapStateToProps, { loadTransactions })(TransactionContainer);
+export default connect(mapStateToProps, { loadTransactions, showModal })(
+  TransactionContainer
+);
