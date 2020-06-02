@@ -45,3 +45,17 @@ export const deleteTransaction = (budgetId, transactionId) => {
     .delete(`/budgets/${budgetId}/transactions/${transactionId}`)
     .then((res) => res.data);
 };
+
+export const transferFunds = (budgetId, transferData) => {
+  const { sourceAccountId, destinationAccountId, amount, date } = transferData;
+  const params = {
+    source_account_id: sourceAccountId,
+    destination_account_id: destinationAccountId,
+    amount,
+    date,
+  };
+
+  return api
+    .post(`budgets/${budgetId}/transactions/transfer`, params)
+    .then((res) => res.data);
+};
