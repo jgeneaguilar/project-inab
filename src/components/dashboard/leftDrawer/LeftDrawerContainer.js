@@ -5,13 +5,23 @@ import LeftDrawerView from './LeftDrawerView';
 import { showModal } from '../../../redux/actions/modalActions';
 import { MODAL_TYPES } from '../../modals';
 import { deleteAccount } from '../../../redux/actions/accountActions';
-import { getAccountBalances } from '../../../redux/selectors/accountSelectors';
+import {
+  getBudgetAccounts,
+  getTrackingAccounts,
+} from '../../../redux/selectors/commonSelectors';
 
-const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount }) => {
+const LeftDrawerContainer = ({
+  currentBudget,
+  showModal,
+  deleteAccount,
+  budgetAccounts,
+  trackingAccounts,
+}) => {
   // Create a single handleClick function??
   function handleClick() {
     showModal(MODAL_TYPES.UPDATE_ACCOUNT, {});
   }
+  const accounts = budgetAccounts.concat(trackingAccounts);
 
   function handleEditClick(id) {
     const acctData = accounts.find((acct) => acct._id === id);
@@ -25,27 +35,30 @@ const LeftDrawerContainer = ({ accounts, currentBudget, showModal, deleteAccount
     deleteAccount(currentBudget._id, accountId);
   }
 
+  const actions = {
+    onClick: handleClick,
+    onEditClick: handleEditClick,
+    onDeleteClick: handleDeleteClick,
+  };
+
   return (
-    <LeftDrawerView
-      handleClick={handleClick}
-      handleEditClick={handleEditClick}
-      handleDeleteClick={handleDeleteClick}
-      accounts={accounts}
-    />
+    <LeftDrawerView accounts={{ budgetAccounts, trackingAccounts }} actions={actions} />
   );
 };
 
 LeftDrawerContainer.propTypes = {
   showModal: PropTypes.func.isRequired,
-  accounts: PropTypes.array.isRequired,
   currentBudget: PropTypes.object,
   deleteAccount: PropTypes.func.isRequired,
+  budgetAccounts: PropTypes.array.isRequired,
+  trackingAccounts: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     currentBudget: state.currentBudget,
-    accounts: getAccountBalances(state),
+    budgetAccounts: getBudgetAccounts(state),
+    trackingAccounts: getTrackingAccounts(state),
   };
 }
 

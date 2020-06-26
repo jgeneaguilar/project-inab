@@ -27,3 +27,9 @@ export const getBudgetAccounts = (state) =>
     (acc) =>
       acc.type !== AccountTypes.ASSET_OTHER && acc.type !== AccountTypes.LIABILITY_OTHER
   );
+
+export const getTrackingAccounts = (state) =>
+  state.accounts.filter(
+    (acc) =>
+      acc.type === AccountTypes.ASSET_OTHER || acc.type === AccountTypes.LIABILITY_OTHER
+  );

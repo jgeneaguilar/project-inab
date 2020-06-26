@@ -2,22 +2,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import {
-  toCurrency,
-  getTotalBalance,
-  getBudgetAccounts,
-  getTrackingAccounts,
-} from '../../../utils/currencyUtils';
-import './styles.scss';
+import { toCurrency, getTotalBalance } from '../../../utils/currencyUtils';
 import ConfirmPopover from '../../../commons/ConfirmPopover';
+import './styles.scss';
 
-const LeftDrawerView = ({
-  accounts,
-  handleClick,
-  handleEditClick,
-  handleDeleteClick,
-}) => {
+const LeftDrawerView = ({ accounts, actions }) => {
   const { Item, SubMenu, Divider } = Menu;
+  const { budgetAccounts, trackingAccounts } = accounts;
 
   return (
     <Menu
@@ -47,7 +38,7 @@ const LeftDrawerView = ({
       <Divider type="horizontal" className="leftDrawerDivider" />
 
       {/* BUDGET ACCOUNTS */}
-      {accounts && accounts.length > 0 ? (
+      {budgetAccounts && budgetAccounts.length > 0 ? (
         <SubMenu
           key="budgetAccounts"
           title={
@@ -55,12 +46,12 @@ const LeftDrawerView = ({
               <Icon type="wallet" />
               <span className="leftDrawerMenuTitle">Budget</span>
               <span className="leftDrawerMenuAmount">
-                {getTotalBalance(getBudgetAccounts(accounts))}
+                {getTotalBalance(budgetAccounts)}
               </span>
             </span>
           }
         >
-          {getBudgetAccounts(accounts).map((account) => (
+          {budgetAccounts.map((account) => (
             <Item
               key={account._id}
               itemIcon={(MenuItemProps) =>
@@ -68,7 +59,7 @@ const LeftDrawerView = ({
                   <Fragment>
                     <Icon
                       type="edit"
-                      onClick={() => handleEditClick(account._id)}
+                      onClick={() => actions.onEditClick(account._id)}
                       className="editAccountIcon"
                       // Used inline styling to override just this icon
                       // May transfer to scss, if able
@@ -81,7 +72,7 @@ const LeftDrawerView = ({
                     />
                     <ConfirmPopover
                       title="Delete this account?"
-                      asyncFunc={() => handleDeleteClick(account._id)}
+                      asyncFunc={() => actions.onDeleteClick(account._id)}
                       okType="danger"
                     >
                       <Icon
@@ -108,7 +99,7 @@ const LeftDrawerView = ({
       <Divider type="horizontal" className="leftDrawerDivider" />
 
       {/* TRACKING ACCOUNTS */}
-      {accounts && accounts.length > 0 ? (
+      {trackingAccounts && trackingAccounts.length > 0 ? (
         <SubMenu
           key="trackingAccounts"
           title={
@@ -116,12 +107,12 @@ const LeftDrawerView = ({
               <Icon type="radar-chart" />
               <span className="leftDrawerMenuTitle">Tracking</span>
               <span className="leftDrawerMenuAmount">
-                {getTotalBalance(getTrackingAccounts(accounts))}
+                {getTotalBalance(trackingAccounts)}
               </span>
             </span>
           }
         >
-          {getTrackingAccounts(accounts).map((account) => (
+          {trackingAccounts.map((account) => (
             <Item
               key={account._id}
               itemIcon={(MenuItemProps) =>
@@ -129,7 +120,7 @@ const LeftDrawerView = ({
                   <Fragment>
                     <Icon
                       type="edit"
-                      onClick={() => handleEditClick(account._id)}
+                      onClick={() => actions.onEditClick(account._id)}
                       className="editAccountIcon"
                       // Used inline styling to override just this icon
                       // May transfer to scss, if able
@@ -142,7 +133,7 @@ const LeftDrawerView = ({
                     />
                     <ConfirmPopover
                       title="Delete this account?"
-                      asyncFunc={() => handleDeleteClick(account._id)}
+                      asyncFunc={() => actions.onDeleteClick(account._id)}
                       okType="danger"
                     >
                       <Icon
@@ -169,7 +160,7 @@ const LeftDrawerView = ({
       <Divider type="horizontal" className="leftDrawerDivider" />
 
       <Item>
-        <Button type="primary" icon="plus-circle" onClick={handleClick}>
+        <Button type="primary" icon="plus-circle" onClick={actions.onClick}>
           Add Account
         </Button>
       </Item>
@@ -178,8 +169,8 @@ const LeftDrawerView = ({
 };
 
 LeftDrawerView.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  accounts: PropTypes.array.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  accounts: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 export default LeftDrawerView;

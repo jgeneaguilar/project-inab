@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Input, Select } from 'antd';
 import FormDialog from '../../commons/FormDialog';
 import { hideModal } from '../../redux/actions/modalActions';
-import { BudgetAccounts, TrackingAccounts } from './formConstants';
 import { today } from '../../utils/timeUtils';
+import {
+  getBudgetAccounts,
+  getTrackingAccounts,
+} from '../../redux/selectors/commonSelectors';
 import './modals.styles.scss';
 
-function TransferFundsForm({ hideModal }) {
+const TransferFundsForm = () => {
   const { Option, OptGroup } = Select;
 
+  const dispatch = useDispatch();
+
+  const budgetAccounts = useSelector(getBudgetAccounts);
+  const trackingAccounts = useSelector(getTrackingAccounts);
+
+  // console.log(budgetAccounts, trackingAccounts);
+
+  //#region States
   let initialValue = {
     /**
      * https://github.com/ant-design/ant-design/issues/16417
-     * both accounts' default value is undefined so that the placeholder will show.
+     * both accounts' default value is undefined so pthat the placeholder will show.
      * It won't show if the value is null or ''
      */
     sourceAccountId: undefined,
@@ -26,6 +37,14 @@ function TransferFundsForm({ hideModal }) {
   const [values, setValues] = useState(initialValue);
 
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  //#endregion
+
+  //#region Functions
+
+  function filteredAccounts(accountSelected, accountsArray) {
+    return accountsArray.filter((account) => account._id !== accountSelected);
+  }
 
   function handleChange({ target: { name, value } }) {
     setValues({
@@ -48,15 +67,13 @@ function TransferFundsForm({ hideModal }) {
     // setConfirmLoading(false);
   }
 
-  function filteredAccounts(accountSelected, accountsArray) {
-    return accountsArray.filter((account) => account.id !== accountSelected);
-  }
+  //#endregion
 
   const formDialogProps = {
     visible: true,
     title: 'Transfer Funds',
     okText: 'Transfer',
-    onCancel: hideModal,
+    onCancel: () => dispatch(hideModal()),
     onOk: handleSubmit,
     confirmLoading: confirmLoading,
   };
@@ -71,15 +88,15 @@ function TransferFundsForm({ hideModal }) {
         value={values.sourceAccountId}
       >
         <OptGroup label="Budget">
-          {BudgetAccounts.map((account) => (
-            <Option key={account.id} value={account.id}>
+          {budgetAccounts.map((account) => (
+            <Option key={account._id} value={account._id}>
               {account.name}
             </Option>
           ))}
         </OptGroup>
         <OptGroup label="Tracking">
-          {TrackingAccounts.map((account) => (
-            <Option key={account.id} value={account.id}>
+          {trackingAccounts.map((account) => (
+            <Option key={account._id} value={account._id}>
               {account.name}
             </Option>
           ))}
@@ -94,15 +111,15 @@ function TransferFundsForm({ hideModal }) {
         disabled={!Boolean(values.sourceAccountId)}
       >
         <OptGroup label="Budget">
-          {filteredAccounts(values.sourceAccountId, BudgetAccounts).map((account) => (
-            <Option key={account.id} value={account.id}>
+          {filteredAccounts(values.sourceAccountId, budgetAccounts).map((account) => (
+            <Option key={account._id} value={account._id}>
               {account.name}
             </Option>
           ))}
         </OptGroup>
         <OptGroup label="Tracking">
-          {filteredAccounts(values.sourceAccountId, TrackingAccounts).map((account) => (
-            <Option key={account.id} value={account.id}>
+          {filteredAccounts(values.sourceAccountId, trackingAccounts).map((account) => (
+            <Option key={account._id} value={account._id}>
               {account.name}
             </Option>
           ))}
@@ -117,10 +134,10 @@ function TransferFundsForm({ hideModal }) {
       />
     </FormDialog>
   );
-}
-
-TransferFundsForm.propTypes = {
-  hideModal: PropTypes.func.isRequired,
 };
 
-export default connect(null, { hideModal })(TransferFundsForm);
+// TransferFundsForm.propTypes = {
+//   hideModal: PropTypes.func.isRequired,
+// };
+
+export default TransferFundsForm;
