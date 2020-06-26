@@ -5,6 +5,7 @@ import { Input, Select } from 'antd';
 import FormDialog from '../../commons/FormDialog';
 import { hideModal } from '../../redux/actions/modalActions';
 import { BudgetAccounts, TrackingAccounts } from './formConstants';
+import { today } from '../../utils/timeUtils';
 import './modals.styles.scss';
 
 function TransferFundsForm({ hideModal }) {
@@ -16,10 +17,10 @@ function TransferFundsForm({ hideModal }) {
      * both accounts' default value is undefined so that the placeholder will show.
      * It won't show if the value is null or ''
      */
-    _id: '',
-    fromAccount: undefined,
-    toAccount: undefined,
+    sourceAccountId: undefined,
+    destinationAccountId: undefined,
     amount: '',
+    date: today,
   };
 
   const [values, setValues] = useState(initialValue);
@@ -66,8 +67,8 @@ function TransferFundsForm({ hideModal }) {
         className="formModalSelectType"
         placeholder="Which account would like to transfer from?"
         style={{ width: '100%' }}
-        onChange={(value, option) => handleSelect(value, option, 'fromAccount')}
-        value={values.fromAccount}
+        onChange={(value, option) => handleSelect(value, option, 'sourceAccountId')}
+        value={values.sourceAccountId}
       >
         <OptGroup label="Budget">
           {BudgetAccounts.map((account) => (
@@ -88,19 +89,19 @@ function TransferFundsForm({ hideModal }) {
         className="formModalSelectType"
         placeholder="Which account would like to transfer to?"
         style={{ width: '100%' }}
-        onChange={(value, option) => handleSelect(value, option, 'toAccount')}
-        value={values.toAccount}
-        disabled={!Boolean(values.fromAccount)}
+        onChange={(value, option) => handleSelect(value, option, 'destinationAccountId')}
+        value={values.destinationAccountId}
+        disabled={!Boolean(values.sourceAccountId)}
       >
         <OptGroup label="Budget">
-          {filteredAccounts(values.fromAccount, BudgetAccounts).map((account) => (
+          {filteredAccounts(values.sourceAccountId, BudgetAccounts).map((account) => (
             <Option key={account.id} value={account.id}>
               {account.name}
             </Option>
           ))}
         </OptGroup>
         <OptGroup label="Tracking">
-          {filteredAccounts(values.fromAccount, TrackingAccounts).map((account) => (
+          {filteredAccounts(values.sourceAccountId, TrackingAccounts).map((account) => (
             <Option key={account.id} value={account.id}>
               {account.name}
             </Option>

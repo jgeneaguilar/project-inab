@@ -2,6 +2,8 @@ import moment from 'moment';
 
 export const currentMonth = moment();
 
+export const today = moment().format('MM/DD/YYYY');
+
 export function formatTimespan(moment) {
   return moment.format('YYYYMM');
 }

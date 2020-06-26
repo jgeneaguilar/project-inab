@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TransactionView from './TransactionView';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { loadTransactions } from '../../../redux/actions/transactionActions';
 import { showModal } from '../../../redux/actions/modalActions';
 import { MODAL_TYPES } from '../../modals';
+import { today } from '../../../utils/timeUtils';
 
 const TransactionContainer = ({ currentBudget, loadTransactions, showModal }) => {
   const [newTransaction, setNewTransaction] = useState(null);
@@ -18,7 +18,7 @@ const TransactionContainer = ({ currentBudget, loadTransactions, showModal }) =>
     setNewTransaction({
       id: null,
       key: '',
-      date: moment().format('MM/DD/YYYY'),
+      date: today,
     });
   };
 
