@@ -8,7 +8,7 @@ export default function transactionReducer(state = initialState.transactions, ac
       return initialState.transactions;
     case types.SET_CURRENT_TIMESPAN:
       const { transactions } = action.timespanElements;
-      return mapTransactions({ ...state }, transactions);
+      return mapTransactions(state, transactions);
     case types.CREATE_TRANSACTION_SUCCESS:
     case types.UPDATE_TRANSACTION_SUCCESS:
     case types.DELETE_TRANSACTION_FAILURE:
@@ -25,6 +25,8 @@ export default function transactionReducer(state = initialState.transactions, ac
       const key = action.transaction._id;
       const { [key]: value, ...updatedState } = state;
       return updatedState;
+    case types.TRANSFER_FUNDS_SUCCESS:
+      return mapTransactions(state, action.transactions);
     default:
       return state;
   }
@@ -34,7 +36,7 @@ export function mapTransactions(currentData, data) {
   const dataList = [...data].reduce((dataObj, item) => {
     dataObj[item._id] = { ...item, timespan: toTimespan(item.date) };
     return dataObj;
-  }, currentData || {});
+  }, { ...currentData } || {});
 
   return dataList;
 }

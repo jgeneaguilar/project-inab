@@ -31,6 +31,13 @@ export function createPayeeSuccess(payeeId, name, budgetId) {
   };
 }
 
+export function transferFundsSuccess(transactions) {
+  return {
+    type: types.TRANSFER_FUNDS_SUCCESS,
+    transactions,
+  };
+}
+
 export function loadTransactions(budgetId, accountId) {
   return function (dispatch) {
     return transactionsApi.getTransactions(budgetId, accountId).then((data) => {
@@ -42,21 +49,24 @@ export function loadTransactions(budgetId, accountId) {
 export function createTransaction(budgetId, transaction) {
   return function (dispatch) {
     return transactionsApi.createUpdateTransaction(budgetId, transaction).then((data) => {
-      if (!data) { return; }
+      if (!data) {
+        return;
+      }
 
       const _transaction = data.transaction;
       if (_transaction) {
         if (!transaction.payee_id) {
-          dispatch(createPayeeSuccess(_transaction.payee_id, transaction.payee, budgetId));
+          dispatch(
+            createPayeeSuccess(_transaction.payee_id, transaction.payee, budgetId)
+          );
         }
         dispatch(createTransactionSuccess(_transaction));
       }
-      
+
       const budgetCalculations = data.budget_calculations;
       if (budgetCalculations && budgetCalculations.length > 0) {
         dispatch(updateBudgetCalculationsSuccess(budgetCalculations));
       }
-      
     });
   };
 }
@@ -88,5 +98,21 @@ export function removeTransaction(budgetId, transaction) {
       .catch((_) => {
         dispatch(deleteTransactionFailure(transaction));
       });
+  };
+}
+
+export function transferFunds(budgetId, transferData) {
+  return function (dispatch) {
+    return transactionsApi
+      .transferFunds(budgetId, transferData)
+      .then((data) => {
+        dispatch(transferFundsSuccess(data.transactions));
+
+        const budgetCalculations = data.budget_calculations;
+        if (budgetCalculations && budgetCalculations.length > 0) {
+          dispatch(updateBudgetCalculationsSuccess(budgetCalculations));
+        }
+      })
+      .catch((error) => console.log(error));
   };
 }

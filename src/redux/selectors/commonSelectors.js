@@ -33,3 +33,5 @@ export const getTrackingAccounts = (state) =>
     (acc) =>
       acc.type === AccountTypes.ASSET_OTHER || acc.type === AccountTypes.LIABILITY_OTHER
   );
+
+export const getCurrentBudget = (state) => state.currentBudget;

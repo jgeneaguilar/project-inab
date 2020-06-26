@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Select } from 'antd';
 import FormDialog from '../../commons/FormDialog';
@@ -8,7 +8,9 @@ import { today } from '../../utils/timeUtils';
 import {
   getBudgetAccounts,
   getTrackingAccounts,
+  getCurrentBudget,
 } from '../../redux/selectors/commonSelectors';
+import { transferFunds } from '../../redux/actions/transactionActions';
 import './modals.styles.scss';
 
 const TransferFundsForm = () => {
@@ -18,6 +20,7 @@ const TransferFundsForm = () => {
 
   const budgetAccounts = useSelector(getBudgetAccounts);
   const trackingAccounts = useSelector(getTrackingAccounts);
+  const currentBudget = useSelector(getCurrentBudget);
 
   // console.log(budgetAccounts, trackingAccounts);
 
@@ -31,7 +34,6 @@ const TransferFundsForm = () => {
     sourceAccountId: undefined,
     destinationAccountId: undefined,
     amount: '',
-    date: today,
   };
 
   const [values, setValues] = useState(initialValue);
@@ -61,10 +63,21 @@ const TransferFundsForm = () => {
   }
 
   function handleSubmit() {
-    console.log(values);
-    // setConfirmLoading(true);
-    // onsubmit()
-    // setConfirmLoading(false);
+    const data = {
+      ...values,
+      amount: values.amount * 100,
+      date: today,
+    };
+
+    setConfirmLoading(true);
+    dispatch(transferFunds(currentBudget._id, data))
+      .then(() => {
+        setConfirmLoading(false);
+        dispatch(hideModal());
+      })
+      .catch(() => {
+        setConfirmLoading(false);
+      });
   }
 
   //#endregion
