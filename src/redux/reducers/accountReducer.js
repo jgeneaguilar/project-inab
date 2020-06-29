@@ -13,25 +13,25 @@ export default function accountReducer(state = initialState.accounts, action) {
       );
     case types.DELETE_ACCOUNT_SUCCESS:
       return state.filter((acct) => acct._id !== action.accountId);
-    // case types.CREATE_TRANSACTION_SUCCESS:
-    // case types.DELETE_TRANSACTION_FAILURE:
-    //   return state.map(acct =>
-    //     acct._id === action.transaction.account_id
-    //       ? { ...acct, balance: acct.balance + action.transaction.amount }
-    //       : acct
-    //   );
-    // case types.UPDATE_TRANSACTION_SUCCESS:
-    //   return state.map(acct =>
-    //     acct._id === action.transaction.account_id
-    //       ? { ...acct, balance: acct.balance - action.amountDiff}
-    //       : acct
-    //   );
-    // case types.DELETE_TRANSACTION_SUCCESS:
-    //   return state.map(acct =>
-    //     acct._id === action.transaction.account_id
-    //       ? { ...acct, balance: acct.balance - action.transaction.amount }
-    //       : acct
-    //   );
+    case types.CREATE_TRANSACTION_SUCCESS:
+    case types.DELETE_TRANSACTION_FAILURE:
+      return state.map((acct) =>
+        acct._id === action.transaction.account_id
+          ? { ...acct, balance: acct.balance + action.transaction.amount }
+          : acct
+      );
+    case types.UPDATE_TRANSACTION_SUCCESS:
+      return state.map((acct) =>
+        acct._id === action.transaction.account_id
+          ? { ...acct, balance: acct.balance - action.amountDiff }
+          : acct
+      );
+    case types.DELETE_TRANSACTION_SUCCESS:
+      return state.map((acct) =>
+        acct._id === action.transaction.account_id
+          ? { ...acct, balance: acct.balance - action.transaction.amount }
+          : acct
+      );
     default:
       return state;
   }
